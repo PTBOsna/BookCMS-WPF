@@ -91,10 +91,7 @@ namespace BookCMS_WPF
 
         }
 
-        private void DGModule_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
+      
 
         private void tb1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -212,6 +209,14 @@ namespace BookCMS_WPF
                 BuchGrid.ItemsSource = buch.ToList();
             }
 
+        }
+
+        private void DGBuch_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Buch selected = BuchGrid.SelectedItem as Buch;
+            txtTitel.Text = selected.Titel;
+            txtUnterTitel.Text = selected.Untertitel;
+            txtAutor.Text = selected.AutorSort;
         }
     }
 }

@@ -81,7 +81,7 @@
         </TabControl>
         <DataGrid Grid.Column="1" Grid.Row="3" x:Name="BuchGrid"  HorizontalAlignment="Left"  AutoGenerateColumns="False"
                               AlternatingRowBackground="#FFD8D8D8" GridLinesVisibility="None"  
-                              SelectionChanged="DGModule_SelectionChanged" >
+                              SelectionChanged="DGBuch_SelectionChanged" >
             <DataGrid.Columns>
                 <DataGridTextColumn Width="35" Header="ID" Binding="{Binding Path=ID}"/>
                 <DataGridTextColumn Width="50" Header="Signatur" Binding="{Binding Path=Signatur}"/>
