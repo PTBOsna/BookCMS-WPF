@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BookCMS-localDB" Class="BuchDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(localDB)\MSSQLLocalDB;Initial Catalog=BookCMS-localDB;Integrated Security=True" SettingsObjectName="BookCMS_WPF.Properties.Settings" SettingsPropertyName="BookCMS_localDBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.AutorBuchLink" Member="AutorBuchLink">
+    <Type Name="AutorBuchLink">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BuchID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PersonID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RolleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="AutorBuchLink_AutorRolle" Member="AutorRolle" ThisKey="RolleID" OtherKey="ID" Type="AutorRolle" />
+      <Association Name="AutorBuchLink_Buch" Member="Buch" ThisKey="BuchID" OtherKey="ID" Type="Buch" />
+      <Association Name="AutorBuchLink_Person" Member="Person" ThisKey="PersonID" OtherKey="PersonID" Type="Person" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AutorRolle" Member="AutorRolle">
+    <Type Name="AutorRolle">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Marked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="AutorRolle" Member="AutorRolle1" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="AutorKurz" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Notiz_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="AutorBuchLink_AutorRolle" Member="AutorBuchLink" ThisKey="ID" OtherKey="RolleID" Type="AutorBuchLink" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Buch" Member="Buch">
+    <Type Name="Buch">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Marked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="MediaCount" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="Titel" Type="System.String" DbType="NVarChar(253) NOT NULL" CanBeNull="false" />
+      <Column Name="TitelIndex" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="AutorSort" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Signatur" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="Veroeffentlicht" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CopyrightDatum" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="TypID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Untertitel" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="TitleSort" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="VerlagsID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ISBN" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="DNB" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="DDC" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="LCCN" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LCCallNum" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LandD" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SprachenID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DruckereiID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BindungID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AuflageID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Auiflage" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="DruckID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SerienID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Seiten" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Abschnitte" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="OriginalTitel" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="OriginalUntertitel" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="OriginaVerlagID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OriginalLandID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OriginalSpracheID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OriginalCopyright" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="Preisangabe" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Value" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Preis" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="ZustandID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="GutachterID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Versicherung" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Registeriert" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="StatusID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Erworben" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="ErworbenVonID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PersonalRatingID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BesitzerID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="StandortID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EntleiherID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DatumAusleihe" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="RueckgabeDatum" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="verliehen" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="zurueckerhalten" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="zurueckDatum" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="zurueckVonID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EmailOverdueDate" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="EmailReminderDate" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="EmailReservedDate" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="Anmerkungen_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Synopsis_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Reviews_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="BarCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="OriginalSerieID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="zuletztGelesen" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="AnzahlGelesen" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="ZustandSchutzumschlagID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Dim_Width" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Dim_Height" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Dim_Depth" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Verkaufspreis" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="WaehrungID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="VerlagsOrtID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ASIN" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="LetzteAenderung" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
+      <Column Name="FreigabeNr" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="OriginalFreigabeNr" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="KategorieID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UnterkategorieID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SachgruppeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Stichworte" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="AutorBuchLink_Buch" Member="AutorBuchLink" ThisKey="ID" OtherKey="BuchID" Type="AutorBuchLink" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Person" Member="Person">
+    <Type Name="Person">
+      <Column Name="PersonID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Marked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="SortBy" Type="System.String" DbType="NVarChar(152)" CanBeNull="true" />
+      <Column Name="Geboren" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="Gestorbe" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="LandID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Notiz_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="WWW" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Adresse_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="Geburtsname" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Geburtzort" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Sterbeort" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Biografie_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Association Name="AutorBuchLink_Person" Member="AutorBuchLink" ThisKey="PersonID" OtherKey="PersonID" Type="AutorBuchLink" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PersonRolle" Member="PersonRolle">
+    <Type Name="PersonRolle">
+      <Column Name="PersonID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="RolleID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SortBy" Type="System.String" DbType="NVarChar(152) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

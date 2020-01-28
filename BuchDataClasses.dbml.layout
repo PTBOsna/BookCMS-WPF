@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12.125, 17.125" name="BuchDataClasses">
+  <DataContextMoniker Name="/BuchDataClassesDataContext" />
+  <nestedChildShapes>
+    <classShape Id="6773968f-dabb-422b-b35b-73379c73f71d" absoluteBounds="4.5, 1, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/BuchDataClassesDataContext/AutorBuchLink" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1c05bf07-9f73-4b9c-ae95-fc566634f961" absoluteBounds="4.5150000000000006, 1.46, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3954c754-4dac-493b-8b37-fdfd76c7f4d5" absoluteBounds="6.5, 5.625, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/BuchDataClassesDataContext/AutorRolle" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a6950f67-6cd4-4bcb-87e7-cfdeebb1731d" absoluteBounds="6.515, 6.085, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="dcebdf46-5444-4ecf-b1b5-22962f83a53c" absoluteBounds="2.125, 0.875, 2, 16.001202799479163">
+      <DataClassMoniker Name="/BuchDataClassesDataContext/Buch" />
+      <nestedChildShapes>
+        <elementListCompartment Id="996367c7-4266-44c9-96da-6d31506f5a2b" absoluteBounds="2.14, 1.335, 1.9700000000000002, 15.441202799479166" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="72e03221-c2e8-47df-b5c7-02d20d714abe" absoluteBounds="7, 1, 2, 4.0785139973958326">
+      <DataClassMoniker Name="/BuchDataClassesDataContext/Person" />
+      <nestedChildShapes>
+        <elementListCompartment Id="c30785e6-1aa1-4729-902f-ce8f31d09dff" absoluteBounds="7.015, 1.46, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(4.5 : 1.78929768880208); (4.125 : 1.78929768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/BuchDataClassesDataContext/AutorBuchLink/AutorBuchLink_Buch" />
+      <nodes>
+        <classShapeMoniker Id="6773968f-dabb-422b-b35b-73379c73f71d" />
+        <classShapeMoniker Id="dcebdf46-5444-4ecf-b1b5-22962f83a53c" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(6.5 : 1.78929768880208); (7 : 1.78929768880208)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/BuchDataClassesDataContext/AutorBuchLink/AutorBuchLink_Person" />
+      <nodes>
+        <classShapeMoniker Id="6773968f-dabb-422b-b35b-73379c73f71d" />
+        <classShapeMoniker Id="72e03221-c2e8-47df-b5c7-02d20d714abe" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.46875 : 2.57859537760417); (5.46875 : 6.51044840494792); (6.5 : 6.51044840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/BuchDataClassesDataContext/AutorBuchLink/AutorBuchLink_AutorRolle" />
+      <nodes>
+        <classShapeMoniker Id="6773968f-dabb-422b-b35b-73379c73f71d" />
+        <classShapeMoniker Id="3954c754-4dac-493b-8b37-fdfd76c7f4d5" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="14b173de-504a-417d-9fe9-16e610df91f0" absoluteBounds="9.875, 1, 2, 1.3862939453125">
+      <DataClassMoniker Name="/BuchDataClassesDataContext/PersonRolle" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b118ab1e-9667-44b9-8711-58674bc69bc1" absoluteBounds="9.89, 1.46, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
