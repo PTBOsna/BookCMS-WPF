@@ -44,5 +44,18 @@ namespace BookCMS_WPF.Properties {
                 return ((string)(this["BookCMS_localDBConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=\"D:\\USERS\\PETER\\DOCUMENTS\\VISU" +
+            "AL STUDIO 2017\\PROJEKTE\\BOOKCMS-LOCALDB\\BOOKCMS-LOCALDB\\BIN\\DEBUG\\BOOKSQL-DB.MDF" +
+            "\";Integrated Security=True")]
+        public string D__USERS_PETER_DOCUMENTS_VISUAL_STUDIO_2017_PROJEKTE_BOOKCMS_LOCALDB_BOOKCMS_LOCALDB_BIN_DEBUG_BOOKSQL_DB_MDFConnectionS {
+            get {
+                return ((string)(this["D__USERS_PETER_DOCUMENTS_VISUAL_STUDIO_2017_PROJEKTE_BOOKCMS_LOCALDB_BOOKCMS_LOCA" +
+                    "LDB_BIN_DEBUG_BOOKSQL_DB_MDFConnectionS"]));
+            }
+        }
     }
 }

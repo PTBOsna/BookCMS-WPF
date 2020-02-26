@@ -7,120 +7,152 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1200" Loaded="Window_Loaded">
     <Window.Resources>
-        <Style TargetType="Label">
-            <Setter Property="Foreground" Value="DimGray" />
-            <Setter Property="FontSize" Value="12" />
-        </Style>
-        <Style TargetType="TextBlock">
-            <Setter Property="Foreground" Value="Black" />
-            <Setter Property="Margin"  Value="4 2 2 2"/>
-            <Setter Property="FontSize" Value="12" />
-            <Setter Property="FontWeight" Value="DemiBold"/>
-        </Style>
-        <Style TargetType="Button">
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Margin" Value="5"/>
-        </Style>
+        
         <Style TargetType="TabItem">
             <Setter Property="MinWidth" Value="15"/>
         </Style>
     </Window.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="35" />
-            <RowDefinition Height="35" />
-            <RowDefinition Height="60" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="35" />
+    <DockPanel Background="#fef6e4">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_New" />
+                <MenuItem Header="_Open" />
+                <MenuItem Header="_Save" />
+                <Separator />
+                <MenuItem Header="_Exit" Click="Click_ExitMnu"/>
+            </MenuItem>
+            <MenuItem Header="Eigenschaften">
+                <MenuItem Header="Settings" Click="Click_SettingMnu"/>
+            </MenuItem>
+            <MenuItem Header="_Listen">
+                <MenuItem Header="_Bildarten"/>
+                <MenuItem Header="_Module"/>
+                <MenuItem Header="_Ablageort" Click="MenuItem_Ablage_Click"/>
+            </MenuItem>
+            <MenuItem Header="Extras">
+                <MenuItem Header="Bilder Zuordnung" Click="MenuItem_ImgToGD_Click"/>
+            </MenuItem>
+        </Menu>
+        <ToolBarTray DockPanel.Dock="Top">
+            <ToolBar Height="40">
+                <Button Command="Cut" ToolTip="Cut selection to Windows Clipboard.">
+                    <Image Source="H:\SammlungMS-WPF\SammlungMS-WPF\Resources\editcut.png" />
+                </Button>
+                <Button Command="Copy" ToolTip="Copy selection to Windows Clipboard.">
+                    <Image Source="H:\SammlungMS-WPF\SammlungMS-WPF\Resources\editcopy.png" />
+                </Button>
+                <Button Command="Paste" ToolTip="Paste from Windows Clipboard.">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="H:\SammlungMS-WPF\SammlungMS-WPF\Resources\editpaste.png" />
+                        <TextBlock Margin="3,0,0,0">Paste</TextBlock>
+                    </StackPanel>
+                </Button>
+            </ToolBar>
+        </ToolBarTray>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35" />
+                <RowDefinition Height="35" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="35" />
 
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Background="AliceBlue">
-            <Label Content="Titel suchen: " VerticalAlignment="Center"/>
-            <TextBox x:Name="txtSuche" Width="100" Margin=" 5 7" SelectionChanged="txtSuche_SelectionChanged"/>
-            <Button x:Name="btDel" Content="Löschen" Width="75" Click="btDel_Click" />
-        </StackPanel>
-        <StackPanel Grid.Row="2" Grid.Column="0">
-            <Label Content="Angezeigte Personen:"/>
-            <ComboBox Text="Bitte wählen..." x:Name="ComboBoxPersonen" Margin="3" DisplayMemberPath="AutorRolle1" SelectionChanged="ComboBoxPersonen_SelectionChanged" />
-        </StackPanel>
-        <TabControl Grid.Row="2" Grid.Column="1"  x:Name="tb1" HorizontalAlignment="Stretch" SelectionChanged="tb1_SelectionChanged" >
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Background="AliceBlue">
+                <Label Content="Titel suchen: " VerticalAlignment="Center"/>
+                <TextBox x:Name="txtSuche" Width="100" Margin=" 5 7" SelectionChanged="txtSuche_SelectionChanged"/>
+                <Button x:Name="btDel" Content="Löschen" Width="75" Click="btDel_Click" />
+            </StackPanel>
+            <Border   Grid.Row="2" Grid.Column="0" BorderBrush="Gray" BorderThickness="1">
+                <StackPanel Background="AliceBlue">
+                    <Label Content="Auswahl Personengruppe"/>
+                    <ComboBox Text="Bitte wählen..." x:Name="ComboBoxPersonen" Margin="3" DisplayMemberPath="AutorRolle1" 
+                     SelectedValuePath="ID"
+              SelectionChanged="ComboBoxPersonen_SelectionChanged" />
+                </StackPanel>
+            </Border>
 
-            <TabItem  Header="0-9" x:Name="ziffern"/>
-            <TabItem  Header="A" x:Name="a" />
-            <TabItem  Header="B" x:Name="b"/>
-            <TabItem  Header="C" x:Name="c"/>
-            <TabItem  Header="D" x:Name="d"/>
-            <TabItem  Header="E" x:Name="e"/>
-            <TabItem  Header="F" x:Name="f"/>
-            <TabItem  Header="G" x:Name="g"/>
-            <TabItem  Header="H" x:Name="h"/>
-            <TabItem  Header="IJ" x:Name="ij"/>
-            <TabItem  Header="K" x:Name="k"/>
-            <TabItem  Header="L" x:Name="l"/>
-            <TabItem Header="M" x:Name="m"/>
-            <TabItem  Header="N" x:Name="n"/>
-            <TabItem  Header="O" x:Name="o"/>
-            <TabItem  Header="P" x:Name="p"/>
-            <TabItem  Header="Q" x:Name="q"/>
-            <TabItem  Header="R" x:Name="r"/>
-            <TabItem  Header="S" x:Name="s"/>
-            <TabItem  Header="T" x:Name="t"/>
-            <TabItem  Header="U" x:Name="u"/>
-            <TabItem  Header="V" x:Name="v"/>
-            <TabItem  Header="W" x:Name="w"/>
-            <TabItem  Header="XY" x:Name="xy"/>
-            <TabItem  Header="Z" x:Name="z"/>
-            <!--<TabItem  Header="Sonst." x:Name="sonder"/>-->
-            <TabItem  Header="Alles" x:Name="alles" Selector.IsSelected="True"/>
-        </TabControl>
-        <DataGrid Grid.Column="1" Grid.Row="3" x:Name="BuchGrid"  HorizontalAlignment="Left"  AutoGenerateColumns="False"
+
+            <TabControl Grid.Row="2" Grid.Column="1"  x:Name="tb1" HorizontalAlignment="Stretch" SelectionChanged="tb1_SelectionChanged" >
+
+                <TabItem  Header="0-9" x:Name="ziffern"/>
+                <TabItem  Header="A" x:Name="a" />
+                <TabItem  Header="B" x:Name="b"/>
+                <TabItem  Header="C" x:Name="c"/>
+                <TabItem  Header="D" x:Name="d"/>
+                <TabItem  Header="E" x:Name="e"/>
+                <TabItem  Header="F" x:Name="f"/>
+                <TabItem  Header="G" x:Name="g"/>
+                <TabItem  Header="H" x:Name="h"/>
+                <TabItem  Header="IJ" x:Name="ij"/>
+                <TabItem  Header="K" x:Name="k"/>
+                <TabItem  Header="L" x:Name="l"/>
+                <TabItem Header="M" x:Name="m"/>
+                <TabItem  Header="N" x:Name="n"/>
+                <TabItem  Header="O" x:Name="o"/>
+                <TabItem  Header="P" x:Name="p"/>
+                <TabItem  Header="Q" x:Name="q"/>
+                <TabItem  Header="R" x:Name="r"/>
+                <TabItem  Header="S" x:Name="s"/>
+                <TabItem  Header="T" x:Name="t"/>
+                <TabItem  Header="U" x:Name="u"/>
+                <TabItem  Header="V" x:Name="v"/>
+                <TabItem  Header="W" x:Name="w"/>
+                <TabItem  Header="XY" x:Name="xy"/>
+                <TabItem  Header="Z" x:Name="z"/>
+                <!--<TabItem  Header="Sonst." x:Name="sonder"/>-->
+                <TabItem  Header="Alles" x:Name="alles" Selector.IsSelected="True"/>
+            </TabControl>
+            <DataGrid Grid.Column="1" Grid.Row="3" x:Name="BuchGrid"  HorizontalAlignment="Left"  AutoGenerateColumns="False"
                               AlternatingRowBackground="#FFD8D8D8" GridLinesVisibility="None"  
                               SelectionChanged="DGBuch_SelectionChanged" >
-            <DataGrid.Columns>
-                <DataGridTextColumn Width="35" Header="ID" Binding="{Binding Path=ID}"/>
-                <DataGridTextColumn Width="50" Header="Signatur" Binding="{Binding Path=Signatur}"/>
-                <DataGridTextColumn Width="3*" Header="Titel" Binding="{Binding Path=Titel}"/>
-                <DataGridTextColumn Width="2*" Header="Autor" Binding="{Binding Path=AutorSort}"/>
-            </DataGrid.Columns>
-            <DataGrid.RowDetailsTemplate>
-                <DataTemplate>
-                    <Border BorderThickness="0" Background="BlanchedAlmond" Padding="10">
-                        <StackPanel Orientation="Vertical">
-                            <StackPanel Orientation="Horizontal">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="35" Header="ID" Binding="{Binding Path=ID}"/>
+                    <DataGridTextColumn Width="50" Header="Signatur" Binding="{Binding Path=Signatur}"/>
+                    <DataGridTextColumn Width="3*" Header="Titel" Binding="{Binding Path=Titel}"/>
+                    <DataGridTextColumn Width="2*" Header="Autor" Binding="{Binding Path=AutorSort}"/>
+                </DataGrid.Columns>
+                <DataGrid.RowDetailsTemplate>
+                    <DataTemplate>
+                        <Border BorderThickness="0" Background="AliceBlue" Padding="10">
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal">
 
-                                <TextBlock FontSize="12" Text="Untertitel: " VerticalAlignment="Center" />
-                                <TextBlock FontSize="12" Foreground="MidnightBlue" Text="{Binding Untertitel}" VerticalAlignment="Center" />
+                                    <TextBlock FontSize="12" Text="Untertitel: " VerticalAlignment="Center" />
+                                    <TextBlock FontSize="12" Foreground="MidnightBlue" Text="{Binding Untertitel}" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="12" Text="ISBN: " VerticalAlignment="Center" />
+                                    <TextBlock FontSize="12" Foreground="MidnightBlue" Text="{Binding ISBN}" VerticalAlignment="Center" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="12" Text="Auflage: " VerticalAlignment="Center" />
+                                    <TextBlock FontSize="12" Foreground="MidnightBlue" Text="{Binding Auflage}" VerticalAlignment="Center" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="12" Text="Veröffentlicht: " VerticalAlignment="Center" />
+                                    <TextBlock FontSize="12" Foreground="MidnightBlue" Text="{Binding Veroeffentlicht}" VerticalAlignment="Center" />
+                                </StackPanel>
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock FontSize="12" Text="ISBN: " VerticalAlignment="Center" />
-                                <TextBlock FontSize="12" Foreground="MidnightBlue" Text="{Binding ISBN}" VerticalAlignment="Center" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock FontSize="12" Text="Auflage: " VerticalAlignment="Center" />
-                                <TextBlock FontSize="12" Foreground="MidnightBlue" Text="{Binding Auflage}" VerticalAlignment="Center" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock FontSize="12" Text="Veröffentlicht: " VerticalAlignment="Center" />
-                                <TextBlock FontSize="12" Foreground="MidnightBlue" Text="{Binding Veroeffentlicht}" VerticalAlignment="Center" />
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
-                </DataTemplate>
-            </DataGrid.RowDetailsTemplate>
-        </DataGrid>
-        <TreeView x:Name="PersonTrv" Grid.Row="3" Grid.Column="0" SelectedItemChanged="PersonTrv_SelectedItemChanged" >
-            <TreeViewItem Margin="3" Header="Personen" FontWeight="Bold"/>
-        </TreeView>
-        <StackPanel Grid.Row="3" Grid.Column="2" Orientation="Vertical" Background="LightSteelBlue">
-            <TextBox Text="Titel" x:Name="txtTitel" TextWrapping="Wrap" Background="LightSteelBlue"/>
-            <TextBox Text="Untertitel" x:Name="txtUnterTitel" TextWrapping="Wrap" Background="LightSteelBlue"/>
-            <TextBox Text="Autor" x:Name="txtAutor" TextWrapping="Wrap" Background="LightSteelBlue"/>
-        </StackPanel>
-    </Grid>
+                        </Border>
+                    </DataTemplate>
+                </DataGrid.RowDetailsTemplate>
+            </DataGrid>
+            <TreeView x:Name="PersonTrv" Grid.Row="3" Grid.Column="0" SelectedItemChanged="PersonTrv_SelectedItemChanged" >
+                <TreeViewItem Margin="3" Header="Personen" FontWeight="Bold"/>
+            </TreeView>
+            <StackPanel Grid.Row="3" Grid.Column="2" Orientation="Vertical" Background="LightSteelBlue" x:Name="DetailPanel" >
+                <TextBlock Text="{Binding Path=b.Titel}" Margin="10"/>
+                <TextBlock Text="{Binding Path=b.Untertitel}" Margin="10"/>
+                <TextBlock Text="{Binding Path=b.AutorSort}" Margin="10"/>
+                <TextBlock Text="{Binding Path=s.SortBy}" Margin="10"/>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
 </Window>

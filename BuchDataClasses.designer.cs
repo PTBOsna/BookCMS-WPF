@@ -22,7 +22,8 @@ namespace BookCMS_WPF
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="BookCMS-localDB")]
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="D:\\USERS\\PETER\\DOCUMENTS\\VISUAL STUDIO 2017\\PROJEKTE\\BOOKCMS-LOCALDB\\BOOKCMS-LOCA" +
+		"LDB\\BIN\\DEBUG\\BOOKSQL-DB.MDF")]
 	public partial class BuchDataClassesDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -42,7 +43,7 @@ namespace BookCMS_WPF
     #endregion
 		
 		public BuchDataClassesDataContext() : 
-				base(global::BookCMS_WPF.Properties.Settings.Default.BookCMS_localDBConnectionString, mappingSource)
+				base(global::BookCMS_WPF.Properties.Settings.Default.D__USERS_PETER_DOCUMENTS_VISUAL_STUDIO_2017_PROJEKTE_BOOKCMS_LOCALDB_BOOKCMS_LOCALDB_BIN_DEBUG_BOOKSQL_DB_MDFConnectionS, mappingSource)
 		{
 			OnCreated();
 		}
@@ -108,6 +109,38 @@ namespace BookCMS_WPF
 			get
 			{
 				return this.GetTable<PersonRolle>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Verlag> Verlag
+		{
+			get
+			{
+				return this.GetTable<Verlag>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Kategorie> Kategorie
+		{
+			get
+			{
+				return this.GetTable<Kategorie>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Sachgruppe> Sachgruppe
+		{
+			get
+			{
+				return this.GetTable<Sachgruppe>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Person1> Person1
+		{
+			get
+			{
+				return this.GetTable<Person1>();
 			}
 		}
 	}
@@ -2849,6 +2882,708 @@ namespace BookCMS_WPF
 				if ((this._SortBy != value))
 				{
 					this._SortBy = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Verlag")]
+	public partial class Verlag
+	{
+		
+		private int _PublisherID;
+		
+		private bool _Marked;
+		
+		private string _Verlag1;
+		
+		private string _SortBy;
+		
+		private string _Notiz_PlainText;
+		
+		private string _WWW;
+		
+		private string _Email;
+		
+		private string _Addresse_PlainText;
+		
+		private string _Phone;
+		
+		private string _Fax;
+		
+		public Verlag()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PublisherID", DbType="Int NOT NULL")]
+		public int PublisherID
+		{
+			get
+			{
+				return this._PublisherID;
+			}
+			set
+			{
+				if ((this._PublisherID != value))
+				{
+					this._PublisherID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Marked", DbType="Bit NOT NULL")]
+		public bool Marked
+		{
+			get
+			{
+				return this._Marked;
+			}
+			set
+			{
+				if ((this._Marked != value))
+				{
+					this._Marked = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Verlag", Storage="_Verlag1", DbType="NVarChar(150)")]
+		public string Verlag1
+		{
+			get
+			{
+				return this._Verlag1;
+			}
+			set
+			{
+				if ((this._Verlag1 != value))
+				{
+					this._Verlag1 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SortBy", DbType="NVarChar(152)")]
+		public string SortBy
+		{
+			get
+			{
+				return this._SortBy;
+			}
+			set
+			{
+				if ((this._SortBy != value))
+				{
+					this._SortBy = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notiz_PlainText", DbType="NVarChar(MAX)")]
+		public string Notiz_PlainText
+		{
+			get
+			{
+				return this._Notiz_PlainText;
+			}
+			set
+			{
+				if ((this._Notiz_PlainText != value))
+				{
+					this._Notiz_PlainText = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WWW", DbType="NVarChar(100)")]
+		public string WWW
+		{
+			get
+			{
+				return this._WWW;
+			}
+			set
+			{
+				if ((this._WWW != value))
+				{
+					this._WWW = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="NVarChar(100)")]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this._Email = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Addresse_PlainText", DbType="NVarChar(MAX)")]
+		public string Addresse_PlainText
+		{
+			get
+			{
+				return this._Addresse_PlainText;
+			}
+			set
+			{
+				if ((this._Addresse_PlainText != value))
+				{
+					this._Addresse_PlainText = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phone", DbType="NVarChar(25)")]
+		public string Phone
+		{
+			get
+			{
+				return this._Phone;
+			}
+			set
+			{
+				if ((this._Phone != value))
+				{
+					this._Phone = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fax", DbType="NVarChar(25)")]
+		public string Fax
+		{
+			get
+			{
+				return this._Fax;
+			}
+			set
+			{
+				if ((this._Fax != value))
+				{
+					this._Fax = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Kategorie")]
+	public partial class Kategorie
+	{
+		
+		private int _CategoryID;
+		
+		private bool _Marked;
+		
+		private string _Kategorie1;
+		
+		private string _SortBy;
+		
+		private string _Notiz_PlainText;
+		
+		public Kategorie()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CategoryID", DbType="Int NOT NULL")]
+		public int CategoryID
+		{
+			get
+			{
+				return this._CategoryID;
+			}
+			set
+			{
+				if ((this._CategoryID != value))
+				{
+					this._CategoryID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Marked", DbType="Bit NOT NULL")]
+		public bool Marked
+		{
+			get
+			{
+				return this._Marked;
+			}
+			set
+			{
+				if ((this._Marked != value))
+				{
+					this._Marked = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Kategorie", Storage="_Kategorie1", DbType="NVarChar(50)")]
+		public string Kategorie1
+		{
+			get
+			{
+				return this._Kategorie1;
+			}
+			set
+			{
+				if ((this._Kategorie1 != value))
+				{
+					this._Kategorie1 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SortBy", DbType="NVarChar(52)")]
+		public string SortBy
+		{
+			get
+			{
+				return this._SortBy;
+			}
+			set
+			{
+				if ((this._SortBy != value))
+				{
+					this._SortBy = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notiz_PlainText", DbType="NVarChar(MAX)")]
+		public string Notiz_PlainText
+		{
+			get
+			{
+				return this._Notiz_PlainText;
+			}
+			set
+			{
+				if ((this._Notiz_PlainText != value))
+				{
+					this._Notiz_PlainText = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Sachgruppe")]
+	public partial class Sachgruppe
+	{
+		
+		private int _GenreID;
+		
+		private bool _Marked;
+		
+		private string _Sachgruppe1;
+		
+		private string _SortBy;
+		
+		private string _Notiz_PlainText;
+		
+		public Sachgruppe()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GenreID", DbType="Int NOT NULL")]
+		public int GenreID
+		{
+			get
+			{
+				return this._GenreID;
+			}
+			set
+			{
+				if ((this._GenreID != value))
+				{
+					this._GenreID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Marked", DbType="Bit NOT NULL")]
+		public bool Marked
+		{
+			get
+			{
+				return this._Marked;
+			}
+			set
+			{
+				if ((this._Marked != value))
+				{
+					this._Marked = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Sachgruppe", Storage="_Sachgruppe1", DbType="NVarChar(50)")]
+		public string Sachgruppe1
+		{
+			get
+			{
+				return this._Sachgruppe1;
+			}
+			set
+			{
+				if ((this._Sachgruppe1 != value))
+				{
+					this._Sachgruppe1 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SortBy", DbType="NVarChar(52)")]
+		public string SortBy
+		{
+			get
+			{
+				return this._SortBy;
+			}
+			set
+			{
+				if ((this._SortBy != value))
+				{
+					this._SortBy = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notiz_PlainText", DbType="NVarChar(MAX)")]
+		public string Notiz_PlainText
+		{
+			get
+			{
+				return this._Notiz_PlainText;
+			}
+			set
+			{
+				if ((this._Notiz_PlainText != value))
+				{
+					this._Notiz_PlainText = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Person")]
+	public partial class Person1
+	{
+		
+		private int _PersonID;
+		
+		private bool _Marked;
+		
+		private string _Name;
+		
+		private string _SortBy;
+		
+		private string _Geboren;
+		
+		private string _Gestorbe;
+		
+		private System.Nullable<int> _LandID;
+		
+		private string _Notiz_PlainText;
+		
+		private string _WWW;
+		
+		private string _Email;
+		
+		private string _Adresse_PlainText;
+		
+		private string _Phone;
+		
+		private string _Fax;
+		
+		private string _Geburtsname;
+		
+		private string _Geburtzort;
+		
+		private string _Sterbeort;
+		
+		private string _Biografie_PlainText;
+		
+		public Person1()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PersonID", DbType="Int NOT NULL")]
+		public int PersonID
+		{
+			get
+			{
+				return this._PersonID;
+			}
+			set
+			{
+				if ((this._PersonID != value))
+				{
+					this._PersonID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Marked", DbType="Bit NOT NULL")]
+		public bool Marked
+		{
+			get
+			{
+				return this._Marked;
+			}
+			set
+			{
+				if ((this._Marked != value))
+				{
+					this._Marked = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(150)")]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this._Name = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SortBy", DbType="NVarChar(152)")]
+		public string SortBy
+		{
+			get
+			{
+				return this._SortBy;
+			}
+			set
+			{
+				if ((this._SortBy != value))
+				{
+					this._SortBy = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Geboren", DbType="NVarChar(8)")]
+		public string Geboren
+		{
+			get
+			{
+				return this._Geboren;
+			}
+			set
+			{
+				if ((this._Geboren != value))
+				{
+					this._Geboren = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Gestorbe", DbType="NVarChar(8)")]
+		public string Gestorbe
+		{
+			get
+			{
+				return this._Gestorbe;
+			}
+			set
+			{
+				if ((this._Gestorbe != value))
+				{
+					this._Gestorbe = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LandID", DbType="Int")]
+		public System.Nullable<int> LandID
+		{
+			get
+			{
+				return this._LandID;
+			}
+			set
+			{
+				if ((this._LandID != value))
+				{
+					this._LandID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notiz_PlainText", DbType="NVarChar(MAX)")]
+		public string Notiz_PlainText
+		{
+			get
+			{
+				return this._Notiz_PlainText;
+			}
+			set
+			{
+				if ((this._Notiz_PlainText != value))
+				{
+					this._Notiz_PlainText = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WWW", DbType="NVarChar(100)")]
+		public string WWW
+		{
+			get
+			{
+				return this._WWW;
+			}
+			set
+			{
+				if ((this._WWW != value))
+				{
+					this._WWW = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="NVarChar(100)")]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this._Email = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Adresse_PlainText", DbType="NVarChar(MAX)")]
+		public string Adresse_PlainText
+		{
+			get
+			{
+				return this._Adresse_PlainText;
+			}
+			set
+			{
+				if ((this._Adresse_PlainText != value))
+				{
+					this._Adresse_PlainText = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phone", DbType="NVarChar(25)")]
+		public string Phone
+		{
+			get
+			{
+				return this._Phone;
+			}
+			set
+			{
+				if ((this._Phone != value))
+				{
+					this._Phone = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fax", DbType="NVarChar(25)")]
+		public string Fax
+		{
+			get
+			{
+				return this._Fax;
+			}
+			set
+			{
+				if ((this._Fax != value))
+				{
+					this._Fax = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Geburtsname", DbType="NVarChar(100)")]
+		public string Geburtsname
+		{
+			get
+			{
+				return this._Geburtsname;
+			}
+			set
+			{
+				if ((this._Geburtsname != value))
+				{
+					this._Geburtsname = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Geburtzort", DbType="NVarChar(150)")]
+		public string Geburtzort
+		{
+			get
+			{
+				return this._Geburtzort;
+			}
+			set
+			{
+				if ((this._Geburtzort != value))
+				{
+					this._Geburtzort = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sterbeort", DbType="NVarChar(150)")]
+		public string Sterbeort
+		{
+			get
+			{
+				return this._Sterbeort;
+			}
+			set
+			{
+				if ((this._Sterbeort != value))
+				{
+					this._Sterbeort = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Biografie_PlainText", DbType="NVarChar(MAX)")]
+		public string Biografie_PlainText
+		{
+			get
+			{
+				return this._Biografie_PlainText;
+			}
+			set
+			{
+				if ((this._Biografie_PlainText != value))
+				{
+					this._Biografie_PlainText = value;
 				}
 			}
 		}

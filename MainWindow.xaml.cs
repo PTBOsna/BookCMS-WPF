@@ -40,16 +40,16 @@ namespace BookCMS_WPF
             LoadPersonTV();
             //Combobox Rolle laden
             var AutorRolle = from ar in Admin.conn.AutorRolle orderby ar.AutorRolle1 select ar;
-            foreach (var rolle in AutorRolle)
-            {
-                ComboBoxItem item = new ComboBoxItem();
-                item.Content = rolle.AutorRolle1;
-                item.Tag = rolle.ID;   //key-value
-                ComboBoxPersonen.Items.Add(item);
-            }
-
+            //foreach (var rolle in AutorRolle)
+            //{
+            //    ComboBoxItem item = new ComboBoxItem();
+            //    item.Content = rolle.AutorRolle1;
+            //    item.Tag = rolle.ID;   //key-value
+            //    ComboBoxPersonen.Items.Add(item);
+            //}
+            ComboBoxPersonen.ItemsSource = AutorRolle;
+            ComboBoxPersonen.SelectedValue = 7; //wird später über Settings voreingestellt
         }
-
         private void LoadPersonTV()
         {
 
@@ -165,7 +165,7 @@ namespace BookCMS_WPF
                     Int32.Parse(id);
                     var myAutorBuch = from ab in Admin.conn.AutorBuchLink
                                       from b in Admin.conn.Buch
-                                      where ab.PersonID == Int32.Parse(id) && b.ID == ab.BuchID
+                                      where ab.PersonID == Int32.Parse(id) && ab.BuchID == b.ID
                                       select b;
                     if (myAutorBuch != null)
                     {
@@ -183,9 +183,11 @@ namespace BookCMS_WPF
 
         private void ComboBoxPersonen_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ComboBoxItem item = ComboBoxPersonen.SelectedItem as ComboBoxItem;
-            rolle = (int)item.Tag;
-            //MessageBox.Show(rolle.ToString());
+            //MessageBox.Show(ComboBoxPersonen.SelectedValue.ToString());
+            //ComboBoxItem item = ComboBoxPersonen.SelectedItem as ComboBoxItem;
+
+            //////MessageBox.Show(item.Content.ToString());
+            rolle = (int)ComboBoxPersonen.SelectedValue;
             PersonTrv.Items.Clear();
             LoadPersonTV();
         }
@@ -213,10 +215,39 @@ namespace BookCMS_WPF
 
         private void DGBuch_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Buch selected = BuchGrid.SelectedItem as Buch;
-            txtTitel.Text = selected.Titel;
-            txtUnterTitel.Text = selected.Untertitel;
-            txtAutor.Text = selected.AutorSort;
+            Buch sel = BuchGrid.SelectedItem as Buch;
+            if (sel==null)
+            {
+                return;
+            }
+            var selBuch = (from b in Admin.conn.Buch
+                          from s in Admin.conn.Sachgruppe
+                          where b.ID == sel.ID && s.GenreID == b.SachgruppeID
+                          select new { b, s }).FirstOrDefault();
+
+            DetailPanel.DataContext = selBuch;
+          
+          
+        }
+
+        private void Click_ExitMnu(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void MenuItem_Ablage_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MenuItem_ImgToGD_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Click_SettingMnu(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BookCMS-localDB" Class="BuchDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=(localDB)\MSSQLLocalDB;Initial Catalog=BookCMS-localDB;Integrated Security=True" SettingsObjectName="BookCMS_WPF.Properties.Settings" SettingsPropertyName="BookCMS_localDBConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="D:\USERS\PETER\DOCUMENTS\VISUAL STUDIO 2017\PROJEKTE\BOOKCMS-LOCALDB\BOOKCMS-LOCALDB\BIN\DEBUG\BOOKSQL-DB.MDF" Class="BuchDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=&quot;D:\USERS\PETER\DOCUMENTS\VISUAL STUDIO 2017\PROJEKTE\BOOKCMS-LOCALDB\BOOKCMS-LOCALDB\BIN\DEBUG\BOOKSQL-DB.MDF&quot;;Integrated Security=True" SettingsObjectName="BookCMS_WPF.Properties.Settings" SettingsPropertyName="D__USERS_PETER_DOCUMENTS_VISUAL_STUDIO_2017_PROJEKTE_BOOKCMS_LOCALDB_BOOKCMS_LOCALDB_BIN_DEBUG_BOOKSQL_DB_MDFConnectionS" Provider="System.Data.SqlClient" />
   <Table Name="dbo.AutorBuchLink" Member="AutorBuchLink">
     <Type Name="AutorBuchLink">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -132,6 +132,59 @@
       <Column Name="PersonID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="RolleID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="SortBy" Type="System.String" DbType="NVarChar(152) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Verlag" Member="Verlag">
+    <Type Name="Verlag">
+      <Column Name="PublisherID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Marked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Verlag" Member="Verlag1" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="SortBy" Type="System.String" DbType="NVarChar(152)" CanBeNull="true" />
+      <Column Name="Notiz_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="WWW" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Addresse_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Kategorie" Member="Kategorie">
+    <Type Name="Kategorie">
+      <Column Name="CategoryID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Marked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Kategorie" Member="Kategorie1" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SortBy" Type="System.String" DbType="NVarChar(52)" CanBeNull="true" />
+      <Column Name="Notiz_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Sachgruppe" Member="Sachgruppe">
+    <Type Name="Sachgruppe">
+      <Column Name="GenreID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Marked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Sachgruppe" Member="Sachgruppe1" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SortBy" Type="System.String" DbType="NVarChar(52)" CanBeNull="true" />
+      <Column Name="Notiz_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Person" Member="Person1">
+    <Type Name="Person1">
+      <Column Name="PersonID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Marked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="SortBy" Type="System.String" DbType="NVarChar(152)" CanBeNull="true" />
+      <Column Name="Geboren" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="Gestorbe" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="LandID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Notiz_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="WWW" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Adresse_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="Geburtsname" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Geburtzort" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Sterbeort" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Biografie_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>
