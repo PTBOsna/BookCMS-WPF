@@ -24,6 +24,7 @@ namespace BookCMS_WPF
     {
         string selDilplay;
         Int32 rolle;
+        Int32 cBookID;
         public MainWindow()
         {
             InitializeComponent();
@@ -224,7 +225,7 @@ namespace BookCMS_WPF
                           from s in Admin.conn.Sachgruppe
                           where b.ID == sel.ID && s.GenreID == b.SachgruppeID
                           select new { b, s }).FirstOrDefault();
-
+            cBookID = selBuch.b.ID;
             DetailPanel.DataContext = selBuch;
           
           
@@ -248,6 +249,18 @@ namespace BookCMS_WPF
         private void Click_SettingMnu(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void BtnDetail_Click(object sender, RoutedEventArgs e)
+        {
+            AddEditBook ae = new AddEditBook(cBookID);
+            ae.ShowDialog();
+        }
+
+        private void MenuItemTest_Click(object sender, RoutedEventArgs e)
+        {
+            XTest ts = new XTest();
+            ts.ShowDialog();
         }
     }
 }

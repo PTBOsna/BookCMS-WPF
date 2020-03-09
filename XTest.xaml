@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookCMS_WPF"
         mc:Ignorable="d"
-        Title="XTest" Height="450" Width="800">
+        Title="XTest" Height="650" Width="1000">
     <Window.Resources>
         <Style x:Key="{x:Type Menu}"
        TargetType="{x:Type Menu}">
@@ -68,9 +68,26 @@
         </Style>
     </Window.Resources>
     <DockPanel>
-       
+
         <Grid>
-        
-    </Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
+                <Label Content="Suche:" Margin="5"/>
+                <TextBox x:Name="txtInput" Width="200" Margin="10"/>
+                <Button x:Name="btnSearch" Content="Suchen" Click="BtnSearch_Click" Width="100"/>
+            </StackPanel>
+            
+            <TextBox Grid.Row="1" Grid.Column="0" x:Name="txtVorschau" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"
+               ScrollViewer.CanContentScroll="True"        />
+            <ListBox Grid.Row="1" Grid.Column="1" x:Name="lbTitel"/>
+        </Grid>
     </DockPanel>
 </Window>
