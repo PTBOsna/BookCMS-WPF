@@ -15,6 +15,13 @@
             <Setter Property="FontWeight" Value="DemiBold"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
         </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Foreground" Value="DimGray" />
+            <Setter Property="Margin"  Value="4 2 2 2"/>
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="DemiBold"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
         <Style TargetType="Button">
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Margin" Value="5"/>

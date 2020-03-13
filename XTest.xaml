@@ -71,7 +71,8 @@
 
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
@@ -81,13 +82,38 @@
 
             <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
                 <Label Content="Suche:" Margin="5"/>
-                <TextBox x:Name="txtInput" Width="200" Margin="10"/>
+                <TextBox x:Name="txtInput" Width="150" Margin="10"/>
                 <Button x:Name="btnSearch" Content="Suchen" Click="BtnSearch_Click" Width="100"/>
             </StackPanel>
-            
-            <TextBox Grid.Row="1" Grid.Column="0" x:Name="txtVorschau" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"
-               ScrollViewer.CanContentScroll="True"        />
-            <ListBox Grid.Row="1" Grid.Column="1" x:Name="lbTitel"/>
+
+            <StackPanel Grid.Row="1" Grid.Column="0">
+            <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Path=nr_list}" x:Name="DGNamen" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Vorgeschlagen" Binding="{Binding name}"/>
+                        <DataGridTextColumn Header="Rolle" Binding="{Binding rolle}"/>
+
+                        <DataGridTextColumn Header="In DB vorhanden" Binding="{Binding nameInDB}" />
+                        <DataGridTextColumn Header="DB ID" Binding="{Binding currID}" />
+                    </DataGrid.Columns>
+                
+            </DataGrid>
+                <UniformGrid Columns="3">
+                    <Button Content="Hinzufügen" Click="BtnAdd_click"/>
+                    <Button Content="Bearbeiten" Click="BtnEdit_click"/>
+                    <Button Content="Entfernen" Click="BtnDel_click"/>
+                </UniformGrid>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="1">
+
+                <TextBox x:Name="txtSearch"  TextChanged="txtSearch_TextChanged"/>
+                <DataGrid x:Name="DGNames" ItemsSource="{Binding searchName}" AutoGenerateColumns="False" SelectionChanged="DGNames_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name in DB" Binding="{Binding SortBy}"/>
+                        <DataGridTextColumn Header="ID" Binding="{Binding PersonID}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <ListBox Grid.Row="1" Grid.Column="1" x:Name="lbTitel"/>
+            </StackPanel>
         </Grid>
     </DockPanel>
 </Window>

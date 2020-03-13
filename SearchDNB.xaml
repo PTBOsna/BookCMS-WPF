@@ -1,0 +1,27 @@
+﻿<Window x:Class="BookCMS_WPF.SearchDNB"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookCMS_WPF"
+        mc:Ignorable="d"
+        Title="SearchDNB" Height="250" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+   
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Content="Zur Suche in der DNB bitte ISBN oder Titel oder/und Autor eingeben"/>
+        <TextBox Grid.Row="1" x:Name="txtInput" Margin="5" Padding="5" KeyDown="txtInput_KeyDown"/>
+        <ListBox Grid.Row="2" x:Name="lbAuswahl"  />
+        <UniformGrid Grid.Row="3" Columns="3">
+            <Button  Content="Übernehmen" Click="btnAdd_click"/>
+            <Button  Content="Neue Suche" Click="btnNew_click"/>
+            <Button Content="Zurück" Click="btnExit_click"/>
+        </UniformGrid>
+    </Grid>
+    
+</Window>

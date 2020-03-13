@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookCMS_WPF.DataHandling;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -48,6 +49,7 @@ namespace BookCMS_WPF.DataHandling
         {
             using (StringReader reader = new StringReader(inputStr))
             {
+
                 string line;
                 while ((line = reader.ReadLine()) != null)
                 {
@@ -221,8 +223,16 @@ namespace BookCMS_WPF.DataHandling
                             if (line.Contains("code=\"a\""))
                             {
                                 //LBShow.Items.Add(SelectString(line)); // Write to console.
-                                dnb_titel = SelectString(line); // Add to list.
-                                                                //MessageBox.Show(SelectString(line));
+                                dnb_titel = SelectString(line);
+
+                                //List<string> infolist = new List<string>();
+                                if (dnb_titel.StartsWith("&#"))
+                                {
+                                    string[] erg = dnb_titel.Split(';');
+
+                                    dnb_titel = erg[1].Substring(0, 3) + erg[2];
+                                }// Add to list.
+                                 //MessageBox.Show(SelectString(line));
                             }
                             if (line.Contains("code=\"b\""))
                             {
@@ -378,7 +388,7 @@ namespace BookCMS_WPF.DataHandling
                             if (line.Contains("code=\"a\""))
                             {
                                 //LBShow.Items.Add(SelectString(line)); // Write to console.
-                                dnb_mitautor = SelectString(line); // Add to list.
+                                dnb_mitautor += SelectString(line) + ";"; // Add to list.
                                                                    //MessageBox.Show(SelectString(line));
                             }
                             if (line.Contains("code=\"e\""))
@@ -390,7 +400,7 @@ namespace BookCMS_WPF.DataHandling
                             if (line.Contains("code=\"4\""))
                             {
                                 //LBShow.Items.Add(SelectString(line)); // Write to console.
-                                dnb_mitautor_rolle = SelectString(line); // Add to list.
+                                dnb_mitautor_rolle += SelectString(line) + ";"; // Add to list.
                                                                          //MessageBox.Show(SelectString(line));
                             }
 
@@ -428,108 +438,114 @@ namespace BookCMS_WPF.DataHandling
 
         }
     }
-    public class InfoMulti
+}
+public class InfoMulti
+{
+
+    public static string _InfoMulti(string myString)
     {
-      
-        public static string _InfoMulti (string myString)
+        //InfoMulti erg = new InfoMulti();
+        string input = null;
+        //List<string> erg = new List<string>();
+        using (StringReader reader = new StringReader(myString))
         {
-            //InfoMulti erg = new InfoMulti();
-            string input = null;
-            //List<string> erg = new List<string>();
-            using (StringReader reader = new StringReader(myString))
+
+            var titelMulti = new List<InfoMulti[]>();
+            string line;
+            //int count = 0;
+            while ((line = reader.ReadLine()) != null)
             {
-
-                var titelMulti = new List<InfoMulti[]>();
-                string line;
-                int count = 0;
-                while ((line = reader.ReadLine()) != null)
+                if (line.Contains("tag=\"016\""))
                 {
-                    if (line.Contains("tag=\"016\""))
+                    line = reader.ReadLine();
+                    while (line.Contains("</datafield>") == false)
                     {
-                        line = reader.ReadLine();
-                        while (line.Contains("</datafield>") == false)
+                        if (line.Contains("code=\"a\""))
                         {
-                            if (line.Contains("code=\"a\""))
-                            {
-                                //LBShow.Items.Add(SelectString(line)); // Write to console.
-                                ////MessageBox.Show(SelectString(line).ToString());
-                                //dummy += SelectString(line) + "#";// Add to list.
+                            //LBShow.Items.Add(SelectString(line)); // Write to console.
+                            ////MessageBox.Show(SelectString(line).ToString());
+                            //dummy += SelectString(line) + "#";// Add to list.
 
-                                input += DNBBookData.SelectString(line) + "; ";
-                            }
-                            //erg.Add(input);
-                            line = reader.ReadLine();
-
+                            input += DNBBookData.SelectString(line) + "; ";
                         }
-                    }
-
-                    if (line.Contains("tag=\"245\""))
-                    {
+                        //erg.Add(input);
                         line = reader.ReadLine();
-                        while (line.Contains("</datafield>") == false)
-                        {
-                            if (line.Contains("code=\"a\""))
-                            {
-                                //LBShow.Items.Add(SelectString(line)); // Write to console.
-                                ////MessageBox.Show(SelectString(line).ToString());
-                                //dummy += SelectString(line) + "#";// Add to list.
-
-                                input += DNBBookData.SelectString(line) + "; ";
-                            }
-                          
-                            line = reader.ReadLine();
-
-                        }
-                    }
-                    if (line.Contains("tag=\"250\""))
-                    {
-                        line = reader.ReadLine();
-                        while (line.Contains("</datafield>") == false)
-                        {
-                            if (line.Contains("code=\"a\""))
-                            {
-                                //LBShow.Items.Add(SelectString(line)); // Write to console.
-                                ////MessageBox.Show(SelectString(line).ToString());
-                                //dummy += SelectString(line) + "#";// Add to list.
-
-                                input += DNBBookData.SelectString(line) + "; ";
-                            }
-
-                            line = reader.ReadLine();
-
-                        }
-                    }
-                    if (line.Contains("tag=\"264\""))
-                    {
-                        line = reader.ReadLine();
-                        while (line.Contains("</datafield>") == false)
-                        {
-                            if (line.Contains("code=\"c\""))
-                            {
-                                //LBShow.Items.Add(SelectString(line)); // Write to console.
-                                ////MessageBox.Show(SelectString(line).ToString());
-                                //dummy += SelectString(line) + "#";// Add to list.
-
-                                input += DNBBookData.SelectString(line) + "~";
-                            }
-
-                            line = reader.ReadLine();
-
-                        }
 
                     }
-                    //count += 1;
-                    //MessageBox.Show("count: " + count.ToString());
-                    //erg.Add(input);
                 }
+
+                if (line.Contains("tag=\"245\""))
+                {
+                    line = reader.ReadLine();
+                    while (line.Contains("</datafield>") == false)
+                    {
+                        if (line.Contains("code=\"a\""))
+                        {
+                            //LBShow.Items.Add(SelectString(line)); // Write to console.
+                            ////MessageBox.Show(SelectString(line).ToString());
+                            //dummy += SelectString(line) + "#";// Add to list.
+                            string cName = DNBBookData.SelectString(line);
+                            if (cName.StartsWith("&#"))
+                            {
+                                string[] erg = cName.Split(';');
+                                cName = erg[1].Substring(0, 3) + erg[2];
+                            }
+                            input += cName + "; ";
+                        }
+
+                        line = reader.ReadLine();
+
+                    }
+                }
+                if (line.Contains("tag=\"250\""))
+                {
+                    line = reader.ReadLine();
+                    while (line.Contains("</datafield>") == false)
+                    {
+                        if (line.Contains("code=\"a\""))
+                        {
+                            //LBShow.Items.Add(SelectString(line)); // Write to console.
+                            ////MessageBox.Show(SelectString(line).ToString());
+                            //dummy += SelectString(line) + "#";// Add to list.
+
+                            input += DNBBookData.SelectString(line) + "; ";
+                        }
+
+                        line = reader.ReadLine();
+
+                    }
+                }
+                if (line.Contains("tag=\"264\""))
+                {
+                    line = reader.ReadLine();
+                    while (line.Contains("</datafield>") == false)
+                    {
+                        if (line.Contains("code=\"c\""))
+                        {
+                            //LBShow.Items.Add(SelectString(line)); // Write to console.
+                            ////MessageBox.Show(SelectString(line).ToString());
+                            //dummy += SelectString(line) + "#";// Add to list.
+
+                            input += DNBBookData.SelectString(line) + "~";
+                        }
+
+                        line = reader.ReadLine();
+
+                    }
+
+                }
+                //count += 1;
+                //MessageBox.Show("count: " + count.ToString());
+                //erg.Add(input);
             }
-                return input;
-
-
         }
+        return input;
+
 
     }
+
 }
+
 
 
 

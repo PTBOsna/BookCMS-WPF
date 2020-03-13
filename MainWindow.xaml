@@ -32,7 +32,8 @@
             <MenuItem Header="Extras">
                 <MenuItem Header="Bilder Zuordnung" Click="MenuItem_ImgToGD_Click"/>
             </MenuItem>
-            <MenuItem Header="Test" Click="MenuItemTest_Click"/>
+            <MenuItem Header="Neu-Testbuch" Click="MenuItemTest_Click"/>
+            <MenuItem Header="Testform" Click="MenuItemTestForm_Click"/>
         </Menu>
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar Height="40">
@@ -46,6 +47,12 @@
                     <StackPanel Orientation="Horizontal">
                         <Image Source="H:\SammlungMS-WPF\SammlungMS-WPF\Resources\editpaste.png" />
                         <TextBlock Margin="3,0,0,0">Paste</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Click="AddDNB"  ToolTip="Hinzufügen aus DNB.">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="buchadd.png"/>
+                       
                     </StackPanel>
                 </Button>
             </ToolBar>
@@ -67,7 +74,7 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Background="AliceBlue">
                 <Label Content="Titel suchen: " VerticalAlignment="Center"/>
-                <TextBox x:Name="txtSuche" Width="100" Margin=" 5 7" SelectionChanged="txtSuche_SelectionChanged"/>
+                <TextBox x:Name="txtSuche" Width="100" Margin=" 5 7" TextChanged="txtSuche_TextChanged"/>
                 <Button x:Name="btDel" Content="Löschen" Width="75" Click="btDel_Click" />
             </StackPanel>
             <Border   Grid.Row="2" Grid.Column="0" BorderBrush="Gray" BorderThickness="1">

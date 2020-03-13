@@ -79,6 +79,7 @@ namespace BookCMS_WPF
 
             var personen = from p in Admin.conn.PersonRolle where p.SortBy.StartsWith(item.Tag.ToString()) && p.RolleID == rolle orderby p.SortBy select p;
 
+            //MessageBox.Show(personen.Count().ToString());
 
             foreach (var person in personen)
             {
@@ -198,7 +199,7 @@ namespace BookCMS_WPF
             txtSuche.Text = null;
         }
 
-        private void txtSuche_SelectionChanged(object sender, RoutedEventArgs e)
+        private void txtSuche_TextChanged(object sender, TextChangedEventArgs e)
         {
             //MessageBox.Show(txtSuche.Text);
             if (string.IsNullOrEmpty(txtSuche.Text) == false)
@@ -259,8 +260,22 @@ namespace BookCMS_WPF
 
         private void MenuItemTest_Click(object sender, RoutedEventArgs e)
         {
-            XTest ts = new XTest();
+            AddBook ts = new AddBook("#");
             ts.ShowDialog();
         }
+
+        private void AddDNB(object sender, RoutedEventArgs e)
+        {
+            SearchDNB ab = new SearchDNB();
+            ab.ShowDialog();
+        }
+
+        private void MenuItemTestForm_Click(object sender, RoutedEventArgs e)
+        {
+            XTest xt = new XTest();
+            xt.ShowDialog();
+        }
+
+       
     }
 }
