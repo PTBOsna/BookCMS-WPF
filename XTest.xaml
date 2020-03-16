@@ -87,16 +87,25 @@
             </StackPanel>
 
             <StackPanel Grid.Row="1" Grid.Column="0">
-            <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Path=nr_list}" x:Name="DGNamen" AutoGenerateColumns="False">
+            <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Path=nr_list, Mode=TwoWay}"  x:Name="DGNamen" AutoGenerateColumns="False" >
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Vorgeschlagen" Binding="{Binding name}"/>
                         <DataGridTextColumn Header="Rolle" Binding="{Binding rolle}"/>
 
                         <DataGridTextColumn Header="In DB vorhanden" Binding="{Binding nameInDB}" />
                         <DataGridTextColumn Header="DB ID" Binding="{Binding currID}" />
+                        <DataGridTemplateColumn Header="Edit">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Name="btnView" Content="Edit" Click="btnView_Click" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                     </DataGrid.Columns>
-                
+               
             </DataGrid>
+
+                
                 <UniformGrid Columns="3">
                     <Button Content="Hinzufügen" Click="BtnAdd_click"/>
                     <Button Content="Bearbeiten" Click="BtnEdit_click"/>
@@ -106,7 +115,7 @@
             <StackPanel Grid.Row="1" Grid.Column="1">
 
                 <TextBox x:Name="txtSearch"  TextChanged="txtSearch_TextChanged"/>
-                <DataGrid x:Name="DGNames" ItemsSource="{Binding searchName}" AutoGenerateColumns="False" SelectionChanged="DGNames_SelectionChanged">
+                <DataGrid x:Name="DGNameInDB" ItemsSource="{Binding searchName}" AutoGenerateColumns="False" SelectionChanged="DGNameInDB_SelectionChanged">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Name in DB" Binding="{Binding SortBy}"/>
                         <DataGridTextColumn Header="ID" Binding="{Binding PersonID}"/>
@@ -114,6 +123,24 @@
                 </DataGrid>
                 <ListBox Grid.Row="1" Grid.Column="1" x:Name="lbTitel"/>
             </StackPanel>
+
+            <DataGrid Grid.Row="2" Grid.Column="2" ItemsSource="{Binding Path=nr_list, Mode=TwoWay}"  x:Name="DGNamen2" AutoGenerateColumns="False" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Vorgeschlagen" Binding="{Binding name}"/>
+                    <DataGridTextColumn Header="Rolle" Binding="{Binding rolle}"/>
+                    <DataGridComboBoxColumn x:Name="ComboBoxColumn" Header="RolleVK"  SelectedItemBinding="{Binding autorrolle}"/>
+                    <DataGridTextColumn Header="In DB vorhanden" Binding="{Binding nameInDB}" />
+                    <DataGridTextColumn Header="DB ID" Binding="{Binding currID}" />
+                    <DataGridTemplateColumn Header="Edit">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Name="btnView" Content="Edit" Click="btnView_Click" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+
+            </DataGrid>
         </Grid>
     </DockPanel>
 </Window>

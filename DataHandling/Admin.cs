@@ -13,3 +13,10 @@ namespace BookCMS_WPF.DataHandling
         public static string currDNB_ID;
     }
 }
+public class NameRolle
+{
+    public string name { get; set; }
+    public string rolle { get; set; }
+    public string nameInDB { get; set; }
+    public Int32 currID { get; set; }
+}

@@ -223,8 +223,8 @@ namespace BookCMS_WPF
                 return;
             }
             var selBuch = (from b in Admin.conn.Buch
-                          from s in Admin.conn.Sachgruppe
-                          where b.ID == sel.ID && s.GenreID == b.SachgruppeID
+                          from s in Admin.conn.BuchTyp
+                          where b.ID == sel.ID && s.ID == b.TypID
                           select new { b, s }).FirstOrDefault();
             cBookID = selBuch.b.ID;
             DetailPanel.DataContext = selBuch;
@@ -276,6 +276,10 @@ namespace BookCMS_WPF
             xt.ShowDialog();
         }
 
-       
+        private void MenuItemTestDG_Click(object sender, RoutedEventArgs e)
+        {
+            XDGTest xdg = new XDGTest();
+            xdg.ShowDialog();
+        }
     }
 }

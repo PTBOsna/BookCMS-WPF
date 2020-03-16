@@ -11,6 +11,10 @@
         <Style TargetType="TabItem">
             <Setter Property="MinWidth" Value="15"/>
         </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
     </Window.Resources>
     <DockPanel Background="#fef6e4">
         <Menu DockPanel.Dock="Top">
@@ -34,6 +38,7 @@
             </MenuItem>
             <MenuItem Header="Neu-Testbuch" Click="MenuItemTest_Click"/>
             <MenuItem Header="Testform" Click="MenuItemTestForm_Click"/>
+            <MenuItem Header="TestDG" Click="MenuItemTestDG_Click"/>
         </Menu>
         <ToolBarTray DockPanel.Dock="Top">
             <ToolBar Height="40">
@@ -155,9 +160,15 @@
             <TreeView x:Name="PersonTrv" Grid.Row="3" Grid.Column="0" SelectedItemChanged="PersonTrv_SelectedItemChanged" >
                 <TreeViewItem Margin="3" Header="Personen" FontWeight="Bold"/>
             </TreeView>
-            <StackPanel Grid.Row="3" Grid.Column="2" Orientation="Vertical" Background="LightSteelBlue" x:Name="DetailPanel" >
-                <TextBlock Text="{Binding Path=b.Titel}" Margin="10"/>
-                <TextBlock Text="{Binding Path=b.Untertitel}" Margin="10"/>
+            <StackPanel Grid.Row="3" Grid.Column="2" Orientation="Vertical" Background="Moccasin" x:Name="DetailPanel">
+                <StackPanel.Resources>
+                    <Style TargetType="TextBlock">
+                       
+                        <Setter Property="FontSize" Value="12" />
+                    </Style>
+                </StackPanel.Resources>
+                <TextBlock Text="{Binding Path=b.Titel}" Margin="10" TextWrapping="Wrap"/>
+                <TextBlock Text="{Binding Path=b.Untertitel}" Margin="10" TextWrapping="Wrap"/>
                 <TextBlock Text="{Binding Path=b.AutorSort}" Margin="10"/>
                 <TextBlock Text="{Binding Path=s.SortBy}" Margin="10"/>
             </StackPanel>

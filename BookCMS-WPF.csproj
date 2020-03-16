@@ -89,8 +89,14 @@
     </Compile>
     <Compile Include="DataHandling\BookData.cs" />
     <Compile Include="DataHandling\CheckData.cs" />
+    <Compile Include="EditNameRolle.xaml.cs">
+      <DependentUpon>EditNameRolle.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SearchDNB.xaml.cs">
       <DependentUpon>SearchDNB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XDGTest.xaml.cs">
+      <DependentUpon>XDGTest.xaml</DependentUpon>
     </Compile>
     <Compile Include="XTest.xaml.cs">
       <DependentUpon>XTest.xaml</DependentUpon>
@@ -100,6 +106,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddEditBook.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditNameRolle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -123,6 +133,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SearchDNB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XDGTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

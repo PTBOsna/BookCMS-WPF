@@ -103,6 +103,8 @@
       <Column Name="SachgruppeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Stichworte" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="AutorBuchLink_Buch" Member="AutorBuchLink" ThisKey="ID" OtherKey="BuchID" Type="AutorBuchLink" IsForeignKey="true" />
+      <Association Name="Verlag_Buch" Member="Verlag" ThisKey="VerlagsID" OtherKey="PublisherID" Type="Verlag" IsForeignKey="true" />
+      <Association Name="BuchTyp_Buch" Member="BuchTyp" ThisKey="TypID" OtherKey="ID" Type="BuchTyp" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Person" Member="Person">
@@ -146,6 +148,7 @@
       <Column Name="Addresse_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="Phone" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
       <Column Name="Fax" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Association Name="Verlag_Buch" Member="Buch" ThisKey="PublisherID" OtherKey="VerlagsID" Type="Buch" />
     </Type>
   </Table>
   <Table Name="dbo.Kategorie" Member="Kategorie">
@@ -185,6 +188,49 @@
       <Column Name="Geburtzort" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
       <Column Name="Sterbeort" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
       <Column Name="Biografie_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.BuchTyp" Member="BuchTyp">
+    <Type Name="BuchTyp">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Marked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="BuchTyp" Member="BuchTyp1" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SortBy" Type="System.String" DbType="NVarChar(52)" CanBeNull="true" />
+      <Column Name="Notiz_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="neu" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Association Name="BuchTyp_Buch" Member="Buch" ThisKey="ID" OtherKey="TypID" Type="Buch" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VerlagsOrt" Member="VerlagsOrt">
+    <Type Name="VerlagsOrt">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Marked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Verlagsort" Member="Verlagsort1" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="SortBy" Type="System.String" DbType="NVarChar(102)" CanBeNull="true" />
+      <Column Name="Notiz_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Druckerei" Member="Druckerei">
+    <Type Name="Druckerei">
+      <Column Name="PrintedByID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Marked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Druckerei" Member="Druckerei1" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SortBy" Type="System.String" DbType="NVarChar(52)" CanBeNull="true" />
+      <Column Name="Notiz_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="WWW" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Adresse_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="Fax" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Bindung" Member="Bindung">
+    <Type Name="Bindung">
+      <Column Name="BindingID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Marked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Bindung" Member="Bindung1" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SortBy" Type="System.String" DbType="NVarChar(52)" CanBeNull="true" />
+      <Column Name="Notiz_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>
