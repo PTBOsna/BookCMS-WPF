@@ -121,7 +121,9 @@
                         <DataGridTextColumn Header="ID" Binding="{Binding PersonID}"/>
                     </DataGrid.Columns>
                 </DataGrid>
-                <ListBox Grid.Row="1" Grid.Column="1" x:Name="lbTitel"/>
+
+                <ComboBox Name="cbTest" IsTextSearchEnabled="True" IsEditable="True" DisplayMemberPath="Language1" SelectedValuePath="LanguageID" ItemsSource="{Binding lang}"
+          TextBoxBase.TextChanged="cbTest_TextChanged" SelectionChanged="cbTest_SelectionChanged" />
             </StackPanel>
 
             <DataGrid Grid.Row="2" Grid.Column="2" ItemsSource="{Binding Path=nr_list, Mode=TwoWay}"  x:Name="DGNamen2" AutoGenerateColumns="False" >

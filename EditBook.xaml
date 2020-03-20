@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookCMS_WPF"
         mc:Ignorable="d"
-        Title="AddEditBook" Height="550" Width="800" Loaded="Window_Loaded">
+        Title="AddEditBook" Height="550" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
     <Window.Resources>
 
         <Style TargetType="Label">

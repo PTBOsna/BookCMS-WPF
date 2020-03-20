@@ -13,7 +13,7 @@ using System.Windows.Controls;
 
 namespace BookCMS_WPF
 {
-    
+
     /// <summary>
     /// Interaktionslogik für XTest.xaml
     /// </summary>
@@ -26,14 +26,14 @@ namespace BookCMS_WPF
         {
             InitializeComponent();
             txtInput.Focus();
-           
-           
+
+
         }
 
         private void BtnSearch_Click(object sender, RoutedEventArgs e)
         {
             NameRolle nr = new NameRolle();
-           nr_list = new List<NameRolle>();
+            nr_list = new List<NameRolle>();
             string input = txtInput.Text;
             if (string.IsNullOrEmpty(input) == true)
             {
@@ -43,8 +43,8 @@ namespace BookCMS_WPF
             string s = s = File.ReadAllText(sampleXml + txtInput.Text.Trim() + ".mrcx"); ;
             DataHandling.DNBBookData dnbdata = new DNBBookData(s);
             //MessageBox.Show(dnbdata.dnb_nr + "/" + dnbdata.dnb_isbn_13 + "/" + dnbdata.dnb_isbn + "/" + dnbdata.dnb_titel + "/" + dnbdata.dnb_stichwort + "/" + dnbdata.dnb_index);
-            
-            lbTitel.Items.Add(dnbdata.dnb_Autor_sort + ", " + dnbdata.dnb_Rolle);
+
+            //cbTitel.Items.Add(dnbdata.dnb_Autor_sort + ", " + dnbdata.dnb_Rolle);
             string[] name = dnbdata.dnb_Autor_sort.Split(',');
             string[] ret = FindAutor(name[0]).Split('#');
             nr_list.Add(new NameRolle() { name = dnbdata.dnb_Autor_sort, rolle = dnbdata.dnb_Rolle, nameInDB = ret[1], currID = Int32.Parse(ret[0]) });
@@ -66,11 +66,11 @@ namespace BookCMS_WPF
             //  parts.Add(new Part() {PartName="crank arm", PartId=1234});
             txtInput.Focus();
             //lbTitel.Items.Clear();
-            foreach (var item in nr_list)
-            {
-                name = item.name.Split(',');
-                lbTitel.Items.Add(item.name + "; " + item.rolle + " - " + FindAutor(name[0]));
-            }
+            //foreach (var item in nr_list)
+            //{
+            //    name = item.name.Split(',');
+            //    cbTitel.Items.Add(item.name + "; " + item.rolle + " - " + FindAutor(name[0]));
+            //}
 
             //Datagrid vorbereiten
 
@@ -78,6 +78,12 @@ namespace BookCMS_WPF
             ComboBoxColumn.ItemsSource = autorrolle;
             DGNamen2.ItemsSource = nr_list;
             DGNamen.ItemsSource = nr_list;
+            //cbTitel.ItemsSource = nr_list;
+            var lang = from lg in Admin.conn.Language select lg;
+           
+            cbTest.ItemsSource = lang.ToList();
+           
+
 
             //lbTitel.Items.Add(dnbdata.dnb_Autor_sort);
             //lbTitel.Items.Add(dnbdata.dnb_Rolle);
@@ -142,13 +148,43 @@ namespace BookCMS_WPF
             try
             {
                 NameRolle nr = DGNamen.SelectedItem as NameRolle;
-                EditNameRolle enr = new EditNameRolle(nr);
-                enr.ShowDialog();
-                DGNamen.ItemsSource = nr_list;
+                if (nr.currID == -1)
+                {
+                    MessageBox.Show("Form AddName aufrufen");
+                }
+                else
+                {
+                    EditNameRolle enr = new EditNameRolle(nr);
+                    enr.ShowDialog();
+                    DGNamen.ItemsSource = nr_list;
+                }
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message.ToString());
+            }
+        }
+        string _prevText = string.Empty;
+        private void cbTest_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            foreach (var item in cbTest.Items)
+            {
+                if (item.ToString().StartsWith(cbTest.Text))
+                {
+                    _prevText = cbTest.Text;
+                    return;
+                }
+            }
+            cbTest.Text = _prevText;
+        }
+
+        private void cbTest_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbTest.SelectedValue!=null)
+            {
+
+            MessageBox.Show(cbTest.SelectedValue.ToString());
             }
         }
     }

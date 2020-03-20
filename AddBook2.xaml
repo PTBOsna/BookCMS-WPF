@@ -1,0 +1,73 @@
+﻿<Window x:Class="BookCMS_WPF.AddBook2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookCMS_WPF"
+        mc:Ignorable="d"
+        Title="AddBook2" Height="850" Width="1000">
+    <Window.Resources>
+
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="DimGray" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="DarkGray" />
+            <Setter Property="Margin"  Value="6 2 2 2"/>
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Foreground" Value="Gray" />
+            <Setter Property="Margin"  Value="4 2 2 2"/>
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="95"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Grid.ColumnSpan="4" BorderBrush="LightBlue" BorderThickness="1">
+            <StackPanel Background="AliceBlue">
+            <TextBlock Text="Titel"/>
+            <TextBlock Text="Untertitel"/>
+                <Label Content="Signatur"/>
+                <TextBlock Text="0007"/>
+            </StackPanel>
+        </Border>
+        <!--DB-Felder-->
+        <StackPanel Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Background="Azure">
+            <Label Content="Vorhandene Felder:"/>
+            <Label Content="Auflage"/>
+            <TextBox Text="{Binding Path=dnb_auflage}"/>
+            <Label Content="Jahr/Copyright"/>
+            <TextBox Text="{Binding Path=dnb_jahr}"/>
+            <Label Content="ISBN"/>
+            <TextBox Text="{Binding Path=dnb_ISBN}"/>
+            <Label Content="Verlagsort"/>
+        </StackPanel>
+        <!--Daten aus DNB-->
+        <StackPanel Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Background="Azure">
+            <Label Content="Aus DNB übernehmen:"/>
+            
+        </StackPanel>
+    </Grid>
+</Window>

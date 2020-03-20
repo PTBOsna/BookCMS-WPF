@@ -6,96 +6,219 @@
  
         xmlns:local="clr-namespace:BookCMS_WPF"
         mc:Ignorable="d"
-        Title="AddBook" Height="700" Width="800" Loaded="Window_Loaded">
+        Title="Neues Buch aus DNB" Height="900" Width="1000" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="DimGray" />
+            <Setter Property="FontSize" Value="12" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="DarkGray" />
+            <Setter Property="Margin"  Value="6 2 2 2"/>
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Foreground" Value="Gray" />
+            <Setter Property="Margin"  Value="4 2 2 2"/>
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+
+    </Window.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="80"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="130"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="AliceBlue">
             <Label Content="Titel:"/>
-            <TextBox x:Name="txtTitel" Text="{Binding Path=dnb_titel}" FontSize="14"/>
-            <TextBox x:Name="txtSubTitel" Text="{Binding Path=dnb_untertitel}" FontSize="13" FontWeight="Bold"/>
+            <TextBox x:Name="txtTitel" FontSize="14"/>
+            <TextBox x:Name="txtSubTitel"  FontSize="13" FontWeight="Bold"/>
+            <Label Content="Signatur:"></Label>
+            <TextBlock x:Name="txtSignatur" FontSize="14" FontWeight="Bold"/>
         </StackPanel>
-        <!--Personen-->
-        <Border Grid.Row="2" Grid.Column="0" BorderThickness="1" BorderBrush="Gray" Margin="5" >
-            <StackPanel Background="LightSteelBlue">
-                <Label Content="Personen" FontSize="14" FontWeight="Bold"/>
-                <Label Content="Name"/>
-                <TextBox x:Name="txtAutor" Text="{Binding Path=dnb_Autor_sort}"/>
-                <Label Content="Name änder in: "/>
-                <ComboBox x:Name="cbName" Margin="5" ItemsSource="{Binding per}"
-                     SelectedValuePath="PersonID" StaysOpenOnEdit="True" SelectionChanged="cbName_SelectionChanged" >
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Path=SortBy}" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
+        <TabControl Grid.Row="1">
+            <TabItem Header="Grunddaten">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
 
-                <Label Content="Rolle"/>
-                <TextBox Text="{Binding Path=dnb_rolle_lang}"/>
-            </StackPanel>
-        </Border>
-        <!--Grunddaten-->
-        <Border Grid.Row="2" Grid.Column="1" BorderThickness="1" BorderBrush="Gray" Margin="5">
-            <StackPanel Background="LightSteelBlue">
-                <Label Content="Bibliografische Angaben" FontSize="14" FontWeight="Bold"/>
-               
-               
-                <Label Content="Auflage"/>
-                <TextBox Text="{Binding Path=dnb_auflage}"/>
-                <Label Content="Jahr"/>
-                <TextBox Text="{Binding Path=dnb_jahr}"/>
-                <Label Content="Verlag"/>
-                <TextBox Text="{Binding Path=dnb_verlagsname}"/>
-                <Label Content="Verlagsort"/>
-                <TextBox Text="{Binding Path=dnb_verlagsort}"/>
-                <ListBox x:Name="lbName"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                       
+                    </Grid.RowDefinitions>
 
 
-            </StackPanel>
-        </Border>
-        <!--Organisation-->
-        <Border Grid.Row="2" Grid.Column="2" BorderThickness="1" BorderBrush="Gray" Margin="5">
-            <StackPanel Background="LightSteelBlue">
-                <Label Content="Organisation" FontSize="14" FontWeight="Bold"/>
-                <Label Content="Buchtyp"/>
-                <TextBox Text="{Binding Path=dnb_autor}"/>
-                <Label Content="Sachgruppe"/>
-                <TextBox Text="{Binding Path=dnb_rolle_lang}"/>
-                <Label Content="Standort"/>
-                <TextBox Text="{Binding Path=dnb_auflage}"/>
-                <Label Content="Stichworte"/>
-                <TextBox Text="{Binding Path=dnb_stichwort}" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"/>
-                <Label  Content="DNB-Index"/>
+                    <!--Personen-->
+                    <Border Grid.Row="0" Grid.Column="0" BorderThickness="1" BorderBrush="Gray" Margin="5" Grid.ColumnSpan="2" >
+                        <StackPanel Background="LightSteelBlue">
+                            <Label Content="Personen" FontSize="14" FontWeight="Bold"/>
+                            <DataGrid Grid.Row="1" Grid.Column="0" x:Name="DGPersonen" ItemsSource="{Binding nr_list}"
+                    AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Vorgeschlagen" Binding="{Binding name}"/>
+                                    <DataGridTextColumn Header="Rolle" Binding="{Binding rolle}"/>
+                                    <DataGridTextColumn Header="In DB vorhanden" Binding="{Binding nameInDB}" />
+                                    <DataGridTemplateColumn Header="Edit">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Name="btnView" Content="Edit" Click="btnView_Click" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
 
-                <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding Path=dnb_index}" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"/>
-                <Label Content="Mitautoren/Übersetzer"/>
-                <TextBox x:Name="txtMitAutoren" TextWrapping="Wrap" Text="{Binding Path=dnb_mitautor}"/>
-            </StackPanel>
-        </Border>
-        <!--Zustand und Preis-->
-        <Border Grid.Row="2" Grid.Column="3" BorderThickness="1" BorderBrush="Gray" Margin="5">
-            <StackPanel Background="LightSteelBlue">
-                <Label Content="Zustand und Preis" FontSize="14" FontWeight="Bold"/>
-                <Label Content="Erworben"/>
-                <TextBox Text=""/>
-                <Label Content="Zusatand"/>
-                <TextBox Text=""/>
-                <Label Content="Preis"/>
-                <TextBox Text="{Binding Path=dnb_preis}"/>
-                
-            </StackPanel>
-        </Border>
+                                </DataGrid.Columns>
+                            </DataGrid>
+
+
+                        </StackPanel>
+                    </Border>
+                    <!--Verlag-->
+                    <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="Gray" Margin="5" Grid.ColumnSpan="2" VerticalAlignment="Stretch" >
+                        <StackPanel Background="LightSteelBlue">
+                            <Label Content="Verlag" Name="lblVerlag" FontSize="14" FontWeight="Bold"/>
+                            <DataGrid Grid.Row="1" Grid.Column="0" x:Name="DGVerlag" ItemsSource="{Binding verl_list}"
+                    AutoGenerateColumns="False" CanUserAddRows="False" SelectedCellsChanged="DG_Publischer_changed">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Vorgeschlagen" Binding="{Binding verlag}"/>
+
+                                    <DataGridTextColumn Header="In DB vorhanden" Binding="{Binding verlagInDB}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <Button x:Name="btnPublNew" Content="Verlag neu aufnehmen" Click="BtnPublischerNew_Click"/>
+
+                        </StackPanel>
+                    </Border>
+                    <!--Druckerei-->
+                    <Border Grid.Row="2" Grid.Column="0" BorderThickness="1" BorderBrush="Gray" Margin="5" Grid.ColumnSpan="2" VerticalAlignment="Stretch">
+                        <StackPanel Background="LightSteelBlue">
+                            <Label x:Name="lblPrinter" Content="Druckerei" FontSize="14" FontWeight="Bold"/>
+                            <DataGrid Grid.Row="1" Grid.Column="0" x:Name="DGDruckerei" ItemsSource="{Binding verl_list}"
+                    AutoGenerateColumns="False" CanUserAddRows="False" SelectedCellsChanged="DG_Printer_changed">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Vorgeschlagen" Binding="{Binding verlag}"/>
+
+                                    <DataGridTextColumn Header="In DB vorhanden" Binding="{Binding verlagInDB}" />
+                                    <DataGridTemplateColumn Header="Edit">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Name="btnView" Content="Edit" Click="btnView_Click" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <Button x:Name="btnPrtlNew" Content="Druckerei neu aufnehmen" Click="BtnPrinterNew_Click"/>
+
+                        </StackPanel>
+                    </Border>
+                    <!--Grunddaten-->
+                    <Border Grid.Row="0" Grid.Column="3" Grid.RowSpan="2" BorderThickness="1" BorderBrush="Gray" Margin="5">
+                        <StackPanel Background="LightSteelBlue">
+                            <Label Content="Bibliografische Angaben" FontSize="14" FontWeight="Bold"/>
+
+
+                            <Label Content="Auflage"/>
+                            <TextBox x:Name="txtAuflage"/>
+                            <Label Content="Seiten"/>
+                            <TextBox x:Name="txtSeiten"/>
+                            <Label Content="Jahr/Copyright"/>
+                            <TextBox x:Name="txtJahr"/>
+                            <Label Content="ISBN"/>
+                            <TextBox x:Name="txtISBN"/>
+                            <Label Content="Sprache"/>
+                            <TextBox x:Name="txtLanguage" Text="Sprache"/>
+                            <Label Content="Ändern in:"/>
+                            <ComboBox x:Name="cbLang"/>
+                            <Label Content="Bindung:"/>
+                            <ComboBox x:Name="cbBindung"/>
+                        </StackPanel>
+                    </Border>
+                    <!--Organisation-->
+                    <Border Grid.Row="0" Grid.Column="4" Grid.RowSpan="2" BorderThickness="1" BorderBrush="Gray" Margin="5">
+                        <StackPanel Background="LightSteelBlue">
+                            <Label Content="Organisation" FontSize="14" FontWeight="Bold"/>
+                            <Label Content="Buchtyp"/>
+                            <TextBox x:Name="txtTyp"/>
+                            <Label Content="Sachgruppe"/>
+                            <TextBox x:Name="txtSachgruppe"/>
+                            <Label Content="Standort"/>
+                            <TextBox x:Name="txtStandort"/>
+
+
+                        </StackPanel>
+                    </Border>
+                    <!--Zustand und Preis-->
+                    <Border Grid.Row="1" Grid.Column="4" Grid.RowSpan="2" BorderThickness="1" BorderBrush="Gray" Margin="5">
+                        <StackPanel Background="LightSteelBlue">
+                            <Label Content="Zustand und Preis" FontSize="14" FontWeight="Bold"/>
+                            <Label Content="Erworben"/>
+                            <TextBox Text=""/>
+                            <Label Content="Zusatand"/>
+                            <TextBox Text=""/>
+                            <Label Content="Preis"/>
+                            <TextBox x:Name="txtPreis"/>
+                            <Label Content="Format"/>
+                            <TextBox x:Name="txtDim"/>
+                        </StackPanel>
+                    </Border>
+                    <!--Generierte Daten-->
+                    <Border Grid.Row="0" Grid.Column="5" Grid.RowSpan="2" BorderThickness="1" BorderBrush="Gray" Margin="5">
+                        <StackPanel Background="LightSteelBlue">
+                            <Label Content="Generierte Daten" FontSize="14" FontWeight="Bold"/>
+                            <Label Content="Titelindex"/>
+                            <TextBox x:Name="txtTitelIndex"/>
+                            <Label Content="TitelSort"/>
+                            <TextBox x:Name="txtTitelSort"/>
+                            <Label Content="AutorSort"/>
+                            <TextBox x:Name="txtAutorSort" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Sachgruppe/Details">
+
+            </TabItem>
+            <TabItem Header="Erweiterte Angaben">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30*"/>
+                        <ColumnDefinition Width="299*"/>
+                        <ColumnDefinition Width="329*"/>
+                        <ColumnDefinition Width="328*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Background="AliceBlue" Grid.ColumnSpan="2">
+                        <Label Content="DNB-ID"/>
+                        <TextBlock x:Name="txtDNB"/>
+                        <Label Content="DCC"/>
+                        <TextBlock x:Name="txtDCC"/>
+                        <Label Content="Stichworte"/>
+                        <TextBox x:Name="txtStichworte" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"/>
+                        <Label  Content="DNB-Index"/>
+
+                        <TextBox x:Name="txtIndex" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 
 </Window>

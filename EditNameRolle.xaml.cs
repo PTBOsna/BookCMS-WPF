@@ -54,9 +54,16 @@ namespace BookCMS_WPF
             txtRolle.Text = cbRolle.Text;
             txtRolleID.Text = cbRolle.SelectedValue.ToString();
         }
-        
 
-      
+        private void BtnNameNew_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Form AddName aufrufen");
+        }
+
+        private void Btn_close(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+        }
     }
 
 }

@@ -84,8 +84,11 @@
     <Compile Include="AddBook.xaml.cs">
       <DependentUpon>AddBook.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AddEditBook.xaml.cs">
-      <DependentUpon>AddEditBook.xaml</DependentUpon>
+    <Compile Include="AddBook2.xaml.cs">
+      <DependentUpon>AddBook2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EditBook.xaml.cs">
+      <DependentUpon>EditBook.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataHandling\BookData.cs" />
     <Compile Include="DataHandling\CheckData.cs" />
@@ -105,7 +108,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AddEditBook.xaml">
+    <Page Include="AddBook2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditBook.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -61,7 +61,7 @@ namespace BookCMS_WPF.Buecher
 
 		private System.Nullable<int> _SerienID{ get; set; }
 
-		private System.Nullable<int> _Seiten{ get; set; }
+		private string _Seiten{ get; set; }
 
 		private System.Nullable<short> _Abschnitte{ get; set; }
 
