@@ -156,8 +156,8 @@
   </Table>
   <Table Name="dbo.Buch" Member="Buch">
     <Type Name="Buch">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Marked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="ID" AutoSync="Never" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Marked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="true" />
       <Column Name="MediaCount" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
       <Column Name="Titel" Type="System.String" DbType="NVarChar(253)" CanBeNull="true" />
       <Column Name="TitelIndex" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
@@ -235,6 +235,26 @@
       <Column Name="UnterkategorieID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="SachgruppeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Stichworte" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Standort" Member="Standort">
+    <Type Name="Standort">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Marked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Standort" Member="Standort1" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SortBy" Type="System.String" DbType="NVarChar(52)" CanBeNull="true" />
+      <Column Name="Notes" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Notiz_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="MarkedQS" Type="System.Byte" DbType="TinyInt" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Unterkategorie" Member="Unterkategorie">
+    <Type Name="Unterkategorie">
+      <Column Name="SubCategoryID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Marked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Unterkategorie" Member="Unterkategorie1" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="SortBy" Type="System.String" DbType="NVarChar(52)" CanBeNull="true" />
+      <Column Name="Notiz_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

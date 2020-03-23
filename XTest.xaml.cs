@@ -66,11 +66,14 @@ namespace BookCMS_WPF
             //  parts.Add(new Part() {PartName="crank arm", PartId=1234});
             txtInput.Focus();
             //lbTitel.Items.Clear();
-            //foreach (var item in nr_list)
-            //{
-            //    name = item.name.Split(',');
-            //    cbTitel.Items.Add(item.name + "; " + item.rolle + " - " + FindAutor(name[0]));
-            //}
+            foreach (var item in nr_list)
+            {
+                var rolleID = (from ri in Admin.conn.AutorRolle where ri.AutorKurz == item.rolle select ri).FirstOrDefault();
+                if (rolleID != null)
+                {
+                    item.currRolleID = rolleID.ID;
+                }
+            }
 
             //Datagrid vorbereiten
 
@@ -80,9 +83,9 @@ namespace BookCMS_WPF
             DGNamen.ItemsSource = nr_list;
             //cbTitel.ItemsSource = nr_list;
             var lang = from lg in Admin.conn.Language select lg;
-           
+
             cbTest.ItemsSource = lang.ToList();
-           
+
 
 
             //lbTitel.Items.Add(dnbdata.dnb_Autor_sort);
@@ -181,10 +184,10 @@ namespace BookCMS_WPF
 
         private void cbTest_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (cbTest.SelectedValue!=null)
+            if (cbTest.SelectedValue != null)
             {
 
-            MessageBox.Show(cbTest.SelectedValue.ToString());
+                MessageBox.Show(cbTest.SelectedValue.ToString());
             }
         }
     }

@@ -46,28 +46,33 @@
             <Label Content="Signatur:"></Label>
             <TextBlock x:Name="txtSignatur" FontSize="14" FontWeight="Bold"/>
         </StackPanel>
+        <!--TabControl-->
         <TabControl Grid.Row="1">
+            <!--Tab Grunddaten-->
             <TabItem Header="Grunddaten">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="126*"/>
+                        <ColumnDefinition Width="39*"/>
+                        <ColumnDefinition Width="17*"/>
+                        <ColumnDefinition Width="108*"/>
+                        <ColumnDefinition Width="40*"/>
+                        <ColumnDefinition Width="164*"/>
+                        <ColumnDefinition Width="164*"/>
+                        <ColumnDefinition Width="164*"/>
+                        <ColumnDefinition Width="164*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
 
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
-                       
+
                     </Grid.RowDefinitions>
 
 
                     <!--Personen-->
-                    <Border Grid.Row="0" Grid.Column="0" BorderThickness="1" BorderBrush="Gray" Margin="5" Grid.ColumnSpan="2" >
+                    <Border Grid.Row="0" Grid.Column="0" BorderThickness="1" BorderBrush="Gray" Margin="5" Grid.ColumnSpan="5" >
                         <StackPanel Background="LightSteelBlue">
                             <Label Content="Personen" FontSize="14" FontWeight="Bold"/>
                             <DataGrid Grid.Row="1" Grid.Column="0" x:Name="DGPersonen" ItemsSource="{Binding nr_list}"
@@ -91,7 +96,7 @@
                         </StackPanel>
                     </Border>
                     <!--Verlag-->
-                    <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="Gray" Margin="5" Grid.ColumnSpan="2" VerticalAlignment="Stretch" >
+                    <Border Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="Gray" Margin="5" Grid.ColumnSpan="5" VerticalAlignment="Stretch" >
                         <StackPanel Background="LightSteelBlue">
                             <Label Content="Verlag" Name="lblVerlag" FontSize="14" FontWeight="Bold"/>
                             <DataGrid Grid.Row="1" Grid.Column="0" x:Name="DGVerlag" ItemsSource="{Binding verl_list}"
@@ -107,7 +112,7 @@
                         </StackPanel>
                     </Border>
                     <!--Druckerei-->
-                    <Border Grid.Row="2" Grid.Column="0" BorderThickness="1" BorderBrush="Gray" Margin="5" Grid.ColumnSpan="2" VerticalAlignment="Stretch">
+                    <Border Grid.Row="2" Grid.Column="0" BorderThickness="1" BorderBrush="Gray" Margin="5" Grid.ColumnSpan="5" VerticalAlignment="Stretch">
                         <StackPanel Background="LightSteelBlue">
                             <Label x:Name="lblPrinter" Content="Druckerei" FontSize="14" FontWeight="Bold"/>
                             <DataGrid Grid.Row="1" Grid.Column="0" x:Name="DGDruckerei" ItemsSource="{Binding verl_list}"
@@ -131,7 +136,7 @@
                         </StackPanel>
                     </Border>
                     <!--Grunddaten-->
-                    <Border Grid.Row="0" Grid.Column="3" Grid.RowSpan="2" BorderThickness="1" BorderBrush="Gray" Margin="5">
+                    <Border Grid.Row="0" Grid.Column="5" Grid.RowSpan="3" BorderThickness="1" BorderBrush="Gray" Margin="5">
                         <StackPanel Background="LightSteelBlue">
                             <Label Content="Bibliografische Angaben" FontSize="14" FontWeight="Bold"/>
 
@@ -145,29 +150,52 @@
                             <Label Content="ISBN"/>
                             <TextBox x:Name="txtISBN"/>
                             <Label Content="Sprache"/>
-                            <TextBox x:Name="txtLanguage" Text="Sprache"/>
+                            <TextBox x:Name="txtLanguage" IsReadOnly="True"/>
                             <Label Content="Ändern in:"/>
-                            <ComboBox x:Name="cbLang"/>
+                            <ComboBox x:Name="cbLang"  Margin="5" DisplayMemberPath="lng"
+SelectedValuePath="id" StaysOpenOnEdit="True" 
+IsEditable="True" IsReadOnly="True" Text="-- Bitte wählen --" DropDownClosed="cbLang_DropDownClosed" />
                             <Label Content="Bindung:"/>
-                            <ComboBox x:Name="cbBindung"/>
+                            <TextBox x:Name="txtBindung" IsReadOnly="True"/>
+                            <ComboBox x:Name="cbBindung" Margin="5" DisplayMemberPath="bnd"
+SelectedValuePath="id" StaysOpenOnEdit="True" 
+IsEditable="True" IsReadOnly="True" Text="-- Bitte wählen --" DropDownClosed="cbBindung_DropDownClosed" />
                         </StackPanel>
                     </Border>
                     <!--Organisation-->
-                    <Border Grid.Row="0" Grid.Column="4" Grid.RowSpan="2" BorderThickness="1" BorderBrush="Gray" Margin="5">
+                    <Border Grid.Row="0" Grid.Column="6" Grid.RowSpan="3" BorderThickness="1" BorderBrush="Gray" Margin="5">
                         <StackPanel Background="LightSteelBlue">
                             <Label Content="Organisation" FontSize="14" FontWeight="Bold"/>
                             <Label Content="Buchtyp"/>
-                            <TextBox x:Name="txtTyp"/>
+                            <TextBox x:Name="txtTyp" IsReadOnly="True"/>
+                            <ComboBox x:Name="cbBuchTyp" Margin="5" DisplayMemberPath="typ"
+SelectedValuePath="id" StaysOpenOnEdit="True" 
+IsEditable="True" IsReadOnly="True" Text="-- Bitte wählen --" DropDownClosed="cbBuchTyp_DropDownClosed" />
+                            <Label Content="Kategorie"/>
+                            <TextBox x:Name="txtKategorie" IsReadOnly="True"/>
+                            <ComboBox x:Name="cbKategorie" Margin="5" DisplayMemberPath="kat"
+SelectedValuePath="id" StaysOpenOnEdit="True" 
+IsEditable="True" IsReadOnly="True" Text="-- Bitte wählen --" DropDownClosed="cbKategorie_DropDownClosed" />
+                            <Label Content="Unterkategorie"/>
+                            <TextBox x:Name="txtUKategorie" IsReadOnly="True"/>
+                            <ComboBox x:Name="cbUKategorie" Margin="5" DisplayMemberPath="ukat"
+SelectedValuePath="id" StaysOpenOnEdit="True" 
+IsEditable="True" IsReadOnly="True" Text="-- Bitte wählen --" DropDownClosed="cbUKategorie_DropDownClosed" />
                             <Label Content="Sachgruppe"/>
-                            <TextBox x:Name="txtSachgruppe"/>
-                            <Label Content="Standort"/>
-                            <TextBox x:Name="txtStandort"/>
-
+                            <TextBox x:Name="txtSachgruppe" IsReadOnly="True"/>
+                            <ComboBox x:Name="cbSachgruppe" Margin="5" DisplayMemberPath="sg"
+SelectedValuePath="id" StaysOpenOnEdit="True" 
+IsEditable="True" IsReadOnly="True" Text="-- Bitte wählen --" DropDownClosed="cbSachgruppe_DropDownClosed" />
+                            <Label Content="Standort" />
+                            <TextBox x:Name="txtStandort" IsReadOnly="True"/>
+                            <ComboBox x:Name="cbStandort" Margin="5" DisplayMemberPath="so"
+SelectedValuePath="id" StaysOpenOnEdit="True" 
+IsEditable="True" IsReadOnly="True" Text="-- Bitte wählen --" DropDownClosed="cbStandort_DropDownClosed" />
 
                         </StackPanel>
                     </Border>
                     <!--Zustand und Preis-->
-                    <Border Grid.Row="1" Grid.Column="4" Grid.RowSpan="2" BorderThickness="1" BorderBrush="Gray" Margin="5">
+                    <Border Grid.Row="0" Grid.Column="7" Grid.RowSpan="2" BorderThickness="1" BorderBrush="Gray" Margin="5">
                         <StackPanel Background="LightSteelBlue">
                             <Label Content="Zustand und Preis" FontSize="14" FontWeight="Bold"/>
                             <Label Content="Erworben"/>
@@ -181,7 +209,7 @@
                         </StackPanel>
                     </Border>
                     <!--Generierte Daten-->
-                    <Border Grid.Row="0" Grid.Column="5" Grid.RowSpan="2" BorderThickness="1" BorderBrush="Gray" Margin="5">
+                    <Border Grid.Row="0" Grid.Column="8" Grid.RowSpan="2" BorderThickness="1" BorderBrush="Gray" Margin="5">
                         <StackPanel Background="LightSteelBlue">
                             <Label Content="Generierte Daten" FontSize="14" FontWeight="Bold"/>
                             <Label Content="Titelindex"/>
@@ -192,20 +220,43 @@
                             <TextBox x:Name="txtAutorSort" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" />
                         </StackPanel>
                     </Border>
+                    <Image x:Name="ImgBox" Grid.Column="7" Grid.Row="2"/>
                 </Grid>
             </TabItem>
+            <!--Tab Sachgruppe/Details-->
             <TabItem Header="Sachgruppe/Details">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="34*"/>
+                        <ColumnDefinition Width="213*"/>
+                        <ColumnDefinition Width="247*"/>
+                        <ColumnDefinition Width="246*"/>
+                        <ColumnDefinition Width="246*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Background="AliceBlue" Grid.ColumnSpan="2" >
+                        <Label Content="Sammlung (DNB)"/>
+                        <TextBlock x:Name="txtSammlung"/>
+                        <Label Content="Verlagsort (DNB)"/>
+                        <TextBlock x:Name="txtVerlagsort"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Background="AntiqueWhite">
 
+                    </StackPanel>
+                </Grid>
             </TabItem>
+            <!--Tab Erweiterte Angaben-->
             <TabItem Header="Erweiterte Angaben">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="30*"/>
-                        <ColumnDefinition Width="299*"/>
+                        <ColumnDefinition Width="33*"/>
+                        <ColumnDefinition Width="14*"/>
+                        <ColumnDefinition Width="282*"/>
                         <ColumnDefinition Width="329*"/>
                         <ColumnDefinition Width="328*"/>
+
+
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0" Background="AliceBlue" Grid.ColumnSpan="2">
+                    <StackPanel Grid.Column="0" Background="AliceBlue" Grid.ColumnSpan="3"  >
                         <Label Content="DNB-ID"/>
                         <TextBlock x:Name="txtDNB"/>
                         <Label Content="DCC"/>
@@ -215,10 +266,30 @@
                         <Label  Content="DNB-Index"/>
 
                         <TextBox x:Name="txtIndex" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"/>
+                        <Label Content="Original Titel"/>
+                        <TextBox x:Name="txtOrigTitel" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"/>
+                        <Label Content="Original Sprache"/>
+                        <TextBlock x:Name="txtOrigLang"/>
                     </StackPanel>
+                    <Border Grid.Column="3" BorderBrush="Aqua" BorderThickness="1">
+                        <StackPanel>
+                            <Label Content="Ergänzende Hinweise"/>
+                            <TextBox  x:Name="txtAddInfo" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Column="4" BorderBrush="Aqua" BorderThickness="1">
+                        <StackPanel>
+                            <Label Content="Inhalt"/>
+                            <TextBox  x:Name="txtInhalt" HorizontalAlignment="Stretch"  MaxHeight="200" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"/>
+                        </StackPanel>
+                    </Border>
                 </Grid>
             </TabItem>
         </TabControl>
+
+        <UniformGrid Grid.Row="2" Columns="2">
+            <Button Content="Übernehmen" Click="BtnSave_click"/>
+        </UniformGrid>
     </Grid>
 
 </Window>

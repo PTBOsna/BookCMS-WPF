@@ -44,15 +44,19 @@ namespace BookCMS_WPF
             Person sel = DGNameInDB.SelectedItem as Person;
             txtName.Text = sel.SortBy;
             txtNameInDB.Text = sel.PersonID.ToString();
+            cNR.name = sel.SortBy;
+            cNR.nameInDB = sel.SortBy;
         }
 
         private void cbRolle_DropDownClosed(object sender, EventArgs e)
         {
   MessageBox.Show(cbRolle.Text);
             //Int32 selID = Int32.Parse( cbRolle.Text);
-            //var rol = from r in Admin.conn.AutorRolle where r.ID == (Int32) cbRolle.SelectedItem select r;
+            var rol = (from r in Admin.conn.AutorRolle where r.ID == (Int32)cbRolle.SelectedItem select r).FirstOrDefault();
             txtRolle.Text = cbRolle.Text;
             txtRolleID.Text = cbRolle.SelectedValue.ToString();
+            cNR.rolle = rol.AutorKurz;
+            cNR.currRolleID = rol.ID;
         }
 
         private void BtnNameNew_Click(object sender, RoutedEventArgs e)

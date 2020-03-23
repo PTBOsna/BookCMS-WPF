@@ -37,6 +37,9 @@ namespace BookCMS_WPF
     partial void InsertAutorRolle(AutorRolle instance);
     partial void UpdateAutorRolle(AutorRolle instance);
     partial void DeleteAutorRolle(AutorRolle instance);
+    partial void InsertBuch(Buch instance);
+    partial void UpdateBuch(Buch instance);
+    partial void DeleteBuch(Buch instance);
     #endregion
 		
 		public BuchDataClassesDataContext() : 
@@ -178,6 +181,22 @@ namespace BookCMS_WPF
 			get
 			{
 				return this.GetTable<Buch>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Standort> Standort
+		{
+			get
+			{
+				return this.GetTable<Standort>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Unterkategorie> Unterkategorie
+		{
+			get
+			{
+				return this.GetTable<Unterkategorie>();
 			}
 		}
 	}
@@ -2245,12 +2264,14 @@ namespace BookCMS_WPF
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Buch")]
-	public partial class Buch
+	public partial class Buch : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _ID;
 		
-		private bool _Marked;
+		private System.Nullable<bool> _Marked;
 		
 		private System.Nullable<short> _MediaCount;
 		
@@ -2406,7 +2427,1795 @@ namespace BookCMS_WPF
 		
 		private string _Stichworte;
 		
+    #region Definitionen der Erweiterungsmethoden
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnMarkedChanging(System.Nullable<bool> value);
+    partial void OnMarkedChanged();
+    partial void OnMediaCountChanging(System.Nullable<short> value);
+    partial void OnMediaCountChanged();
+    partial void OnTitelChanging(string value);
+    partial void OnTitelChanged();
+    partial void OnTitelIndexChanging(string value);
+    partial void OnTitelIndexChanged();
+    partial void OnAutorSortChanging(string value);
+    partial void OnAutorSortChanged();
+    partial void OnSignaturChanging(string value);
+    partial void OnSignaturChanged();
+    partial void OnVeroeffentlichtChanging(string value);
+    partial void OnVeroeffentlichtChanged();
+    partial void OnCopyrightDatumChanging(string value);
+    partial void OnCopyrightDatumChanged();
+    partial void OnTypIDChanging(System.Nullable<int> value);
+    partial void OnTypIDChanged();
+    partial void OnUntertitelChanging(string value);
+    partial void OnUntertitelChanged();
+    partial void OnTitleSortChanging(string value);
+    partial void OnTitleSortChanged();
+    partial void OnVerlagsIDChanging(System.Nullable<int> value);
+    partial void OnVerlagsIDChanged();
+    partial void OnISBNChanging(string value);
+    partial void OnISBNChanged();
+    partial void OnDNBChanging(string value);
+    partial void OnDNBChanged();
+    partial void OnDDCChanging(string value);
+    partial void OnDDCChanged();
+    partial void OnLCCNChanging(string value);
+    partial void OnLCCNChanged();
+    partial void OnLCCallNumChanging(string value);
+    partial void OnLCCallNumChanged();
+    partial void OnLandDChanging(System.Nullable<int> value);
+    partial void OnLandDChanged();
+    partial void OnSprachenIDChanging(System.Nullable<int> value);
+    partial void OnSprachenIDChanged();
+    partial void OnDruckereiIDChanging(System.Nullable<int> value);
+    partial void OnDruckereiIDChanged();
+    partial void OnBindungIDChanging(System.Nullable<int> value);
+    partial void OnBindungIDChanged();
+    partial void OnAuflageIDChanging(System.Nullable<int> value);
+    partial void OnAuflageIDChanged();
+    partial void OnAuiflageChanging(string value);
+    partial void OnAuiflageChanged();
+    partial void OnDruckIDChanging(System.Nullable<int> value);
+    partial void OnDruckIDChanged();
+    partial void OnSerienIDChanging(System.Nullable<int> value);
+    partial void OnSerienIDChanged();
+    partial void OnSeitenChanging(string value);
+    partial void OnSeitenChanged();
+    partial void OnAbschnitteChanging(System.Nullable<short> value);
+    partial void OnAbschnitteChanged();
+    partial void OnOriginalTitelChanging(string value);
+    partial void OnOriginalTitelChanged();
+    partial void OnOriginalUntertitelChanging(string value);
+    partial void OnOriginalUntertitelChanged();
+    partial void OnOriginaVerlagIDChanging(System.Nullable<int> value);
+    partial void OnOriginaVerlagIDChanged();
+    partial void OnOriginalLandIDChanging(System.Nullable<int> value);
+    partial void OnOriginalLandIDChanged();
+    partial void OnOriginalSpracheIDChanging(System.Nullable<int> value);
+    partial void OnOriginalSpracheIDChanged();
+    partial void OnOriginalCopyrightChanging(string value);
+    partial void OnOriginalCopyrightChanged();
+    partial void OnPreisangabeChanging(string value);
+    partial void OnPreisangabeChanged();
+    partial void OnValueChanging(string value);
+    partial void OnValueChanged();
+    partial void OnPreisChanging(string value);
+    partial void OnPreisChanged();
+    partial void OnZustandIDChanging(System.Nullable<int> value);
+    partial void OnZustandIDChanged();
+    partial void OnGutachterIDChanging(System.Nullable<int> value);
+    partial void OnGutachterIDChanged();
+    partial void OnVersicherungChanging(System.Nullable<int> value);
+    partial void OnVersicherungChanged();
+    partial void OnRegisteriertChanging(string value);
+    partial void OnRegisteriertChanged();
+    partial void OnStatusIDChanging(System.Nullable<int> value);
+    partial void OnStatusIDChanged();
+    partial void OnErworbenChanging(string value);
+    partial void OnErworbenChanged();
+    partial void OnErworbenVonIDChanging(System.Nullable<int> value);
+    partial void OnErworbenVonIDChanged();
+    partial void OnPersonalRatingIDChanging(System.Nullable<int> value);
+    partial void OnPersonalRatingIDChanged();
+    partial void OnBesitzerIDChanging(System.Nullable<int> value);
+    partial void OnBesitzerIDChanged();
+    partial void OnStandortIDChanging(System.Nullable<int> value);
+    partial void OnStandortIDChanged();
+    partial void OnEntleiherIDChanging(System.Nullable<int> value);
+    partial void OnEntleiherIDChanged();
+    partial void OnDatumAusleiheChanging(string value);
+    partial void OnDatumAusleiheChanged();
+    partial void OnRueckgabeDatumChanging(string value);
+    partial void OnRueckgabeDatumChanged();
+    partial void OnverliehenChanging(bool value);
+    partial void OnverliehenChanged();
+    partial void OnzurueckerhaltenChanging(bool value);
+    partial void OnzurueckerhaltenChanged();
+    partial void OnzurueckDatumChanging(string value);
+    partial void OnzurueckDatumChanged();
+    partial void OnzurueckVonIDChanging(System.Nullable<int> value);
+    partial void OnzurueckVonIDChanged();
+    partial void OnEmailOverdueDateChanging(string value);
+    partial void OnEmailOverdueDateChanged();
+    partial void OnEmailReminderDateChanging(string value);
+    partial void OnEmailReminderDateChanged();
+    partial void OnEmailReservedDateChanging(string value);
+    partial void OnEmailReservedDateChanged();
+    partial void OnAnmerkungen_PlainTextChanging(string value);
+    partial void OnAnmerkungen_PlainTextChanged();
+    partial void OnSynopsis_PlainTextChanging(string value);
+    partial void OnSynopsis_PlainTextChanged();
+    partial void OnReviews_PlainTextChanging(string value);
+    partial void OnReviews_PlainTextChanged();
+    partial void OnBarCodeChanging(string value);
+    partial void OnBarCodeChanged();
+    partial void OnOriginalSerieIDChanging(System.Nullable<int> value);
+    partial void OnOriginalSerieIDChanged();
+    partial void OnzuletztGelesenChanging(string value);
+    partial void OnzuletztGelesenChanged();
+    partial void OnAnzahlGelesenChanging(System.Nullable<short> value);
+    partial void OnAnzahlGelesenChanged();
+    partial void OnZustandSchutzumschlagIDChanging(System.Nullable<int> value);
+    partial void OnZustandSchutzumschlagIDChanged();
+    partial void OnDim_WidthChanging(string value);
+    partial void OnDim_WidthChanged();
+    partial void OnDim_HeightChanging(string value);
+    partial void OnDim_HeightChanged();
+    partial void OnDim_DepthChanging(string value);
+    partial void OnDim_DepthChanged();
+    partial void OnVerkaufspreisChanging(string value);
+    partial void OnVerkaufspreisChanged();
+    partial void OnWaehrungIDChanging(System.Nullable<int> value);
+    partial void OnWaehrungIDChanged();
+    partial void OnVerlagsOrtIDChanging(System.Nullable<int> value);
+    partial void OnVerlagsOrtIDChanged();
+    partial void OnASINChanging(string value);
+    partial void OnASINChanged();
+    partial void OnLetzteAenderungChanging(System.Nullable<System.DateTime> value);
+    partial void OnLetzteAenderungChanged();
+    partial void OnFreigabeNrChanging(string value);
+    partial void OnFreigabeNrChanged();
+    partial void OnOriginalFreigabeNrChanging(string value);
+    partial void OnOriginalFreigabeNrChanged();
+    partial void OnKategorieIDChanging(System.Nullable<int> value);
+    partial void OnKategorieIDChanged();
+    partial void OnUnterkategorieIDChanging(System.Nullable<int> value);
+    partial void OnUnterkategorieIDChanged();
+    partial void OnSachgruppeIDChanging(System.Nullable<int> value);
+    partial void OnSachgruppeIDChanged();
+    partial void OnStichworteChanging(string value);
+    partial void OnStichworteChanged();
+    #endregion
+		
 		public Buch()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="Int NOT NULL", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Marked", DbType="Bit NOT NULL")]
+		public System.Nullable<bool> Marked
+		{
+			get
+			{
+				return this._Marked;
+			}
+			set
+			{
+				if ((this._Marked != value))
+				{
+					this.OnMarkedChanging(value);
+					this.SendPropertyChanging();
+					this._Marked = value;
+					this.SendPropertyChanged("Marked");
+					this.OnMarkedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MediaCount", DbType="SmallInt")]
+		public System.Nullable<short> MediaCount
+		{
+			get
+			{
+				return this._MediaCount;
+			}
+			set
+			{
+				if ((this._MediaCount != value))
+				{
+					this.OnMediaCountChanging(value);
+					this.SendPropertyChanging();
+					this._MediaCount = value;
+					this.SendPropertyChanged("MediaCount");
+					this.OnMediaCountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Titel", DbType="NVarChar(253)")]
+		public string Titel
+		{
+			get
+			{
+				return this._Titel;
+			}
+			set
+			{
+				if ((this._Titel != value))
+				{
+					this.OnTitelChanging(value);
+					this.SendPropertyChanging();
+					this._Titel = value;
+					this.SendPropertyChanged("Titel");
+					this.OnTitelChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TitelIndex", DbType="NVarChar(20)")]
+		public string TitelIndex
+		{
+			get
+			{
+				return this._TitelIndex;
+			}
+			set
+			{
+				if ((this._TitelIndex != value))
+				{
+					this.OnTitelIndexChanging(value);
+					this.SendPropertyChanging();
+					this._TitelIndex = value;
+					this.SendPropertyChanged("TitelIndex");
+					this.OnTitelIndexChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AutorSort", DbType="NVarChar(100)")]
+		public string AutorSort
+		{
+			get
+			{
+				return this._AutorSort;
+			}
+			set
+			{
+				if ((this._AutorSort != value))
+				{
+					this.OnAutorSortChanging(value);
+					this.SendPropertyChanging();
+					this._AutorSort = value;
+					this.SendPropertyChanged("AutorSort");
+					this.OnAutorSortChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Signatur", DbType="NVarChar(25)")]
+		public string Signatur
+		{
+			get
+			{
+				return this._Signatur;
+			}
+			set
+			{
+				if ((this._Signatur != value))
+				{
+					this.OnSignaturChanging(value);
+					this.SendPropertyChanging();
+					this._Signatur = value;
+					this.SendPropertyChanged("Signatur");
+					this.OnSignaturChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Veroeffentlicht", DbType="NVarChar(50)")]
+		public string Veroeffentlicht
+		{
+			get
+			{
+				return this._Veroeffentlicht;
+			}
+			set
+			{
+				if ((this._Veroeffentlicht != value))
+				{
+					this.OnVeroeffentlichtChanging(value);
+					this.SendPropertyChanging();
+					this._Veroeffentlicht = value;
+					this.SendPropertyChanged("Veroeffentlicht");
+					this.OnVeroeffentlichtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CopyrightDatum", DbType="NVarChar(8)")]
+		public string CopyrightDatum
+		{
+			get
+			{
+				return this._CopyrightDatum;
+			}
+			set
+			{
+				if ((this._CopyrightDatum != value))
+				{
+					this.OnCopyrightDatumChanging(value);
+					this.SendPropertyChanging();
+					this._CopyrightDatum = value;
+					this.SendPropertyChanged("CopyrightDatum");
+					this.OnCopyrightDatumChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypID", DbType="Int")]
+		public System.Nullable<int> TypID
+		{
+			get
+			{
+				return this._TypID;
+			}
+			set
+			{
+				if ((this._TypID != value))
+				{
+					this.OnTypIDChanging(value);
+					this.SendPropertyChanging();
+					this._TypID = value;
+					this.SendPropertyChanged("TypID");
+					this.OnTypIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Untertitel", DbType="NVarChar(255)")]
+		public string Untertitel
+		{
+			get
+			{
+				return this._Untertitel;
+			}
+			set
+			{
+				if ((this._Untertitel != value))
+				{
+					this.OnUntertitelChanging(value);
+					this.SendPropertyChanging();
+					this._Untertitel = value;
+					this.SendPropertyChanged("Untertitel");
+					this.OnUntertitelChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TitleSort", DbType="NVarChar(255)")]
+		public string TitleSort
+		{
+			get
+			{
+				return this._TitleSort;
+			}
+			set
+			{
+				if ((this._TitleSort != value))
+				{
+					this.OnTitleSortChanging(value);
+					this.SendPropertyChanging();
+					this._TitleSort = value;
+					this.SendPropertyChanged("TitleSort");
+					this.OnTitleSortChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VerlagsID", DbType="Int")]
+		public System.Nullable<int> VerlagsID
+		{
+			get
+			{
+				return this._VerlagsID;
+			}
+			set
+			{
+				if ((this._VerlagsID != value))
+				{
+					this.OnVerlagsIDChanging(value);
+					this.SendPropertyChanging();
+					this._VerlagsID = value;
+					this.SendPropertyChanged("VerlagsID");
+					this.OnVerlagsIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ISBN", DbType="NVarChar(25)")]
+		public string ISBN
+		{
+			get
+			{
+				return this._ISBN;
+			}
+			set
+			{
+				if ((this._ISBN != value))
+				{
+					this.OnISBNChanging(value);
+					this.SendPropertyChanging();
+					this._ISBN = value;
+					this.SendPropertyChanged("ISBN");
+					this.OnISBNChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DNB", DbType="NVarChar(255)")]
+		public string DNB
+		{
+			get
+			{
+				return this._DNB;
+			}
+			set
+			{
+				if ((this._DNB != value))
+				{
+					this.OnDNBChanging(value);
+					this.SendPropertyChanging();
+					this._DNB = value;
+					this.SendPropertyChanged("DNB");
+					this.OnDNBChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DDC", DbType="NVarChar(100)")]
+		public string DDC
+		{
+			get
+			{
+				return this._DDC;
+			}
+			set
+			{
+				if ((this._DDC != value))
+				{
+					this.OnDDCChanging(value);
+					this.SendPropertyChanging();
+					this._DDC = value;
+					this.SendPropertyChanged("DDC");
+					this.OnDDCChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LCCN", DbType="NVarChar(50)")]
+		public string LCCN
+		{
+			get
+			{
+				return this._LCCN;
+			}
+			set
+			{
+				if ((this._LCCN != value))
+				{
+					this.OnLCCNChanging(value);
+					this.SendPropertyChanging();
+					this._LCCN = value;
+					this.SendPropertyChanged("LCCN");
+					this.OnLCCNChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LCCallNum", DbType="NVarChar(50)")]
+		public string LCCallNum
+		{
+			get
+			{
+				return this._LCCallNum;
+			}
+			set
+			{
+				if ((this._LCCallNum != value))
+				{
+					this.OnLCCallNumChanging(value);
+					this.SendPropertyChanging();
+					this._LCCallNum = value;
+					this.SendPropertyChanged("LCCallNum");
+					this.OnLCCallNumChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LandD", DbType="Int")]
+		public System.Nullable<int> LandD
+		{
+			get
+			{
+				return this._LandD;
+			}
+			set
+			{
+				if ((this._LandD != value))
+				{
+					this.OnLandDChanging(value);
+					this.SendPropertyChanging();
+					this._LandD = value;
+					this.SendPropertyChanged("LandD");
+					this.OnLandDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SprachenID", DbType="Int")]
+		public System.Nullable<int> SprachenID
+		{
+			get
+			{
+				return this._SprachenID;
+			}
+			set
+			{
+				if ((this._SprachenID != value))
+				{
+					this.OnSprachenIDChanging(value);
+					this.SendPropertyChanging();
+					this._SprachenID = value;
+					this.SendPropertyChanged("SprachenID");
+					this.OnSprachenIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DruckereiID", DbType="Int")]
+		public System.Nullable<int> DruckereiID
+		{
+			get
+			{
+				return this._DruckereiID;
+			}
+			set
+			{
+				if ((this._DruckereiID != value))
+				{
+					this.OnDruckereiIDChanging(value);
+					this.SendPropertyChanging();
+					this._DruckereiID = value;
+					this.SendPropertyChanged("DruckereiID");
+					this.OnDruckereiIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BindungID", DbType="Int")]
+		public System.Nullable<int> BindungID
+		{
+			get
+			{
+				return this._BindungID;
+			}
+			set
+			{
+				if ((this._BindungID != value))
+				{
+					this.OnBindungIDChanging(value);
+					this.SendPropertyChanging();
+					this._BindungID = value;
+					this.SendPropertyChanged("BindungID");
+					this.OnBindungIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AuflageID", DbType="Int")]
+		public System.Nullable<int> AuflageID
+		{
+			get
+			{
+				return this._AuflageID;
+			}
+			set
+			{
+				if ((this._AuflageID != value))
+				{
+					this.OnAuflageIDChanging(value);
+					this.SendPropertyChanging();
+					this._AuflageID = value;
+					this.SendPropertyChanged("AuflageID");
+					this.OnAuflageIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Auiflage", DbType="NVarChar(255)")]
+		public string Auiflage
+		{
+			get
+			{
+				return this._Auiflage;
+			}
+			set
+			{
+				if ((this._Auiflage != value))
+				{
+					this.OnAuiflageChanging(value);
+					this.SendPropertyChanging();
+					this._Auiflage = value;
+					this.SendPropertyChanged("Auiflage");
+					this.OnAuiflageChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DruckID", DbType="Int")]
+		public System.Nullable<int> DruckID
+		{
+			get
+			{
+				return this._DruckID;
+			}
+			set
+			{
+				if ((this._DruckID != value))
+				{
+					this.OnDruckIDChanging(value);
+					this.SendPropertyChanging();
+					this._DruckID = value;
+					this.SendPropertyChanged("DruckID");
+					this.OnDruckIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SerienID", DbType="Int")]
+		public System.Nullable<int> SerienID
+		{
+			get
+			{
+				return this._SerienID;
+			}
+			set
+			{
+				if ((this._SerienID != value))
+				{
+					this.OnSerienIDChanging(value);
+					this.SendPropertyChanging();
+					this._SerienID = value;
+					this.SendPropertyChanged("SerienID");
+					this.OnSerienIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Seiten", DbType="NVarChar(50)")]
+		public string Seiten
+		{
+			get
+			{
+				return this._Seiten;
+			}
+			set
+			{
+				if ((this._Seiten != value))
+				{
+					this.OnSeitenChanging(value);
+					this.SendPropertyChanging();
+					this._Seiten = value;
+					this.SendPropertyChanged("Seiten");
+					this.OnSeitenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Abschnitte", DbType="SmallInt")]
+		public System.Nullable<short> Abschnitte
+		{
+			get
+			{
+				return this._Abschnitte;
+			}
+			set
+			{
+				if ((this._Abschnitte != value))
+				{
+					this.OnAbschnitteChanging(value);
+					this.SendPropertyChanging();
+					this._Abschnitte = value;
+					this.SendPropertyChanged("Abschnitte");
+					this.OnAbschnitteChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OriginalTitel", DbType="NVarChar(255)")]
+		public string OriginalTitel
+		{
+			get
+			{
+				return this._OriginalTitel;
+			}
+			set
+			{
+				if ((this._OriginalTitel != value))
+				{
+					this.OnOriginalTitelChanging(value);
+					this.SendPropertyChanging();
+					this._OriginalTitel = value;
+					this.SendPropertyChanged("OriginalTitel");
+					this.OnOriginalTitelChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OriginalUntertitel", DbType="NVarChar(255)")]
+		public string OriginalUntertitel
+		{
+			get
+			{
+				return this._OriginalUntertitel;
+			}
+			set
+			{
+				if ((this._OriginalUntertitel != value))
+				{
+					this.OnOriginalUntertitelChanging(value);
+					this.SendPropertyChanging();
+					this._OriginalUntertitel = value;
+					this.SendPropertyChanged("OriginalUntertitel");
+					this.OnOriginalUntertitelChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OriginaVerlagID", DbType="Int")]
+		public System.Nullable<int> OriginaVerlagID
+		{
+			get
+			{
+				return this._OriginaVerlagID;
+			}
+			set
+			{
+				if ((this._OriginaVerlagID != value))
+				{
+					this.OnOriginaVerlagIDChanging(value);
+					this.SendPropertyChanging();
+					this._OriginaVerlagID = value;
+					this.SendPropertyChanged("OriginaVerlagID");
+					this.OnOriginaVerlagIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OriginalLandID", DbType="Int")]
+		public System.Nullable<int> OriginalLandID
+		{
+			get
+			{
+				return this._OriginalLandID;
+			}
+			set
+			{
+				if ((this._OriginalLandID != value))
+				{
+					this.OnOriginalLandIDChanging(value);
+					this.SendPropertyChanging();
+					this._OriginalLandID = value;
+					this.SendPropertyChanged("OriginalLandID");
+					this.OnOriginalLandIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OriginalSpracheID", DbType="Int")]
+		public System.Nullable<int> OriginalSpracheID
+		{
+			get
+			{
+				return this._OriginalSpracheID;
+			}
+			set
+			{
+				if ((this._OriginalSpracheID != value))
+				{
+					this.OnOriginalSpracheIDChanging(value);
+					this.SendPropertyChanging();
+					this._OriginalSpracheID = value;
+					this.SendPropertyChanged("OriginalSpracheID");
+					this.OnOriginalSpracheIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OriginalCopyright", DbType="NVarChar(8)")]
+		public string OriginalCopyright
+		{
+			get
+			{
+				return this._OriginalCopyright;
+			}
+			set
+			{
+				if ((this._OriginalCopyright != value))
+				{
+					this.OnOriginalCopyrightChanging(value);
+					this.SendPropertyChanging();
+					this._OriginalCopyright = value;
+					this.SendPropertyChanged("OriginalCopyright");
+					this.OnOriginalCopyrightChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Preisangabe", DbType="NVarChar(255)")]
+		public string Preisangabe
+		{
+			get
+			{
+				return this._Preisangabe;
+			}
+			set
+			{
+				if ((this._Preisangabe != value))
+				{
+					this.OnPreisangabeChanging(value);
+					this.SendPropertyChanging();
+					this._Preisangabe = value;
+					this.SendPropertyChanged("Preisangabe");
+					this.OnPreisangabeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Value", DbType="NVarChar(255)")]
+		public string Value
+		{
+			get
+			{
+				return this._Value;
+			}
+			set
+			{
+				if ((this._Value != value))
+				{
+					this.OnValueChanging(value);
+					this.SendPropertyChanging();
+					this._Value = value;
+					this.SendPropertyChanged("Value");
+					this.OnValueChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Preis", DbType="NVarChar(255)")]
+		public string Preis
+		{
+			get
+			{
+				return this._Preis;
+			}
+			set
+			{
+				if ((this._Preis != value))
+				{
+					this.OnPreisChanging(value);
+					this.SendPropertyChanging();
+					this._Preis = value;
+					this.SendPropertyChanged("Preis");
+					this.OnPreisChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ZustandID", DbType="Int")]
+		public System.Nullable<int> ZustandID
+		{
+			get
+			{
+				return this._ZustandID;
+			}
+			set
+			{
+				if ((this._ZustandID != value))
+				{
+					this.OnZustandIDChanging(value);
+					this.SendPropertyChanging();
+					this._ZustandID = value;
+					this.SendPropertyChanged("ZustandID");
+					this.OnZustandIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GutachterID", DbType="Int")]
+		public System.Nullable<int> GutachterID
+		{
+			get
+			{
+				return this._GutachterID;
+			}
+			set
+			{
+				if ((this._GutachterID != value))
+				{
+					this.OnGutachterIDChanging(value);
+					this.SendPropertyChanging();
+					this._GutachterID = value;
+					this.SendPropertyChanged("GutachterID");
+					this.OnGutachterIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Versicherung", DbType="Int")]
+		public System.Nullable<int> Versicherung
+		{
+			get
+			{
+				return this._Versicherung;
+			}
+			set
+			{
+				if ((this._Versicherung != value))
+				{
+					this.OnVersicherungChanging(value);
+					this.SendPropertyChanging();
+					this._Versicherung = value;
+					this.SendPropertyChanged("Versicherung");
+					this.OnVersicherungChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Registeriert", DbType="NVarChar(8)")]
+		public string Registeriert
+		{
+			get
+			{
+				return this._Registeriert;
+			}
+			set
+			{
+				if ((this._Registeriert != value))
+				{
+					this.OnRegisteriertChanging(value);
+					this.SendPropertyChanging();
+					this._Registeriert = value;
+					this.SendPropertyChanged("Registeriert");
+					this.OnRegisteriertChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StatusID", DbType="Int")]
+		public System.Nullable<int> StatusID
+		{
+			get
+			{
+				return this._StatusID;
+			}
+			set
+			{
+				if ((this._StatusID != value))
+				{
+					this.OnStatusIDChanging(value);
+					this.SendPropertyChanging();
+					this._StatusID = value;
+					this.SendPropertyChanged("StatusID");
+					this.OnStatusIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Erworben", DbType="NVarChar(8)")]
+		public string Erworben
+		{
+			get
+			{
+				return this._Erworben;
+			}
+			set
+			{
+				if ((this._Erworben != value))
+				{
+					this.OnErworbenChanging(value);
+					this.SendPropertyChanging();
+					this._Erworben = value;
+					this.SendPropertyChanged("Erworben");
+					this.OnErworbenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ErworbenVonID", DbType="Int")]
+		public System.Nullable<int> ErworbenVonID
+		{
+			get
+			{
+				return this._ErworbenVonID;
+			}
+			set
+			{
+				if ((this._ErworbenVonID != value))
+				{
+					this.OnErworbenVonIDChanging(value);
+					this.SendPropertyChanging();
+					this._ErworbenVonID = value;
+					this.SendPropertyChanged("ErworbenVonID");
+					this.OnErworbenVonIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PersonalRatingID", DbType="Int")]
+		public System.Nullable<int> PersonalRatingID
+		{
+			get
+			{
+				return this._PersonalRatingID;
+			}
+			set
+			{
+				if ((this._PersonalRatingID != value))
+				{
+					this.OnPersonalRatingIDChanging(value);
+					this.SendPropertyChanging();
+					this._PersonalRatingID = value;
+					this.SendPropertyChanged("PersonalRatingID");
+					this.OnPersonalRatingIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BesitzerID", DbType="Int")]
+		public System.Nullable<int> BesitzerID
+		{
+			get
+			{
+				return this._BesitzerID;
+			}
+			set
+			{
+				if ((this._BesitzerID != value))
+				{
+					this.OnBesitzerIDChanging(value);
+					this.SendPropertyChanging();
+					this._BesitzerID = value;
+					this.SendPropertyChanged("BesitzerID");
+					this.OnBesitzerIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StandortID", DbType="Int")]
+		public System.Nullable<int> StandortID
+		{
+			get
+			{
+				return this._StandortID;
+			}
+			set
+			{
+				if ((this._StandortID != value))
+				{
+					this.OnStandortIDChanging(value);
+					this.SendPropertyChanging();
+					this._StandortID = value;
+					this.SendPropertyChanged("StandortID");
+					this.OnStandortIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EntleiherID", DbType="Int")]
+		public System.Nullable<int> EntleiherID
+		{
+			get
+			{
+				return this._EntleiherID;
+			}
+			set
+			{
+				if ((this._EntleiherID != value))
+				{
+					this.OnEntleiherIDChanging(value);
+					this.SendPropertyChanging();
+					this._EntleiherID = value;
+					this.SendPropertyChanged("EntleiherID");
+					this.OnEntleiherIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DatumAusleihe", DbType="NVarChar(8)")]
+		public string DatumAusleihe
+		{
+			get
+			{
+				return this._DatumAusleihe;
+			}
+			set
+			{
+				if ((this._DatumAusleihe != value))
+				{
+					this.OnDatumAusleiheChanging(value);
+					this.SendPropertyChanging();
+					this._DatumAusleihe = value;
+					this.SendPropertyChanged("DatumAusleihe");
+					this.OnDatumAusleiheChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RueckgabeDatum", DbType="NVarChar(8)")]
+		public string RueckgabeDatum
+		{
+			get
+			{
+				return this._RueckgabeDatum;
+			}
+			set
+			{
+				if ((this._RueckgabeDatum != value))
+				{
+					this.OnRueckgabeDatumChanging(value);
+					this.SendPropertyChanging();
+					this._RueckgabeDatum = value;
+					this.SendPropertyChanged("RueckgabeDatum");
+					this.OnRueckgabeDatumChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_verliehen", DbType="Bit NOT NULL")]
+		public bool verliehen
+		{
+			get
+			{
+				return this._verliehen;
+			}
+			set
+			{
+				if ((this._verliehen != value))
+				{
+					this.OnverliehenChanging(value);
+					this.SendPropertyChanging();
+					this._verliehen = value;
+					this.SendPropertyChanged("verliehen");
+					this.OnverliehenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_zurueckerhalten", DbType="Bit NOT NULL")]
+		public bool zurueckerhalten
+		{
+			get
+			{
+				return this._zurueckerhalten;
+			}
+			set
+			{
+				if ((this._zurueckerhalten != value))
+				{
+					this.OnzurueckerhaltenChanging(value);
+					this.SendPropertyChanging();
+					this._zurueckerhalten = value;
+					this.SendPropertyChanged("zurueckerhalten");
+					this.OnzurueckerhaltenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_zurueckDatum", DbType="NVarChar(8)")]
+		public string zurueckDatum
+		{
+			get
+			{
+				return this._zurueckDatum;
+			}
+			set
+			{
+				if ((this._zurueckDatum != value))
+				{
+					this.OnzurueckDatumChanging(value);
+					this.SendPropertyChanging();
+					this._zurueckDatum = value;
+					this.SendPropertyChanged("zurueckDatum");
+					this.OnzurueckDatumChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_zurueckVonID", DbType="Int")]
+		public System.Nullable<int> zurueckVonID
+		{
+			get
+			{
+				return this._zurueckVonID;
+			}
+			set
+			{
+				if ((this._zurueckVonID != value))
+				{
+					this.OnzurueckVonIDChanging(value);
+					this.SendPropertyChanging();
+					this._zurueckVonID = value;
+					this.SendPropertyChanged("zurueckVonID");
+					this.OnzurueckVonIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmailOverdueDate", DbType="NVarChar(8)")]
+		public string EmailOverdueDate
+		{
+			get
+			{
+				return this._EmailOverdueDate;
+			}
+			set
+			{
+				if ((this._EmailOverdueDate != value))
+				{
+					this.OnEmailOverdueDateChanging(value);
+					this.SendPropertyChanging();
+					this._EmailOverdueDate = value;
+					this.SendPropertyChanged("EmailOverdueDate");
+					this.OnEmailOverdueDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmailReminderDate", DbType="NVarChar(8)")]
+		public string EmailReminderDate
+		{
+			get
+			{
+				return this._EmailReminderDate;
+			}
+			set
+			{
+				if ((this._EmailReminderDate != value))
+				{
+					this.OnEmailReminderDateChanging(value);
+					this.SendPropertyChanging();
+					this._EmailReminderDate = value;
+					this.SendPropertyChanged("EmailReminderDate");
+					this.OnEmailReminderDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmailReservedDate", DbType="NVarChar(8)")]
+		public string EmailReservedDate
+		{
+			get
+			{
+				return this._EmailReservedDate;
+			}
+			set
+			{
+				if ((this._EmailReservedDate != value))
+				{
+					this.OnEmailReservedDateChanging(value);
+					this.SendPropertyChanging();
+					this._EmailReservedDate = value;
+					this.SendPropertyChanged("EmailReservedDate");
+					this.OnEmailReservedDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Anmerkungen_PlainText", DbType="NVarChar(MAX)")]
+		public string Anmerkungen_PlainText
+		{
+			get
+			{
+				return this._Anmerkungen_PlainText;
+			}
+			set
+			{
+				if ((this._Anmerkungen_PlainText != value))
+				{
+					this.OnAnmerkungen_PlainTextChanging(value);
+					this.SendPropertyChanging();
+					this._Anmerkungen_PlainText = value;
+					this.SendPropertyChanged("Anmerkungen_PlainText");
+					this.OnAnmerkungen_PlainTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Synopsis_PlainText", DbType="NVarChar(MAX)")]
+		public string Synopsis_PlainText
+		{
+			get
+			{
+				return this._Synopsis_PlainText;
+			}
+			set
+			{
+				if ((this._Synopsis_PlainText != value))
+				{
+					this.OnSynopsis_PlainTextChanging(value);
+					this.SendPropertyChanging();
+					this._Synopsis_PlainText = value;
+					this.SendPropertyChanged("Synopsis_PlainText");
+					this.OnSynopsis_PlainTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Reviews_PlainText", DbType="NVarChar(MAX)")]
+		public string Reviews_PlainText
+		{
+			get
+			{
+				return this._Reviews_PlainText;
+			}
+			set
+			{
+				if ((this._Reviews_PlainText != value))
+				{
+					this.OnReviews_PlainTextChanging(value);
+					this.SendPropertyChanging();
+					this._Reviews_PlainText = value;
+					this.SendPropertyChanged("Reviews_PlainText");
+					this.OnReviews_PlainTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BarCode", DbType="NVarChar(50)")]
+		public string BarCode
+		{
+			get
+			{
+				return this._BarCode;
+			}
+			set
+			{
+				if ((this._BarCode != value))
+				{
+					this.OnBarCodeChanging(value);
+					this.SendPropertyChanging();
+					this._BarCode = value;
+					this.SendPropertyChanged("BarCode");
+					this.OnBarCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OriginalSerieID", DbType="Int")]
+		public System.Nullable<int> OriginalSerieID
+		{
+			get
+			{
+				return this._OriginalSerieID;
+			}
+			set
+			{
+				if ((this._OriginalSerieID != value))
+				{
+					this.OnOriginalSerieIDChanging(value);
+					this.SendPropertyChanging();
+					this._OriginalSerieID = value;
+					this.SendPropertyChanged("OriginalSerieID");
+					this.OnOriginalSerieIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_zuletztGelesen", DbType="NVarChar(8)")]
+		public string zuletztGelesen
+		{
+			get
+			{
+				return this._zuletztGelesen;
+			}
+			set
+			{
+				if ((this._zuletztGelesen != value))
+				{
+					this.OnzuletztGelesenChanging(value);
+					this.SendPropertyChanging();
+					this._zuletztGelesen = value;
+					this.SendPropertyChanged("zuletztGelesen");
+					this.OnzuletztGelesenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AnzahlGelesen", DbType="SmallInt")]
+		public System.Nullable<short> AnzahlGelesen
+		{
+			get
+			{
+				return this._AnzahlGelesen;
+			}
+			set
+			{
+				if ((this._AnzahlGelesen != value))
+				{
+					this.OnAnzahlGelesenChanging(value);
+					this.SendPropertyChanging();
+					this._AnzahlGelesen = value;
+					this.SendPropertyChanged("AnzahlGelesen");
+					this.OnAnzahlGelesenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ZustandSchutzumschlagID", DbType="Int")]
+		public System.Nullable<int> ZustandSchutzumschlagID
+		{
+			get
+			{
+				return this._ZustandSchutzumschlagID;
+			}
+			set
+			{
+				if ((this._ZustandSchutzumschlagID != value))
+				{
+					this.OnZustandSchutzumschlagIDChanging(value);
+					this.SendPropertyChanging();
+					this._ZustandSchutzumschlagID = value;
+					this.SendPropertyChanged("ZustandSchutzumschlagID");
+					this.OnZustandSchutzumschlagIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dim_Width", DbType="NVarChar(255)")]
+		public string Dim_Width
+		{
+			get
+			{
+				return this._Dim_Width;
+			}
+			set
+			{
+				if ((this._Dim_Width != value))
+				{
+					this.OnDim_WidthChanging(value);
+					this.SendPropertyChanging();
+					this._Dim_Width = value;
+					this.SendPropertyChanged("Dim_Width");
+					this.OnDim_WidthChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dim_Height", DbType="NVarChar(255)")]
+		public string Dim_Height
+		{
+			get
+			{
+				return this._Dim_Height;
+			}
+			set
+			{
+				if ((this._Dim_Height != value))
+				{
+					this.OnDim_HeightChanging(value);
+					this.SendPropertyChanging();
+					this._Dim_Height = value;
+					this.SendPropertyChanged("Dim_Height");
+					this.OnDim_HeightChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dim_Depth", DbType="NVarChar(255)")]
+		public string Dim_Depth
+		{
+			get
+			{
+				return this._Dim_Depth;
+			}
+			set
+			{
+				if ((this._Dim_Depth != value))
+				{
+					this.OnDim_DepthChanging(value);
+					this.SendPropertyChanging();
+					this._Dim_Depth = value;
+					this.SendPropertyChanged("Dim_Depth");
+					this.OnDim_DepthChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Verkaufspreis", DbType="NVarChar(255)")]
+		public string Verkaufspreis
+		{
+			get
+			{
+				return this._Verkaufspreis;
+			}
+			set
+			{
+				if ((this._Verkaufspreis != value))
+				{
+					this.OnVerkaufspreisChanging(value);
+					this.SendPropertyChanging();
+					this._Verkaufspreis = value;
+					this.SendPropertyChanged("Verkaufspreis");
+					this.OnVerkaufspreisChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WaehrungID", DbType="Int")]
+		public System.Nullable<int> WaehrungID
+		{
+			get
+			{
+				return this._WaehrungID;
+			}
+			set
+			{
+				if ((this._WaehrungID != value))
+				{
+					this.OnWaehrungIDChanging(value);
+					this.SendPropertyChanging();
+					this._WaehrungID = value;
+					this.SendPropertyChanged("WaehrungID");
+					this.OnWaehrungIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VerlagsOrtID", DbType="Int")]
+		public System.Nullable<int> VerlagsOrtID
+		{
+			get
+			{
+				return this._VerlagsOrtID;
+			}
+			set
+			{
+				if ((this._VerlagsOrtID != value))
+				{
+					this.OnVerlagsOrtIDChanging(value);
+					this.SendPropertyChanging();
+					this._VerlagsOrtID = value;
+					this.SendPropertyChanged("VerlagsOrtID");
+					this.OnVerlagsOrtIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ASIN", DbType="NVarChar(20)")]
+		public string ASIN
+		{
+			get
+			{
+				return this._ASIN;
+			}
+			set
+			{
+				if ((this._ASIN != value))
+				{
+					this.OnASINChanging(value);
+					this.SendPropertyChanging();
+					this._ASIN = value;
+					this.SendPropertyChanged("ASIN");
+					this.OnASINChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LetzteAenderung", DbType="SmallDateTime")]
+		public System.Nullable<System.DateTime> LetzteAenderung
+		{
+			get
+			{
+				return this._LetzteAenderung;
+			}
+			set
+			{
+				if ((this._LetzteAenderung != value))
+				{
+					this.OnLetzteAenderungChanging(value);
+					this.SendPropertyChanging();
+					this._LetzteAenderung = value;
+					this.SendPropertyChanged("LetzteAenderung");
+					this.OnLetzteAenderungChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FreigabeNr", DbType="NVarChar(255)")]
+		public string FreigabeNr
+		{
+			get
+			{
+				return this._FreigabeNr;
+			}
+			set
+			{
+				if ((this._FreigabeNr != value))
+				{
+					this.OnFreigabeNrChanging(value);
+					this.SendPropertyChanging();
+					this._FreigabeNr = value;
+					this.SendPropertyChanged("FreigabeNr");
+					this.OnFreigabeNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OriginalFreigabeNr", DbType="NVarChar(255)")]
+		public string OriginalFreigabeNr
+		{
+			get
+			{
+				return this._OriginalFreigabeNr;
+			}
+			set
+			{
+				if ((this._OriginalFreigabeNr != value))
+				{
+					this.OnOriginalFreigabeNrChanging(value);
+					this.SendPropertyChanging();
+					this._OriginalFreigabeNr = value;
+					this.SendPropertyChanged("OriginalFreigabeNr");
+					this.OnOriginalFreigabeNrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KategorieID", DbType="Int")]
+		public System.Nullable<int> KategorieID
+		{
+			get
+			{
+				return this._KategorieID;
+			}
+			set
+			{
+				if ((this._KategorieID != value))
+				{
+					this.OnKategorieIDChanging(value);
+					this.SendPropertyChanging();
+					this._KategorieID = value;
+					this.SendPropertyChanged("KategorieID");
+					this.OnKategorieIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnterkategorieID", DbType="Int")]
+		public System.Nullable<int> UnterkategorieID
+		{
+			get
+			{
+				return this._UnterkategorieID;
+			}
+			set
+			{
+				if ((this._UnterkategorieID != value))
+				{
+					this.OnUnterkategorieIDChanging(value);
+					this.SendPropertyChanging();
+					this._UnterkategorieID = value;
+					this.SendPropertyChanged("UnterkategorieID");
+					this.OnUnterkategorieIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SachgruppeID", DbType="Int")]
+		public System.Nullable<int> SachgruppeID
+		{
+			get
+			{
+				return this._SachgruppeID;
+			}
+			set
+			{
+				if ((this._SachgruppeID != value))
+				{
+					this.OnSachgruppeIDChanging(value);
+					this.SendPropertyChanging();
+					this._SachgruppeID = value;
+					this.SendPropertyChanged("SachgruppeID");
+					this.OnSachgruppeIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Stichworte", DbType="NVarChar(MAX)")]
+		public string Stichworte
+		{
+			get
+			{
+				return this._Stichworte;
+			}
+			set
+			{
+				if ((this._Stichworte != value))
+				{
+					this.OnStichworteChanging(value);
+					this.SendPropertyChanging();
+					this._Stichworte = value;
+					this.SendPropertyChanged("Stichworte");
+					this.OnStichworteChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Standort")]
+	public partial class Standort
+	{
+		
+		private int _ID;
+		
+		private bool _Marked;
+		
+		private string _Standort1;
+		
+		private string _SortBy;
+		
+		private System.Data.Linq.Binary _Notes;
+		
+		private string _Notiz_PlainText;
+		
+		private System.Nullable<byte> _MarkedQS;
+		
+		public Standort()
 		{
 		}
 		
@@ -2442,1234 +4251,181 @@ namespace BookCMS_WPF
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MediaCount", DbType="SmallInt")]
-		public System.Nullable<short> MediaCount
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Standort", Storage="_Standort1", DbType="NVarChar(50)")]
+		public string Standort1
 		{
 			get
 			{
-				return this._MediaCount;
+				return this._Standort1;
 			}
 			set
 			{
-				if ((this._MediaCount != value))
+				if ((this._Standort1 != value))
 				{
-					this._MediaCount = value;
+					this._Standort1 = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Titel", DbType="NVarChar(253)")]
-		public string Titel
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SortBy", DbType="NVarChar(52)")]
+		public string SortBy
 		{
 			get
 			{
-				return this._Titel;
+				return this._SortBy;
 			}
 			set
 			{
-				if ((this._Titel != value))
+				if ((this._SortBy != value))
 				{
-					this._Titel = value;
+					this._SortBy = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TitelIndex", DbType="NVarChar(20)")]
-		public string TitelIndex
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notes", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+		public System.Data.Linq.Binary Notes
 		{
 			get
 			{
-				return this._TitelIndex;
+				return this._Notes;
 			}
 			set
 			{
-				if ((this._TitelIndex != value))
+				if ((this._Notes != value))
 				{
-					this._TitelIndex = value;
+					this._Notes = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AutorSort", DbType="NVarChar(100)")]
-		public string AutorSort
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notiz_PlainText", DbType="NVarChar(MAX)")]
+		public string Notiz_PlainText
 		{
 			get
 			{
-				return this._AutorSort;
+				return this._Notiz_PlainText;
 			}
 			set
 			{
-				if ((this._AutorSort != value))
+				if ((this._Notiz_PlainText != value))
 				{
-					this._AutorSort = value;
+					this._Notiz_PlainText = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Signatur", DbType="NVarChar(25)")]
-		public string Signatur
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MarkedQS", DbType="TinyInt")]
+		public System.Nullable<byte> MarkedQS
 		{
 			get
 			{
-				return this._Signatur;
+				return this._MarkedQS;
 			}
 			set
 			{
-				if ((this._Signatur != value))
+				if ((this._MarkedQS != value))
 				{
-					this._Signatur = value;
+					this._MarkedQS = value;
 				}
 			}
 		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Unterkategorie")]
+	public partial class Unterkategorie
+	{
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Veroeffentlicht", DbType="NVarChar(50)")]
-		public string Veroeffentlicht
-		{
-			get
-			{
-				return this._Veroeffentlicht;
-			}
-			set
-			{
-				if ((this._Veroeffentlicht != value))
-				{
-					this._Veroeffentlicht = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CopyrightDatum", DbType="NVarChar(8)")]
-		public string CopyrightDatum
-		{
-			get
-			{
-				return this._CopyrightDatum;
-			}
-			set
-			{
-				if ((this._CopyrightDatum != value))
-				{
-					this._CopyrightDatum = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TypID", DbType="Int")]
-		public System.Nullable<int> TypID
-		{
-			get
-			{
-				return this._TypID;
-			}
-			set
-			{
-				if ((this._TypID != value))
-				{
-					this._TypID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Untertitel", DbType="NVarChar(255)")]
-		public string Untertitel
-		{
-			get
-			{
-				return this._Untertitel;
-			}
-			set
-			{
-				if ((this._Untertitel != value))
-				{
-					this._Untertitel = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TitleSort", DbType="NVarChar(255)")]
-		public string TitleSort
-		{
-			get
-			{
-				return this._TitleSort;
-			}
-			set
-			{
-				if ((this._TitleSort != value))
-				{
-					this._TitleSort = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VerlagsID", DbType="Int")]
-		public System.Nullable<int> VerlagsID
-		{
-			get
-			{
-				return this._VerlagsID;
-			}
-			set
-			{
-				if ((this._VerlagsID != value))
-				{
-					this._VerlagsID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ISBN", DbType="NVarChar(25)")]
-		public string ISBN
-		{
-			get
-			{
-				return this._ISBN;
-			}
-			set
-			{
-				if ((this._ISBN != value))
-				{
-					this._ISBN = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DNB", DbType="NVarChar(255)")]
-		public string DNB
-		{
-			get
-			{
-				return this._DNB;
-			}
-			set
-			{
-				if ((this._DNB != value))
-				{
-					this._DNB = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DDC", DbType="NVarChar(100)")]
-		public string DDC
-		{
-			get
-			{
-				return this._DDC;
-			}
-			set
-			{
-				if ((this._DDC != value))
-				{
-					this._DDC = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LCCN", DbType="NVarChar(50)")]
-		public string LCCN
-		{
-			get
-			{
-				return this._LCCN;
-			}
-			set
-			{
-				if ((this._LCCN != value))
-				{
-					this._LCCN = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LCCallNum", DbType="NVarChar(50)")]
-		public string LCCallNum
-		{
-			get
-			{
-				return this._LCCallNum;
-			}
-			set
-			{
-				if ((this._LCCallNum != value))
-				{
-					this._LCCallNum = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LandD", DbType="Int")]
-		public System.Nullable<int> LandD
-		{
-			get
-			{
-				return this._LandD;
-			}
-			set
-			{
-				if ((this._LandD != value))
-				{
-					this._LandD = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SprachenID", DbType="Int")]
-		public System.Nullable<int> SprachenID
-		{
-			get
-			{
-				return this._SprachenID;
-			}
-			set
-			{
-				if ((this._SprachenID != value))
-				{
-					this._SprachenID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DruckereiID", DbType="Int")]
-		public System.Nullable<int> DruckereiID
-		{
-			get
-			{
-				return this._DruckereiID;
-			}
-			set
-			{
-				if ((this._DruckereiID != value))
-				{
-					this._DruckereiID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BindungID", DbType="Int")]
-		public System.Nullable<int> BindungID
-		{
-			get
-			{
-				return this._BindungID;
-			}
-			set
-			{
-				if ((this._BindungID != value))
-				{
-					this._BindungID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AuflageID", DbType="Int")]
-		public System.Nullable<int> AuflageID
-		{
-			get
-			{
-				return this._AuflageID;
-			}
-			set
-			{
-				if ((this._AuflageID != value))
-				{
-					this._AuflageID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Auiflage", DbType="NVarChar(255)")]
-		public string Auiflage
-		{
-			get
-			{
-				return this._Auiflage;
-			}
-			set
-			{
-				if ((this._Auiflage != value))
-				{
-					this._Auiflage = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DruckID", DbType="Int")]
-		public System.Nullable<int> DruckID
-		{
-			get
-			{
-				return this._DruckID;
-			}
-			set
-			{
-				if ((this._DruckID != value))
-				{
-					this._DruckID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SerienID", DbType="Int")]
-		public System.Nullable<int> SerienID
-		{
-			get
-			{
-				return this._SerienID;
-			}
-			set
-			{
-				if ((this._SerienID != value))
-				{
-					this._SerienID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Seiten", DbType="NVarChar(50)")]
-		public string Seiten
-		{
-			get
-			{
-				return this._Seiten;
-			}
-			set
-			{
-				if ((this._Seiten != value))
-				{
-					this._Seiten = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Abschnitte", DbType="SmallInt")]
-		public System.Nullable<short> Abschnitte
-		{
-			get
-			{
-				return this._Abschnitte;
-			}
-			set
-			{
-				if ((this._Abschnitte != value))
-				{
-					this._Abschnitte = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OriginalTitel", DbType="NVarChar(255)")]
-		public string OriginalTitel
-		{
-			get
-			{
-				return this._OriginalTitel;
-			}
-			set
-			{
-				if ((this._OriginalTitel != value))
-				{
-					this._OriginalTitel = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OriginalUntertitel", DbType="NVarChar(255)")]
-		public string OriginalUntertitel
-		{
-			get
-			{
-				return this._OriginalUntertitel;
-			}
-			set
-			{
-				if ((this._OriginalUntertitel != value))
-				{
-					this._OriginalUntertitel = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OriginaVerlagID", DbType="Int")]
-		public System.Nullable<int> OriginaVerlagID
-		{
-			get
-			{
-				return this._OriginaVerlagID;
-			}
-			set
-			{
-				if ((this._OriginaVerlagID != value))
-				{
-					this._OriginaVerlagID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OriginalLandID", DbType="Int")]
-		public System.Nullable<int> OriginalLandID
-		{
-			get
-			{
-				return this._OriginalLandID;
-			}
-			set
-			{
-				if ((this._OriginalLandID != value))
-				{
-					this._OriginalLandID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OriginalSpracheID", DbType="Int")]
-		public System.Nullable<int> OriginalSpracheID
-		{
-			get
-			{
-				return this._OriginalSpracheID;
-			}
-			set
-			{
-				if ((this._OriginalSpracheID != value))
-				{
-					this._OriginalSpracheID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OriginalCopyright", DbType="NVarChar(8)")]
-		public string OriginalCopyright
-		{
-			get
-			{
-				return this._OriginalCopyright;
-			}
-			set
-			{
-				if ((this._OriginalCopyright != value))
-				{
-					this._OriginalCopyright = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Preisangabe", DbType="NVarChar(255)")]
-		public string Preisangabe
-		{
-			get
-			{
-				return this._Preisangabe;
-			}
-			set
-			{
-				if ((this._Preisangabe != value))
-				{
-					this._Preisangabe = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Value", DbType="NVarChar(255)")]
-		public string Value
-		{
-			get
-			{
-				return this._Value;
-			}
-			set
-			{
-				if ((this._Value != value))
-				{
-					this._Value = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Preis", DbType="NVarChar(255)")]
-		public string Preis
-		{
-			get
-			{
-				return this._Preis;
-			}
-			set
-			{
-				if ((this._Preis != value))
-				{
-					this._Preis = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ZustandID", DbType="Int")]
-		public System.Nullable<int> ZustandID
-		{
-			get
-			{
-				return this._ZustandID;
-			}
-			set
-			{
-				if ((this._ZustandID != value))
-				{
-					this._ZustandID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GutachterID", DbType="Int")]
-		public System.Nullable<int> GutachterID
-		{
-			get
-			{
-				return this._GutachterID;
-			}
-			set
-			{
-				if ((this._GutachterID != value))
-				{
-					this._GutachterID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Versicherung", DbType="Int")]
-		public System.Nullable<int> Versicherung
-		{
-			get
-			{
-				return this._Versicherung;
-			}
-			set
-			{
-				if ((this._Versicherung != value))
-				{
-					this._Versicherung = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Registeriert", DbType="NVarChar(8)")]
-		public string Registeriert
-		{
-			get
-			{
-				return this._Registeriert;
-			}
-			set
-			{
-				if ((this._Registeriert != value))
-				{
-					this._Registeriert = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StatusID", DbType="Int")]
-		public System.Nullable<int> StatusID
-		{
-			get
-			{
-				return this._StatusID;
-			}
-			set
-			{
-				if ((this._StatusID != value))
-				{
-					this._StatusID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Erworben", DbType="NVarChar(8)")]
-		public string Erworben
-		{
-			get
-			{
-				return this._Erworben;
-			}
-			set
-			{
-				if ((this._Erworben != value))
-				{
-					this._Erworben = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ErworbenVonID", DbType="Int")]
-		public System.Nullable<int> ErworbenVonID
-		{
-			get
-			{
-				return this._ErworbenVonID;
-			}
-			set
-			{
-				if ((this._ErworbenVonID != value))
-				{
-					this._ErworbenVonID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PersonalRatingID", DbType="Int")]
-		public System.Nullable<int> PersonalRatingID
-		{
-			get
-			{
-				return this._PersonalRatingID;
-			}
-			set
-			{
-				if ((this._PersonalRatingID != value))
-				{
-					this._PersonalRatingID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BesitzerID", DbType="Int")]
-		public System.Nullable<int> BesitzerID
-		{
-			get
-			{
-				return this._BesitzerID;
-			}
-			set
-			{
-				if ((this._BesitzerID != value))
-				{
-					this._BesitzerID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StandortID", DbType="Int")]
-		public System.Nullable<int> StandortID
-		{
-			get
-			{
-				return this._StandortID;
-			}
-			set
-			{
-				if ((this._StandortID != value))
-				{
-					this._StandortID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EntleiherID", DbType="Int")]
-		public System.Nullable<int> EntleiherID
-		{
-			get
-			{
-				return this._EntleiherID;
-			}
-			set
-			{
-				if ((this._EntleiherID != value))
-				{
-					this._EntleiherID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DatumAusleihe", DbType="NVarChar(8)")]
-		public string DatumAusleihe
-		{
-			get
-			{
-				return this._DatumAusleihe;
-			}
-			set
-			{
-				if ((this._DatumAusleihe != value))
-				{
-					this._DatumAusleihe = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RueckgabeDatum", DbType="NVarChar(8)")]
-		public string RueckgabeDatum
-		{
-			get
-			{
-				return this._RueckgabeDatum;
-			}
-			set
-			{
-				if ((this._RueckgabeDatum != value))
-				{
-					this._RueckgabeDatum = value;
-				}
-			}
-		}
+		private int _SubCategoryID;
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_verliehen", DbType="Bit NOT NULL")]
-		public bool verliehen
-		{
-			get
-			{
-				return this._verliehen;
-			}
-			set
-			{
-				if ((this._verliehen != value))
-				{
-					this._verliehen = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_zurueckerhalten", DbType="Bit NOT NULL")]
-		public bool zurueckerhalten
-		{
-			get
-			{
-				return this._zurueckerhalten;
-			}
-			set
-			{
-				if ((this._zurueckerhalten != value))
-				{
-					this._zurueckerhalten = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_zurueckDatum", DbType="NVarChar(8)")]
-		public string zurueckDatum
-		{
-			get
-			{
-				return this._zurueckDatum;
-			}
-			set
-			{
-				if ((this._zurueckDatum != value))
-				{
-					this._zurueckDatum = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_zurueckVonID", DbType="Int")]
-		public System.Nullable<int> zurueckVonID
-		{
-			get
-			{
-				return this._zurueckVonID;
-			}
-			set
-			{
-				if ((this._zurueckVonID != value))
-				{
-					this._zurueckVonID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmailOverdueDate", DbType="NVarChar(8)")]
-		public string EmailOverdueDate
-		{
-			get
-			{
-				return this._EmailOverdueDate;
-			}
-			set
-			{
-				if ((this._EmailOverdueDate != value))
-				{
-					this._EmailOverdueDate = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmailReminderDate", DbType="NVarChar(8)")]
-		public string EmailReminderDate
-		{
-			get
-			{
-				return this._EmailReminderDate;
-			}
-			set
-			{
-				if ((this._EmailReminderDate != value))
-				{
-					this._EmailReminderDate = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EmailReservedDate", DbType="NVarChar(8)")]
-		public string EmailReservedDate
-		{
-			get
-			{
-				return this._EmailReservedDate;
-			}
-			set
-			{
-				if ((this._EmailReservedDate != value))
-				{
-					this._EmailReservedDate = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Anmerkungen_PlainText", DbType="NVarChar(MAX)")]
-		public string Anmerkungen_PlainText
-		{
-			get
-			{
-				return this._Anmerkungen_PlainText;
-			}
-			set
-			{
-				if ((this._Anmerkungen_PlainText != value))
-				{
-					this._Anmerkungen_PlainText = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Synopsis_PlainText", DbType="NVarChar(MAX)")]
-		public string Synopsis_PlainText
-		{
-			get
-			{
-				return this._Synopsis_PlainText;
-			}
-			set
-			{
-				if ((this._Synopsis_PlainText != value))
-				{
-					this._Synopsis_PlainText = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Reviews_PlainText", DbType="NVarChar(MAX)")]
-		public string Reviews_PlainText
-		{
-			get
-			{
-				return this._Reviews_PlainText;
-			}
-			set
-			{
-				if ((this._Reviews_PlainText != value))
-				{
-					this._Reviews_PlainText = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BarCode", DbType="NVarChar(50)")]
-		public string BarCode
-		{
-			get
-			{
-				return this._BarCode;
-			}
-			set
-			{
-				if ((this._BarCode != value))
-				{
-					this._BarCode = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OriginalSerieID", DbType="Int")]
-		public System.Nullable<int> OriginalSerieID
-		{
-			get
-			{
-				return this._OriginalSerieID;
-			}
-			set
-			{
-				if ((this._OriginalSerieID != value))
-				{
-					this._OriginalSerieID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_zuletztGelesen", DbType="NVarChar(8)")]
-		public string zuletztGelesen
-		{
-			get
-			{
-				return this._zuletztGelesen;
-			}
-			set
-			{
-				if ((this._zuletztGelesen != value))
-				{
-					this._zuletztGelesen = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AnzahlGelesen", DbType="SmallInt")]
-		public System.Nullable<short> AnzahlGelesen
-		{
-			get
-			{
-				return this._AnzahlGelesen;
-			}
-			set
-			{
-				if ((this._AnzahlGelesen != value))
-				{
-					this._AnzahlGelesen = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ZustandSchutzumschlagID", DbType="Int")]
-		public System.Nullable<int> ZustandSchutzumschlagID
-		{
-			get
-			{
-				return this._ZustandSchutzumschlagID;
-			}
-			set
-			{
-				if ((this._ZustandSchutzumschlagID != value))
-				{
-					this._ZustandSchutzumschlagID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dim_Width", DbType="NVarChar(255)")]
-		public string Dim_Width
-		{
-			get
-			{
-				return this._Dim_Width;
-			}
-			set
-			{
-				if ((this._Dim_Width != value))
-				{
-					this._Dim_Width = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dim_Height", DbType="NVarChar(255)")]
-		public string Dim_Height
-		{
-			get
-			{
-				return this._Dim_Height;
-			}
-			set
-			{
-				if ((this._Dim_Height != value))
-				{
-					this._Dim_Height = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dim_Depth", DbType="NVarChar(255)")]
-		public string Dim_Depth
-		{
-			get
-			{
-				return this._Dim_Depth;
-			}
-			set
-			{
-				if ((this._Dim_Depth != value))
-				{
-					this._Dim_Depth = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Verkaufspreis", DbType="NVarChar(255)")]
-		public string Verkaufspreis
-		{
-			get
-			{
-				return this._Verkaufspreis;
-			}
-			set
-			{
-				if ((this._Verkaufspreis != value))
-				{
-					this._Verkaufspreis = value;
-				}
-			}
-		}
+		private bool _Marked;
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WaehrungID", DbType="Int")]
-		public System.Nullable<int> WaehrungID
-		{
-			get
-			{
-				return this._WaehrungID;
-			}
-			set
-			{
-				if ((this._WaehrungID != value))
-				{
-					this._WaehrungID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_VerlagsOrtID", DbType="Int")]
-		public System.Nullable<int> VerlagsOrtID
-		{
-			get
-			{
-				return this._VerlagsOrtID;
-			}
-			set
-			{
-				if ((this._VerlagsOrtID != value))
-				{
-					this._VerlagsOrtID = value;
-				}
-			}
-		}
+		private string _Unterkategorie1;
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ASIN", DbType="NVarChar(20)")]
-		public string ASIN
-		{
-			get
-			{
-				return this._ASIN;
-			}
-			set
-			{
-				if ((this._ASIN != value))
-				{
-					this._ASIN = value;
-				}
-			}
-		}
+		private string _SortBy;
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LetzteAenderung", DbType="SmallDateTime")]
-		public System.Nullable<System.DateTime> LetzteAenderung
-		{
-			get
-			{
-				return this._LetzteAenderung;
-			}
-			set
-			{
-				if ((this._LetzteAenderung != value))
-				{
-					this._LetzteAenderung = value;
-				}
-			}
-		}
+		private string _Notiz_PlainText;
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FreigabeNr", DbType="NVarChar(255)")]
-		public string FreigabeNr
+		public Unterkategorie()
 		{
-			get
-			{
-				return this._FreigabeNr;
-			}
-			set
-			{
-				if ((this._FreigabeNr != value))
-				{
-					this._FreigabeNr = value;
-				}
-			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OriginalFreigabeNr", DbType="NVarChar(255)")]
-		public string OriginalFreigabeNr
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SubCategoryID", DbType="Int NOT NULL")]
+		public int SubCategoryID
 		{
 			get
 			{
-				return this._OriginalFreigabeNr;
+				return this._SubCategoryID;
 			}
 			set
 			{
-				if ((this._OriginalFreigabeNr != value))
+				if ((this._SubCategoryID != value))
 				{
-					this._OriginalFreigabeNr = value;
+					this._SubCategoryID = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KategorieID", DbType="Int")]
-		public System.Nullable<int> KategorieID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Marked", DbType="Bit NOT NULL")]
+		public bool Marked
 		{
 			get
 			{
-				return this._KategorieID;
+				return this._Marked;
 			}
 			set
 			{
-				if ((this._KategorieID != value))
+				if ((this._Marked != value))
 				{
-					this._KategorieID = value;
+					this._Marked = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UnterkategorieID", DbType="Int")]
-		public System.Nullable<int> UnterkategorieID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Unterkategorie", Storage="_Unterkategorie1", DbType="NVarChar(50)")]
+		public string Unterkategorie1
 		{
 			get
 			{
-				return this._UnterkategorieID;
+				return this._Unterkategorie1;
 			}
 			set
 			{
-				if ((this._UnterkategorieID != value))
+				if ((this._Unterkategorie1 != value))
 				{
-					this._UnterkategorieID = value;
+					this._Unterkategorie1 = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SachgruppeID", DbType="Int")]
-		public System.Nullable<int> SachgruppeID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SortBy", DbType="NVarChar(52)")]
+		public string SortBy
 		{
 			get
 			{
-				return this._SachgruppeID;
+				return this._SortBy;
 			}
 			set
 			{
-				if ((this._SachgruppeID != value))
+				if ((this._SortBy != value))
 				{
-					this._SachgruppeID = value;
+					this._SortBy = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Stichworte", DbType="NVarChar(MAX)")]
-		public string Stichworte
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notiz_PlainText", DbType="NVarChar(MAX)")]
+		public string Notiz_PlainText
 		{
 			get
 			{
-				return this._Stichworte;
+				return this._Notiz_PlainText;
 			}
 			set
 			{
-				if ((this._Stichworte != value))
+				if ((this._Notiz_PlainText != value))
 				{
-					this._Stichworte = value;
+					this._Notiz_PlainText = value;
 				}
 			}
 		}

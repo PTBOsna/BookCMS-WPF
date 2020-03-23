@@ -41,6 +41,7 @@ namespace BookCMS_WPF.DataHandling
         public string dnb_mitautor { get; set; }            //700 a
         public string dnb_mitautor_rolle { get; set; }      //700 4
         public string dnb_mitautor_rolle_lang { get; set; } //700 e
+        public string dnb_inhalt{ get; set; }               //856 u
         public string dnb_thema { get; set; }               //926 x
 
 
@@ -406,6 +407,23 @@ namespace BookCMS_WPF.DataHandling
 
                             line = reader.ReadLine();
                         }   //return list;
+                    }
+                    if (line.Contains("tag=\"856\""))
+                    {
+                        line = reader.ReadLine();
+                        while (line.Contains("</datafield>") == false)
+                        {
+                            if (line.Contains("code=\"u\""))
+                            {
+                                //LBShow.Items.Add(SelectString(line)); // Write to console.
+                                dnb_inhalt += SelectString(line) + "#"; // Add to list.
+                                                                //MessageBox.Show(SelectString(line));
+                            }
+
+                            line = reader.ReadLine();
+                            //return list;
+                        }
+
                     }
                     if (line.Contains("tag=\"926\""))
                     {

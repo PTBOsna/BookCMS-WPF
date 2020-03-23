@@ -82,6 +82,37 @@ namespace BookCMS_WPF
             if (e.Key != System.Windows.Input.Key.Enter) return;
             lbAuswahl.Items.Clear();
             connect(txtInput.Text);
+            CheckTitle(dnbdata. dnb_titel);
+        }
+        private void CheckTitle(string dnb_titel)
+        {
+            int len = 10;
+            if (dnb_titel.Length<10)
+            {
+                len = dnb_titel.Length;
+            }
+            string curTi = Admin. GetTitleIndex(dnb_titel);
+            curTi = curTi.Substring(0, len);
+            string displTi = null;
+            var avblbTitel = from b in Admin.conn.Buch where b.TitelIndex.Contains(curTi) select b;
+            if (avblbTitel != null)
+            {
+
+                foreach (var selTitel in avblbTitel)
+                {
+                    displTi += selTitel.Titel + " Autor: " + selTitel.AutorSort + "\r\n";
+
+                }
+                displTi += "Weiter?";
+
+                if (MessageBox.Show(displTi, "Folgende(r) Titel bereits vorhanden", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    return;
+                }
+              
+                DialogResult = false;
+
+            }
         }
 
         private void btnAdd_click(object sender, RoutedEventArgs e)

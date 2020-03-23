@@ -1,8 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows.Media.Imaging;
 
 namespace BookCMS_WPF.DataHandling
 {
@@ -24,14 +30,83 @@ namespace BookCMS_WPF.DataHandling
             }
             return cString;
         }
+
+        public static void addAutorBuchLInk(AutorBuchLink autorBuchLink)
+        {
+            
+            {
+                conn.AutorBuchLink.InsertOnSubmit(autorBuchLink);
+                conn.SubmitChanges();
+            }
+        }
+
+        
+        public static bool IsPageValid(string page)
+        {
+            WebClient w = new WebClient();
+            try
+            {
+               w.DownloadString(page);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public static string GetTitleIndex(string ti)
+        {
+            int iLen = 15;
+            string titelIndex = ti.Trim().ToUpper();
+            titelIndex = Admin.CleanString(titelIndex);
+            if (titelIndex.Length < 15)
+            {
+                iLen = titelIndex.Length;
+            }
+            titelIndex = titelIndex.Substring(0, iLen);
+            return titelIndex;
+        }
+        public static string GetSynopsis(string cUrl)
+        {
+            string[] url = cUrl.Split('#');
+            url[0]= url[0].Replace(';', '&');
+            WebBrowser web = new WebBrowser();
+
+            Stopwatch timer = Stopwatch.StartNew(); // start a timer
+
+            try
+            {
+
+                web.ScriptErrorsSuppressed = true;
+                web.Navigate(url[0]);
+
+                // MAKE SURE ReadyState = Complete
+                while (web.ReadyState.ToString() != "Complete")
+                {
+                    if (timer.ElapsedMilliseconds >= 1000) break;
+                    Application.DoEvents();
+
+                }
+                return web.Document.Body.InnerText;
+
+            }
+            catch (Exception)
+            {
+                return "Keine Inhaltsangabe verfügbar";
+            }
+        }
     }
-}
+    }
+
+   
+
 public class NameRolle
 {
     public string name { get; set; }
     public string rolle { get; set; }
     public string nameInDB { get; set; }
     public Int32 currID { get; set; }
+    public Int32 currRolleID { get; set; }
 }
 
 public class DnbVerlag
