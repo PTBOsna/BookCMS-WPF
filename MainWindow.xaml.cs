@@ -33,6 +33,14 @@ namespace BookCMS_WPF
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            //Settings set = new Settings();
+            //set.PathCover = @"C:\coverPath";
+            //set.StartRolle = 7;
+            //set.dnb_api = "asdf";
+            //set.google_api = "ölkj";
+            string cPath = @"H:\test.xml";
+            //HandleXML.WriteXML(cPath, set);
+            HandleXML.ReadXML(cPath);
             rolle = 7;
             selDilplay = "Titel";
             var buch = from b in Admin.conn.Buch select b;

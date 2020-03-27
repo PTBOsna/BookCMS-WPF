@@ -90,6 +90,7 @@
       <DependentUpon>AddBook2.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataHandling\DownloadImage.cs" />
+    <Compile Include="DataHandling\Settings.cs" />
     <Compile Include="EditBook.xaml.cs">
       <DependentUpon>EditBook.xaml</DependentUpon>
     </Compile>
