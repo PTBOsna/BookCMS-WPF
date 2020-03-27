@@ -146,8 +146,12 @@ namespace BookCMS_WPF.DataHandling
                         {
                             if (line.Contains("code=\"a\""))
                             {
-                                //LBShow.Items.Add(SelectString(line)); // Write to console.
-                                dnb_dcc1 = SelectString(line); // Add to list.
+                                // wenn schneon ein Eintrag vorhanden, nicht noch einmal füllen!
+                                if (string.IsNullOrEmpty( dnb_dcc1)==true)
+                                {
+
+                                dnb_dcc1 = SelectString(line) + " "; // Add to list.
+                                }
                                 //MessageBox.Show(SelectString(line));
                             }
                             line = reader.ReadLine();
@@ -155,7 +159,7 @@ namespace BookCMS_WPF.DataHandling
                         }
 
                     }
-                    if (line.Contains("tag=\"084\""))
+                    if (line.Contains("tag=\"083\""))
                     {
                         line = reader.ReadLine();
                         while (line.Contains("</datafield>") == false)
@@ -163,7 +167,7 @@ namespace BookCMS_WPF.DataHandling
                             if (line.Contains("code=\"a\""))
                             {
                                 //LBShow.Items.Add(SelectString(line)); // Write to console.
-                                dnb_dcc2 = SelectString(line); // Add to list.
+                                dnb_dcc1 += SelectString(line) + " "; // Add to list.
                                 //MessageBox.Show(SelectString(line));
                             }
                             line = reader.ReadLine();

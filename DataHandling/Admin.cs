@@ -107,6 +107,7 @@ public class NameRolle
     public string nameInDB { get; set; }
     public Int32 currID { get; set; }
     public Int32 currRolleID { get; set; }
+    public Int32 currNameRolleID { get; set; }
 }
 
 public class DnbVerlag

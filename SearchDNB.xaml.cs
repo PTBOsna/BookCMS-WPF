@@ -94,8 +94,8 @@ namespace BookCMS_WPF
             string curTi = Admin. GetTitleIndex(dnb_titel);
             curTi = curTi.Substring(0, len);
             string displTi = null;
-            var avblbTitel = from b in Admin.conn.Buch where b.TitelIndex.Contains(curTi) select b;
-            if (avblbTitel != null)
+            var avblbTitel = (from b in Admin.conn.Buch where b.TitelIndex.Contains(curTi) select b).ToList();
+            if (avblbTitel.Count()>0)
             {
 
                 foreach (var selTitel in avblbTitel)

@@ -2,12 +2,6 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12.75, 17.125" name="BuchDataClasses">
   <DataContextMoniker Name="/BuchDataClassesDataContext" />
   <nestedChildShapes>
-    <classShape Id="6773968f-dabb-422b-b35b-73379c73f71d" isExpanded="false" absoluteBounds="4.5, 1, 2, 0.45">
-      <DataClassMoniker Name="/BuchDataClassesDataContext/AutorBuchLink" />
-      <nestedChildShapes>
-        <elementListCompartment Id="1c05bf07-9f73-4b9c-ae95-fc566634f961" absoluteBounds="4.5150000000000006, 1.46, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
     <classShape Id="3954c754-4dac-493b-8b37-fdfd76c7f4d5" isExpanded="false" absoluteBounds="6.625, 1.875, 2, 0.45">
       <DataClassMoniker Name="/BuchDataClassesDataContext/AutorRolle" />
       <nestedChildShapes>
@@ -20,20 +14,6 @@
         <elementListCompartment Id="c30785e6-1aa1-4729-902f-ce8f31d09dff" absoluteBounds="7.015, 1.46, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(6.5 : 1.225); (7 : 1.225)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/BuchDataClassesDataContext/AutorBuchLink/AutorBuchLink_Person" />
-      <nodes>
-        <classShapeMoniker Id="6773968f-dabb-422b-b35b-73379c73f71d" />
-        <classShapeMoniker Id="72e03221-c2e8-47df-b5c7-02d20d714abe" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(6.5 : 1.45); (6.625 : 1.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/BuchDataClassesDataContext/AutorBuchLink/AutorBuchLink_AutorRolle" />
-      <nodes>
-        <classShapeMoniker Id="6773968f-dabb-422b-b35b-73379c73f71d" />
-        <classShapeMoniker Id="3954c754-4dac-493b-8b37-fdfd76c7f4d5" />
-      </nodes>
-    </associationConnector>
     <classShape Id="14b173de-504a-417d-9fe9-16e610df91f0" isExpanded="false" absoluteBounds="9.875, 1, 2, 0.45">
       <DataClassMoniker Name="/BuchDataClassesDataContext/PersonRolle" />
       <nestedChildShapes>
@@ -110,6 +90,24 @@
       <DataClassMoniker Name="/BuchDataClassesDataContext/Unterkategorie" />
       <nestedChildShapes>
         <elementListCompartment Id="bfaed0a5-716b-4d16-bc07-1a2c7e087b11" absoluteBounds="10.14, 6.085, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="53d39662-10d7-472a-a73e-bb87560fdc25" isExpanded="false" absoluteBounds="4.375, 1, 2, 0.45">
+      <DataClassMoniker Name="/BuchDataClassesDataContext/AutorBuchLink" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a0ff7fff-586b-4d3f-a2ce-d360d99a04fb" absoluteBounds="4.39, 1.46, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="785ccced-c2fa-49a2-b56f-881cdfc5a116" absoluteBounds="5.375, 8.75, 2, 1.3862939453124987">
+      <DataClassMoniker Name="/BuchDataClassesDataContext/DDC_Haupt" />
+      <nestedChildShapes>
+        <elementListCompartment Id="fba2fcfc-7922-4be6-ada3-9284eb6df7b2" absoluteBounds="5.39, 9.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d93156a2-90dd-4c07-abca-bae10078b0ca" absoluteBounds="8.375, 8.75, 2, 1.3862939453124987">
+      <DataClassMoniker Name="/BuchDataClassesDataContext/DDC_100" />
+      <nestedChildShapes>
+        <elementListCompartment Id="97240a64-ae3e-4060-a264-0dbb6b22f0cb" absoluteBounds="8.39, 9.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

@@ -78,6 +78,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="45"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
@@ -143,6 +144,8 @@
                 </DataGrid.Columns>
 
             </DataGrid>
+            <ListBox Grid.Row="2" Grid.Column="0" x:Name="lbDDC" DisplayMemberPath="Name" SelectedValuePath="DDC" SelectionChanged="lbDDC_changed"/>
+            <ListBox Grid.Row="2" Grid.Column="1" x:Name="lbDDC100"/>
         </Grid>
     </DockPanel>
 </Window>

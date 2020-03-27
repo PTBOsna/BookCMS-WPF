@@ -1,15 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="D:\USERS\PETER\DOCUMENTS\VISUAL STUDIO 2017\PROJEKTE\BOOKCMS-LOCALDB\BOOKCMS-LOCALDB\BIN\DEBUG\BOOKSQL-DB.MDF" Class="BuchDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=&quot;D:\USERS\PETER\DOCUMENTS\VISUAL STUDIO 2017\PROJEKTE\BOOKCMS-LOCALDB\BOOKCMS-LOCALDB\BIN\DEBUG\BOOKSQL-DB.MDF&quot;;Integrated Security=True" SettingsObjectName="BookCMS_WPF.Properties.Settings" SettingsPropertyName="D__USERS_PETER_DOCUMENTS_VISUAL_STUDIO_2017_PROJEKTE_BOOKCMS_LOCALDB_BOOKCMS_LOCALDB_BIN_DEBUG_BOOKSQL_DB_MDFConnectionS" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.AutorBuchLink" Member="AutorBuchLink">
-    <Type Name="AutorBuchLink">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="BuchID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="PersonID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="RolleID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="AutorBuchLink_AutorRolle" Member="AutorRolle" ThisKey="RolleID" OtherKey="ID" Type="AutorRolle" />
-      <Association Name="AutorBuchLink_Person" Member="Person" ThisKey="PersonID" OtherKey="PersonID" Type="Person" />
-    </Type>
-  </Table>
   <Table Name="dbo.AutorRolle" Member="AutorRolle">
     <Type Name="AutorRolle">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -17,7 +7,6 @@
       <Column Name="AutorRolle" Member="AutorRolle1" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="AutorKurz" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
       <Column Name="Notiz_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="AutorBuchLink_AutorRolle" Member="AutorBuchLink" ThisKey="ID" OtherKey="RolleID" Type="AutorBuchLink" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Person" Member="Person">
@@ -39,7 +28,6 @@
       <Column Name="Geburtzort" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
       <Column Name="Sterbeort" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
       <Column Name="Biografie_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="AutorBuchLink_Person" Member="AutorBuchLink" ThisKey="PersonID" OtherKey="PersonID" Type="AutorBuchLink" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.PersonRolle" Member="PersonRolle">
@@ -255,6 +243,28 @@
       <Column Name="Unterkategorie" Member="Unterkategorie1" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="SortBy" Type="System.String" DbType="NVarChar(52)" CanBeNull="true" />
       <Column Name="Notiz_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AutorBuchLink" Member="AutorBuchLink">
+    <Type Name="AutorBuchLink">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BuchID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PersonID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="RolleID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DDC_Haupt" Member="DDC_Haupt">
+    <Type Name="DDC_Haupt">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DDC_Haupt" Member="DDC_Haupt1" Type="System.String" DbType="NVarChar(3) NOT NULL" CanBeNull="false" />
+      <Column Name="DDC_Name" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DDC_100" Member="DDC_100">
+    <Type Name="DDC_100">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DCC_100" Type="System.String" DbType="VarChar(3) NOT NULL" CanBeNull="false" />
+      <Column Name="DCC_Name" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
 </Database>

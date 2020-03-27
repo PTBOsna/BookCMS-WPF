@@ -31,6 +31,11 @@
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Margin" Value="5"/>
         </Style>
+        <Style x:Key="cT" TargetType="TextBox">
+            <Setter Property="Background" Value="Orange"/>
+            <Setter Property="Text" Value="Bitte wählen"/>
+            <Setter Property="Margin"  Value="4 2 2 2"/>
+        </Style>
 
     </Window.Resources>
     <Grid>
@@ -156,10 +161,10 @@
 SelectedValuePath="id" StaysOpenOnEdit="True" 
 IsEditable="True" IsReadOnly="True" Text="-- Bitte wählen --" DropDownClosed="cbLang_DropDownClosed" />
                             <Label Content="Bindung:"/>
-                            <TextBox x:Name="txtBindung" IsReadOnly="True"/>
+                            <TextBox x:Name="txtBindung" Style="{StaticResource cT}" IsReadOnly="True"/>
                             <ComboBox x:Name="cbBindung" Margin="5" DisplayMemberPath="bnd"
 SelectedValuePath="id" StaysOpenOnEdit="True" 
-IsEditable="True" IsReadOnly="True" Text="-- Bitte wählen --" DropDownClosed="cbBindung_DropDownClosed" />
+IsEditable="True" IsReadOnly="True" Text="-- Bindung  --" DropDownClosed="cbBindung_DropDownClosed" />
                         </StackPanel>
                     </Border>
                     <!--Organisation-->
@@ -167,30 +172,31 @@ IsEditable="True" IsReadOnly="True" Text="-- Bitte wählen --" DropDownClosed="c
                         <StackPanel Background="LightSteelBlue">
                             <Label Content="Organisation" FontSize="14" FontWeight="Bold"/>
                             <Label Content="Buchtyp"/>
-                            <TextBox x:Name="txtTyp" IsReadOnly="True"/>
-                            <ComboBox x:Name="cbBuchTyp" Margin="5" DisplayMemberPath="typ"
-SelectedValuePath="id" StaysOpenOnEdit="True" 
-IsEditable="True" IsReadOnly="True" Text="-- Bitte wählen --" DropDownClosed="cbBuchTyp_DropDownClosed" />
+                            <TextBox x:Name="txtTyp" IsReadOnly="True" Style="{StaticResource cT}"/>
+                            <ComboBox x:Name="cbBuchTyp" Margin="5" DisplayMemberPath="typ" Text="-- Typ  --" 
+SelectedValuePath="id" StaysOpenOnEdit="False" IsTextSearchEnabled="True"
+IsEditable="True" IsReadOnly="False" DropDownClosed="cbBuchTyp_DropDownClosed" />
+                            
                             <Label Content="Kategorie"/>
-                            <TextBox x:Name="txtKategorie" IsReadOnly="True"/>
+                            <TextBox x:Name="txtKategorie" IsReadOnly="True" Style="{StaticResource cT}"/>
                             <ComboBox x:Name="cbKategorie" Margin="5" DisplayMemberPath="kat"
-SelectedValuePath="id" StaysOpenOnEdit="True" 
-IsEditable="True" IsReadOnly="True" Text="-- Bitte wählen --" DropDownClosed="cbKategorie_DropDownClosed" />
+SelectedValuePath="id" StaysOpenOnEdit="True" IsTextSearchEnabled="True"
+IsEditable="True" IsReadOnly="True" Text="-- Kategorie  --" DropDownClosed="cbKategorie_DropDownClosed" />
                             <Label Content="Unterkategorie"/>
-                            <TextBox x:Name="txtUKategorie" IsReadOnly="True"/>
+                            <TextBox x:Name="txtUKategorie" IsReadOnly="True" Style="{StaticResource cT}"/>
                             <ComboBox x:Name="cbUKategorie" Margin="5" DisplayMemberPath="ukat"
 SelectedValuePath="id" StaysOpenOnEdit="True" 
-IsEditable="True" IsReadOnly="True" Text="-- Bitte wählen --" DropDownClosed="cbUKategorie_DropDownClosed" />
+IsEditable="True" IsReadOnly="True" Text="-- Unterkategorie  --" DropDownClosed="cbUKategorie_DropDownClosed" />
                             <Label Content="Sachgruppe"/>
-                            <TextBox x:Name="txtSachgruppe" IsReadOnly="True"/>
+                            <TextBox x:Name="txtSachgruppe" IsReadOnly="True" Style="{StaticResource cT}"/>
                             <ComboBox x:Name="cbSachgruppe" Margin="5" DisplayMemberPath="sg"
 SelectedValuePath="id" StaysOpenOnEdit="True" 
-IsEditable="True" IsReadOnly="True" Text="-- Bitte wählen --" DropDownClosed="cbSachgruppe_DropDownClosed" />
+IsEditable="True" IsReadOnly="True" Text="-- Sachgruppe --" DropDownClosed="cbSachgruppe_DropDownClosed" />
                             <Label Content="Standort" />
-                            <TextBox x:Name="txtStandort" IsReadOnly="True"/>
+                            <TextBox x:Name="txtStandort" IsReadOnly="True" Style="{StaticResource cT}"/>
                             <ComboBox x:Name="cbStandort" Margin="5" DisplayMemberPath="so"
 SelectedValuePath="id" StaysOpenOnEdit="True" 
-IsEditable="True" IsReadOnly="True" Text="-- Bitte wählen --" DropDownClosed="cbStandort_DropDownClosed" />
+IsEditable="True" IsReadOnly="True" Text="-- Standort --" DropDownClosed="cbStandort_DropDownClosed" />
 
                         </StackPanel>
                     </Border>

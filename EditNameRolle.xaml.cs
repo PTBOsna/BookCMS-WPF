@@ -21,7 +21,7 @@ namespace BookCMS_WPF
     /// </summary>
     public partial class EditNameRolle : Window
     {
-        NameRolle cNR;
+        public  NameRolle cNR;
         public EditNameRolle(NameRolle _cNR)
         {
             InitializeComponent();
@@ -45,6 +45,8 @@ namespace BookCMS_WPF
             txtName.Text = sel.SortBy;
             txtNameInDB.Text = sel.PersonID.ToString();
             cNR.name = sel.SortBy;
+            cNR.currID = sel.PersonID;
+            
             cNR.nameInDB = sel.SortBy;
         }
 
@@ -52,11 +54,12 @@ namespace BookCMS_WPF
         {
   MessageBox.Show(cbRolle.Text);
             //Int32 selID = Int32.Parse( cbRolle.Text);
-            var rol = (from r in Admin.conn.AutorRolle where r.ID == (Int32)cbRolle.SelectedItem select r).FirstOrDefault();
+            var rol = (from r in Admin.conn.AutorRolle where r.ID == (Int32)cbRolle.SelectedValue select r).FirstOrDefault();
             txtRolle.Text = cbRolle.Text;
             txtRolleID.Text = cbRolle.SelectedValue.ToString();
             cNR.rolle = rol.AutorKurz;
             cNR.currRolleID = rol.ID;
+           
         }
 
         private void BtnNameNew_Click(object sender, RoutedEventArgs e)
@@ -64,8 +67,10 @@ namespace BookCMS_WPF
             MessageBox.Show("Form AddName aufrufen");
         }
 
+         public static NameRolle _nr = new NameRolle();
         private void Btn_close(object sender, RoutedEventArgs e)
         {
+            _nr = cNR;
             DialogResult = true;
         }
     }

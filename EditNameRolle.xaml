@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookCMS_WPF"
         mc:Ignorable="d"
-        Title="Person Ändern" Height="450" Width="400" WindowStartupLocation="CenterScreen">
+        Title="Person Ändern" Height="470" Width="400" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="Border">
             <Setter Property="BorderBrush" Value="Gray"/>
@@ -47,7 +47,7 @@
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="1" Margin="5">
             <Label Content="Suche Name in DB"/>
-            <TextBox x:Name="txtSuche" Background="AliceBlue" TextChanged="txtSearch_TextChanged" />
+            <TextBox x:Name="txtSuche" Background="AliceBlue" TextChanged="txtSearch_TextChanged"  />
 
 
         </StackPanel>
@@ -76,7 +76,7 @@
             </DataGrid.Columns>
           
         </DataGrid>
-        <Button Grid.Column="1" Grid.Row="3" Content="Neuer Name" Name="btnNameNew" Click="BtnNameNew_Click"/>
+        <Button Grid.Column="1" Grid.Row="3" Content="Neuer Name" Name="btnNameNew" Click="BtnNameNew_Click" Margin="5"/>
         <Button Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Content="Zurück" Click="Btn_close" Margin="50 3"/>
        
     </Grid>

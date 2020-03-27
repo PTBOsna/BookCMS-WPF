@@ -567,9 +567,20 @@ namespace BookCMS_WPF
             // gegeben ist die liste nr_list
             foreach (var autor in nr_list)
             {
-                abl.BuchID = id;
+                try
+                {
+ abl.BuchID = id;
                 abl.PersonID = autor.currID;
                 abl.RolleID = autor.currRolleID;
+                Admin.conn.AutorBuchLink.InsertOnSubmit(abl);
+                Admin.conn.SubmitChanges();
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.Message);
+                }
+               
             }
 
         }

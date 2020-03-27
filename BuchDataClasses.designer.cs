@@ -31,15 +31,21 @@ namespace BookCMS_WPF
 		
     #region Definitionen der Erweiterungsmethoden
     partial void OnCreated();
-    partial void InsertAutorBuchLink(AutorBuchLink instance);
-    partial void UpdateAutorBuchLink(AutorBuchLink instance);
-    partial void DeleteAutorBuchLink(AutorBuchLink instance);
     partial void InsertAutorRolle(AutorRolle instance);
     partial void UpdateAutorRolle(AutorRolle instance);
     partial void DeleteAutorRolle(AutorRolle instance);
     partial void InsertBuch(Buch instance);
     partial void UpdateBuch(Buch instance);
     partial void DeleteBuch(Buch instance);
+    partial void InsertAutorBuchLink(AutorBuchLink instance);
+    partial void UpdateAutorBuchLink(AutorBuchLink instance);
+    partial void DeleteAutorBuchLink(AutorBuchLink instance);
+    partial void InsertDDC_Haupt(DDC_Haupt instance);
+    partial void UpdateDDC_Haupt(DDC_Haupt instance);
+    partial void DeleteDDC_Haupt(DDC_Haupt instance);
+    partial void InsertDDC_100(DDC_100 instance);
+    partial void UpdateDDC_100(DDC_100 instance);
+    partial void DeleteDDC_100(DDC_100 instance);
     #endregion
 		
 		public BuchDataClassesDataContext() : 
@@ -70,14 +76,6 @@ namespace BookCMS_WPF
 				base(connection, mappingSource)
 		{
 			OnCreated();
-		}
-		
-		public System.Data.Linq.Table<AutorBuchLink> AutorBuchLink
-		{
-			get
-			{
-				return this.GetTable<AutorBuchLink>();
-			}
 		}
 		
 		public System.Data.Linq.Table<AutorRolle> AutorRolle
@@ -199,167 +197,29 @@ namespace BookCMS_WPF
 				return this.GetTable<Unterkategorie>();
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AutorBuchLink")]
-	public partial class AutorBuchLink : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private int _BuchID;
-		
-		private int _PersonID;
-		
-		private int _RolleID;
-		
-		private EntitySet<AutorRolle> _AutorRolle;
-		
-    #region Definitionen der Erweiterungsmethoden
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnBuchIDChanging(int value);
-    partial void OnBuchIDChanged();
-    partial void OnPersonIDChanging(int value);
-    partial void OnPersonIDChanged();
-    partial void OnRolleIDChanging(int value);
-    partial void OnRolleIDChanged();
-    #endregion
-		
-		public AutorBuchLink()
-		{
-			this._AutorRolle = new EntitySet<AutorRolle>(new Action<AutorRolle>(this.attach_AutorRolle), new Action<AutorRolle>(this.detach_AutorRolle));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
+		public System.Data.Linq.Table<AutorBuchLink> AutorBuchLink
 		{
 			get
 			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
+				return this.GetTable<AutorBuchLink>();
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BuchID", DbType="Int NOT NULL")]
-		public int BuchID
+		public System.Data.Linq.Table<DDC_Haupt> DDC_Haupt
 		{
 			get
 			{
-				return this._BuchID;
-			}
-			set
-			{
-				if ((this._BuchID != value))
-				{
-					this.OnBuchIDChanging(value);
-					this.SendPropertyChanging();
-					this._BuchID = value;
-					this.SendPropertyChanged("BuchID");
-					this.OnBuchIDChanged();
-				}
+				return this.GetTable<DDC_Haupt>();
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PersonID", DbType="Int NOT NULL")]
-		public int PersonID
+		public System.Data.Linq.Table<DDC_100> DDC_100
 		{
 			get
 			{
-				return this._PersonID;
+				return this.GetTable<DDC_100>();
 			}
-			set
-			{
-				if ((this._PersonID != value))
-				{
-					this.OnPersonIDChanging(value);
-					this.SendPropertyChanging();
-					this._PersonID = value;
-					this.SendPropertyChanged("PersonID");
-					this.OnPersonIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RolleID", DbType="Int NOT NULL")]
-		public int RolleID
-		{
-			get
-			{
-				return this._RolleID;
-			}
-			set
-			{
-				if ((this._RolleID != value))
-				{
-					this.OnRolleIDChanging(value);
-					this.SendPropertyChanging();
-					this._RolleID = value;
-					this.SendPropertyChanged("RolleID");
-					this.OnRolleIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="AutorBuchLink_AutorRolle", Storage="_AutorRolle", ThisKey="RolleID", OtherKey="ID")]
-		public EntitySet<AutorRolle> AutorRolle
-		{
-			get
-			{
-				return this._AutorRolle;
-			}
-			set
-			{
-				this._AutorRolle.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_AutorRolle(AutorRolle entity)
-		{
-			this.SendPropertyChanging();
-			entity.AutorBuchLink = this;
-		}
-		
-		private void detach_AutorRolle(AutorRolle entity)
-		{
-			this.SendPropertyChanging();
-			entity.AutorBuchLink = null;
 		}
 	}
 	
@@ -379,8 +239,6 @@ namespace BookCMS_WPF
 		
 		private string _Notiz_PlainText;
 		
-		private EntityRef<AutorBuchLink> _AutorBuchLink;
-		
     #region Definitionen der Erweiterungsmethoden
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -399,7 +257,6 @@ namespace BookCMS_WPF
 		
 		public AutorRolle()
 		{
-			this._AutorBuchLink = default(EntityRef<AutorBuchLink>);
 			OnCreated();
 		}
 		
@@ -414,10 +271,6 @@ namespace BookCMS_WPF
 			{
 				if ((this._ID != value))
 				{
-					if (this._AutorBuchLink.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnIDChanging(value);
 					this.SendPropertyChanging();
 					this._ID = value;
@@ -503,40 +356,6 @@ namespace BookCMS_WPF
 					this._Notiz_PlainText = value;
 					this.SendPropertyChanged("Notiz_PlainText");
 					this.OnNotiz_PlainTextChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="AutorBuchLink_AutorRolle", Storage="_AutorBuchLink", ThisKey="ID", OtherKey="RolleID", IsForeignKey=true)]
-		public AutorBuchLink AutorBuchLink
-		{
-			get
-			{
-				return this._AutorBuchLink.Entity;
-			}
-			set
-			{
-				AutorBuchLink previousValue = this._AutorBuchLink.Entity;
-				if (((previousValue != value) 
-							|| (this._AutorBuchLink.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._AutorBuchLink.Entity = null;
-						previousValue.AutorRolle.Remove(this);
-					}
-					this._AutorBuchLink.Entity = value;
-					if ((value != null))
-					{
-						value.AutorRolle.Add(this);
-						this._ID = value.RolleID;
-					}
-					else
-					{
-						this._ID = default(int);
-					}
-					this.SendPropertyChanged("AutorBuchLink");
 				}
 			}
 		}
@@ -4427,6 +4246,360 @@ namespace BookCMS_WPF
 				{
 					this._Notiz_PlainText = value;
 				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AutorBuchLink")]
+	public partial class AutorBuchLink : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private System.Nullable<int> _BuchID;
+		
+		private System.Nullable<int> _PersonID;
+		
+		private System.Nullable<int> _RolleID;
+		
+    #region Definitionen der Erweiterungsmethoden
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnBuchIDChanging(System.Nullable<int> value);
+    partial void OnBuchIDChanged();
+    partial void OnPersonIDChanging(System.Nullable<int> value);
+    partial void OnPersonIDChanged();
+    partial void OnRolleIDChanging(System.Nullable<int> value);
+    partial void OnRolleIDChanged();
+    #endregion
+		
+		public AutorBuchLink()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BuchID", DbType="Int")]
+		public System.Nullable<int> BuchID
+		{
+			get
+			{
+				return this._BuchID;
+			}
+			set
+			{
+				if ((this._BuchID != value))
+				{
+					this.OnBuchIDChanging(value);
+					this.SendPropertyChanging();
+					this._BuchID = value;
+					this.SendPropertyChanged("BuchID");
+					this.OnBuchIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PersonID", DbType="Int")]
+		public System.Nullable<int> PersonID
+		{
+			get
+			{
+				return this._PersonID;
+			}
+			set
+			{
+				if ((this._PersonID != value))
+				{
+					this.OnPersonIDChanging(value);
+					this.SendPropertyChanging();
+					this._PersonID = value;
+					this.SendPropertyChanged("PersonID");
+					this.OnPersonIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RolleID", DbType="Int")]
+		public System.Nullable<int> RolleID
+		{
+			get
+			{
+				return this._RolleID;
+			}
+			set
+			{
+				if ((this._RolleID != value))
+				{
+					this.OnRolleIDChanging(value);
+					this.SendPropertyChanging();
+					this._RolleID = value;
+					this.SendPropertyChanged("RolleID");
+					this.OnRolleIDChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DDC_Haupt")]
+	public partial class DDC_Haupt : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _DDC_Haupt1;
+		
+		private string _DDC_Name;
+		
+    #region Definitionen der Erweiterungsmethoden
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnDDC_Haupt1Changing(string value);
+    partial void OnDDC_Haupt1Changed();
+    partial void OnDDC_NameChanging(string value);
+    partial void OnDDC_NameChanged();
+    #endregion
+		
+		public DDC_Haupt()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="DDC_Haupt", Storage="_DDC_Haupt1", DbType="NVarChar(3) NOT NULL", CanBeNull=false)]
+		public string DDC_Haupt1
+		{
+			get
+			{
+				return this._DDC_Haupt1;
+			}
+			set
+			{
+				if ((this._DDC_Haupt1 != value))
+				{
+					this.OnDDC_Haupt1Changing(value);
+					this.SendPropertyChanging();
+					this._DDC_Haupt1 = value;
+					this.SendPropertyChanged("DDC_Haupt1");
+					this.OnDDC_Haupt1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DDC_Name", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string DDC_Name
+		{
+			get
+			{
+				return this._DDC_Name;
+			}
+			set
+			{
+				if ((this._DDC_Name != value))
+				{
+					this.OnDDC_NameChanging(value);
+					this.SendPropertyChanging();
+					this._DDC_Name = value;
+					this.SendPropertyChanged("DDC_Name");
+					this.OnDDC_NameChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DDC_100")]
+	public partial class DDC_100 : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _DCC_100;
+		
+		private string _DCC_Name;
+		
+    #region Definitionen der Erweiterungsmethoden
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnDCC_100Changing(string value);
+    partial void OnDCC_100Changed();
+    partial void OnDCC_NameChanging(string value);
+    partial void OnDCC_NameChanged();
+    #endregion
+		
+		public DDC_100()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DCC_100", DbType="VarChar(3) NOT NULL", CanBeNull=false)]
+		public string DCC_100
+		{
+			get
+			{
+				return this._DCC_100;
+			}
+			set
+			{
+				if ((this._DCC_100 != value))
+				{
+					this.OnDCC_100Changing(value);
+					this.SendPropertyChanging();
+					this._DCC_100 = value;
+					this.SendPropertyChanged("DCC_100");
+					this.OnDCC_100Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DCC_Name", DbType="VarChar(150) NOT NULL", CanBeNull=false)]
+		public string DCC_Name
+		{
+			get
+			{
+				return this._DCC_Name;
+			}
+			set
+			{
+				if ((this._DCC_Name != value))
+				{
+					this.OnDCC_NameChanging(value);
+					this.SendPropertyChanging();
+					this._DCC_Name = value;
+					this.SendPropertyChanged("DCC_Name");
+					this.OnDCC_NameChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

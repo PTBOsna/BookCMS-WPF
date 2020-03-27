@@ -234,6 +234,7 @@ namespace BookCMS_WPF
 
         private void Click_ExitMnu(object sender, RoutedEventArgs e)
         {
+            //Admin.conn.SubmitChanges();
             Application.Current.Shutdown();
         }
 

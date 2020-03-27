@@ -26,6 +26,10 @@ namespace BookCMS_WPF
         {
             InitializeComponent();
             txtInput.Focus();
+            var ddc = from dd in Admin.conn.DDC_Haupt select new { Name = dd.DDC_Name, DDC = dd.DDC_Haupt1 };
+
+            lbDDC.ItemsSource = ddc;
+
 
 
         }
@@ -86,8 +90,11 @@ namespace BookCMS_WPF
 
             cbTest.ItemsSource = lang.ToList();
 
+            if (dnbdata.dnb_dcc1 != null)
+            {
 
-
+                FindDDC(dnbdata.dnb_dcc1);
+            }
             //lbTitel.Items.Add(dnbdata.dnb_Autor_sort);
             //lbTitel.Items.Add(dnbdata.dnb_Rolle);
             //lbTitel.Items.Add(dnbdata.dnb_mitautor);
@@ -95,7 +102,29 @@ namespace BookCMS_WPF
 
         }
 
+        private void FindDDC(string ddc)
+        {
+           
+                string vDDC = null;
+            ddc = ddc.Substring(0, ddc.Length - 1);
 
+            List<string> dd = ddc.Split(' ').ToList();
+            foreach (var item in dd)
+            {
+                if (item.Length > 1)
+                {
+                    string selDDC = item.Substring(0, 2);
+                    //auf Dopplung prüfen
+                    if (selDDC != vDDC)
+                    {
+                        var _ddc = (from d in Admin.conn.DDC_100 where d.DCC_100.StartsWith(selDDC) select d).FirstOrDefault();
+                        MessageBox.Show(_ddc.DCC_Name + "\r\n");
+                        vDDC = selDDC;
+                    }
+
+                }
+            }
+        }
 
         private string FindAutor(string cName)
         {
@@ -189,6 +218,21 @@ namespace BookCMS_WPF
 
                 MessageBox.Show(cbTest.SelectedValue.ToString());
             }
+        }
+
+        private void lbDDC_changed(object sender, SelectionChangedEventArgs e)
+        {
+            lbDDC100.Items.Clear();
+            string selDDC = lbDDC.SelectedValue.ToString();
+            selDDC = selDDC.Substring(2, 1);
+            var ddc = from dd in Admin.conn.DDC_100 where dd.DCC_100.StartsWith(selDDC) select dd;
+
+            foreach (var item in ddc)
+            {
+                lbDDC100.Items.Add(item.DCC_Name);
+
+            }
+
         }
     }
 }
