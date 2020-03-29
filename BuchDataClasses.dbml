@@ -267,4 +267,13 @@
       <Column Name="DCC_Name" Type="System.String" DbType="VarChar(150) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
+  <Table Name="dbo.Settings" Member="Settings">
+    <Type Name="Settings">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CoverPath" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="StartRolle" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DNB_API" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Google_API" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

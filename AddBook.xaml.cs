@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using BookCMS_WPF;
 using BookCMS_WPF.DataHandling;
+//using System.Drawing;
 
 namespace BookCMS_WPF
 {
@@ -30,6 +31,7 @@ namespace BookCMS_WPF
         public Int32 PersonID;
         public Int32 VerlagsID;
         public Int32 VerlagsOrtID;
+        public Int32 BuchID;
         public string cSignatur;
         //Variablen für DNB-Connect
         public string sampleXml = @"H:\VisualStudio-Projekte\BookCMS-WPF\test5.mrcx"; //für Testlauf
@@ -40,7 +42,8 @@ namespace BookCMS_WPF
         public List<DnbVerlag> verl_list;
         public List<DnbPrinter> print_list;
         public Buch newBook = new Buch();
-
+        public mySettings sett;
+        public BitmapImage myBitmapImage;
 
         public AddBook(string _dnbID)
         {
@@ -48,6 +51,8 @@ namespace BookCMS_WPF
             this.dnbID = _dnbID;
             //this.DataContext = newBook;
             //Hilfstabellen laden/aktivieren
+            sett = new mySettings();
+
             LoadAuxTab();
             btnPublNew.Visibility = Visibility.Hidden;
             NameRolle nr = new NameRolle();
@@ -70,10 +75,15 @@ namespace BookCMS_WPF
             cbUKategorie.ItemsSource = ukat.ToList();
             GetDataDNB();
 
+            string[] name = null;
+            string[] ret = null;
             //Personen finden und Anzeign
-            string[] name = db.dnb_Autor_sort.Split(',');
-            string[] ret = FindAutor(name[0]).Split('#');
-            nr_list.Add(new NameRolle() { name = db.dnb_Autor_sort, rolle = db.dnb_Rolle, nameInDB = ret[1], currID = Int32.Parse(ret[0]), currRolleID = FindRolleID(db.dnb_Rolle) });
+            if (db.dnb_Autor_sort != null)
+            {
+                name = db.dnb_Autor_sort.Split(',');
+                ret = FindAutor(name[0]).Split('#');
+                nr_list.Add(new NameRolle() { name = db.dnb_Autor_sort, rolle = db.dnb_Rolle, nameInDB = ret[1], currID = Int32.Parse(ret[0]), currRolleID = FindRolleID(db.dnb_Rolle) });
+            }
             if (db.dnb_mitautor != null)
             {
                 db.dnb_mitautor = db.dnb_mitautor.Substring(0, db.dnb_mitautor.Length - 1);
@@ -84,7 +94,7 @@ namespace BookCMS_WPF
                 {
                     name = mitAutor[i].Split(',');
                     string[] retA = FindAutor(name[0]).Split('#');
-                    nr_list.Add(new NameRolle() { name = mitAutor[i], rolle = rolleMitAutor[i], nameInDB = retA[1], currID = Int32.Parse(retA[0]), currRolleID = FindRolleID(db.dnb_Rolle) });
+                    nr_list.Add(new NameRolle() { name = mitAutor[i], rolle = rolleMitAutor[i], nameInDB = retA[1], currID = Int32.Parse(retA[0]), currRolleID = FindRolleID(rolleMitAutor[i]) });
                 }
 
             }
@@ -120,7 +130,11 @@ namespace BookCMS_WPF
                 tmp += "\r\n" + "Thema:" + "\r\n" + db.dnb_thema;
             }
             txtAddInfo.Text = tmp;
-            txtInhalt.Text = Admin.GetSynopsis(db.dnb_inhalt);
+            if (db.dnb_inhalt != null)
+            {
+                txtInhalt.Text = Admin.GetSynopsis(db.dnb_inhalt);
+
+            }
             //newBook.LCCN = 
             newBook.OriginalTitel = db.dnb_titel_org;
             newBook.OriginalUntertitel = db.dnb_titel_org; //prüfen!
@@ -131,7 +145,7 @@ namespace BookCMS_WPF
             txtSubTitel.Text = db.dnb_untertitel;
             txtIndex.Text = db.dnb_index;
             //Berechnete Felder
-            txtTitelIndex.Text = Admin. GetTitleIndex(db.dnb_titel);
+            txtTitelIndex.Text = Admin.GetTitleIndex(db.dnb_titel);
             txtAutorSort.Text = GetAutorSort();
             txtTitelSort.Text = db.dnb_titel;
             txtSignatur.Text = GetSignatur();
@@ -146,7 +160,9 @@ namespace BookCMS_WPF
         {
             string s;
 
-            string key = "1159cfc6b965e8a03abc3bd8227afa"; //TODO: wird später aus den Settings entnommen
+            //string key = "1159cfc6b965e8a03abc3bd8227afa"; //TODO: wird später aus den Settings entnommen
+            string key = sett.DNB_API;
+            //MessageBox.Show(sett.CoverPath);
             WebClient w = new WebClient();
             w.Encoding = Encoding.UTF8;
 
@@ -163,9 +179,9 @@ namespace BookCMS_WPF
             }
             db = new DNBBookData(s);
 
-          
+
             //Prüfen ob Cover vorhanden (Abfrage mit allen drei ISBN-Varianten)
-            string imgUrl = @"https://portal.dnb.de/opac/mvb/cover.htm?isbn=" ;
+            string imgUrl = @"https://portal.dnb.de/opac/mvb/cover.htm?isbn=";
 
             if (Admin.IsPageValid(imgUrl + db.dnb_isbn_) == true)
             {
@@ -179,14 +195,45 @@ namespace BookCMS_WPF
             {
                 imgUrl += db.dnb_isbn_13;
             }
+            else
+            {
+                cbSaveCover.IsChecked = false;
+                lbCoverDNB.Content = "Kein Conver vorhanden!";
+                return;
+            }
             Uri myUri = new Uri(imgUrl);
-            HandleImage(ImgBox, myUri);
+            HandleImage(MyImage, myUri);
+            imgLoad(imgUrl);
             //MessageBox.Show(ImgBox.Width.ToString());
         }
 
-       
+        public void imgLoad(string _myUri)
+        {
+            Image myImage = new Image();
+            myImage.Width = 100;
 
-      
+            // Create source
+            myBitmapImage = new BitmapImage();
+
+            // BitmapImage.UriSource must be in a BeginInit/EndInit block
+            myBitmapImage.BeginInit();
+            myBitmapImage.UriSource = new Uri(_myUri);
+
+            // To save significant application memory, set the DecodePixelWidth or  
+            // DecodePixelHeight of the BitmapImage value of the image source to the desired 
+            // height or width of the rendered image. If you don't do this, the application will 
+            // cache the image as though it were rendered as its normal size rather then just 
+            // the size that is displayed.
+            // Note: In order to preserve aspect ratio, set DecodePixelWidth
+            // or DecodePixelHeight but not both.
+            myBitmapImage.DecodePixelWidth = 100;
+            myBitmapImage.EndInit();
+            //set image source
+            MyImage.Source = myBitmapImage;
+
+        }
+
+
 
         private void HandleImage(Image image, Uri webUri)
         {
@@ -199,7 +246,7 @@ namespace BookCMS_WPF
                 image.Source = bDecoder.Frames[0];
         }
 
-     
+
         private string GetSignatur()
         {
             // Signatur
@@ -446,10 +493,13 @@ namespace BookCMS_WPF
         }
 
 
+      
+
 
         public void SaveNewBook()
         {
-            
+            //Int32 id = 0;
+
             if (string.IsNullOrEmpty(txtTitel.Text) == true)
             {
                 MessageBox.Show("Bitte einen Titel eingeben!");
@@ -486,7 +536,7 @@ namespace BookCMS_WPF
                 return;
             }
 
-    newBook.Titel = txtTitel.Text;
+            newBook.Titel = txtTitel.Text;
             newBook.TitelIndex = txtTitelIndex.Text;
 
             newBook.AutorSort = txtAutorSort.Text;
@@ -557,42 +607,76 @@ namespace BookCMS_WPF
             //newBook.UnterkategorieID =  [int = NULL,
             //newBook.SachgruppeID =  [int = NULL,
             newBook.Stichworte = txtStichworte.Text;
-
             //speichern!
             Admin.conn.Buch.InsertOnSubmit(newBook);
             Admin.conn.SubmitChanges();
-            Int32 id = newBook.ID;
+            BuchID = newBook.ID;
             // AutorBuchLink ergänzen
-            AutorBuchLink abl = new AutorBuchLink();
             // gegeben ist die liste nr_list
             foreach (var autor in nr_list)
             {
+            AutorBuchLink abl = new AutorBuchLink();
                 try
                 {
- abl.BuchID = id;
-                abl.PersonID = autor.currID;
-                abl.RolleID = autor.currRolleID;
-                Admin.conn.AutorBuchLink.InsertOnSubmit(abl);
-                Admin.conn.SubmitChanges();
+                    abl.BuchID = BuchID;
+                    abl.PersonID = autor.currID;
+                    abl.RolleID = autor.currRolleID;
+                    Admin.conn.AutorBuchLink.InsertOnSubmit(abl);
+                    Admin.conn.SubmitChanges();
                 }
                 catch (Exception ex)
                 {
 
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("Personen z.T. nicht übernommen!","Fehler beim Speichern!");
                 }
-               
+
+            }
+
+            //speichern!
+
+
+            // gegeben ist die liste nr_list
+
+            if (cbSaveCover.IsChecked == true)
+            {
+                SaveCover(BuchID);
+
+            }
+
+        }
+
+        private void SaveCover(int id)
+        {
+            BitmapEncoder encoder = new JpegBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(myBitmapImage));
+            string cPath = System.IO.Path.Combine(sett.CoverPath, id.ToString() + ".jpg");
+            try
+            {
+                using (var fileStream = new System.IO.FileStream(cPath, System.IO.FileMode.Create))
+                {
+                    encoder.Save(fileStream);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Cover wurde nicht gespeichert!" + "\r\n" + ex.Message);
             }
 
         }
 
         private void BtnSave_click(object sender, RoutedEventArgs e)
         {
+            if (cbSaveCover.IsChecked == true)
+            {
             SaveNewBook();
+
+            }
         }
 
         private void MeClose()
         {
-           DialogResult = true;
+            DialogResult = true;
         }
 
     }

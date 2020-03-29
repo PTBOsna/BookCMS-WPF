@@ -78,7 +78,12 @@ namespace BookCMS_WPF.DataHandling
                             if (line.Contains("code=\"a\""))
                             {
                                 //LBShow.Items.Add(SelectString(line)); // Write to console.
+                                //ISBN nur einmal laden
+                                if (dnb_isbn==null)
+                                {
+
                                 dnb_isbn = SelectString(line); // Add to list.
+                                }
                                 //MessageBox.Show(SelectString(line));
                             }
                             if (line.Contains("code=\"c\""))

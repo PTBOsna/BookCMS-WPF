@@ -60,6 +60,9 @@
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ookii.Dialogs.Wpf, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0c15020868fd6249, processorArchitecture=MSIL">
+      <HintPath>packages\Ookii.Dialogs.1.0\lib\net35\Ookii.Dialogs.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
@@ -90,7 +93,6 @@
       <DependentUpon>AddBook2.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataHandling\DownloadImage.cs" />
-    <Compile Include="DataHandling\Settings.cs" />
     <Compile Include="EditBook.xaml.cs">
       <DependentUpon>EditBook.xaml</DependentUpon>
     </Compile>
@@ -98,6 +100,9 @@
     <Compile Include="DataHandling\CheckData.cs" />
     <Compile Include="EditNameRolle.xaml.cs">
       <DependentUpon>EditNameRolle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MySettings.xaml.cs">
+      <DependentUpon>MySettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="SearchDNB.xaml.cs">
       <DependentUpon>SearchDNB.xaml</DependentUpon>
@@ -143,6 +148,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MySettings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="SearchDNB.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -182,6 +191,7 @@
     <None Include="BuchDataClasses.dbml.layout">
       <DependentUpon>BuchDataClasses.dbml</DependentUpon>
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

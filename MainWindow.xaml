@@ -35,6 +35,7 @@
             </MenuItem>
             <MenuItem Header="Extras">
                 <MenuItem Header="Bilder Zuordnung" Click="MenuItem_ImgToGD_Click"/>
+                <MenuItem Header="Settings" Click="MenuItem_Settings_Click"/>
             </MenuItem>
             <MenuItem Header="Neu-Testbuch" Click="MenuItemTest_Click"/>
             <MenuItem Header="Testform" Click="MenuItemTestForm_Click"/>

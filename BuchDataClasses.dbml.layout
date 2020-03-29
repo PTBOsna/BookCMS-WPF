@@ -110,5 +110,11 @@
         <elementListCompartment Id="97240a64-ae3e-4060-a264-0dbb6b22f0cb" absoluteBounds="8.39, 9.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="4a5a3e7a-3429-4622-bed3-6869a5a88f99" isExpanded="false" absoluteBounds="10.375, 2.125, 2, 0.45">
+      <DataClassMoniker Name="/BuchDataClassesDataContext/Settings" />
+      <nestedChildShapes>
+        <elementListCompartment Id="bb23fdc1-eea4-434a-a747-fbe100a03ee4" absoluteBounds="10.39, 2.585, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

@@ -33,15 +33,8 @@ namespace BookCMS_WPF
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //Settings set = new Settings();
-            //set.PathCover = @"C:\coverPath";
-            //set.StartRolle = 7;
-            //set.dnb_api = "asdf";
-            //set.google_api = "ölkj";
-            string cPath = @"H:\test.xml";
-            //HandleXML.WriteXML(cPath, set);
-            HandleXML.ReadXML(cPath);
-            rolle = 7;
+            mySettings ms = new mySettings();
+           
             selDilplay = "Titel";
             var buch = from b in Admin.conn.Buch select b;
             BuchGrid.ItemsSource = buch.ToList();
@@ -289,6 +282,12 @@ namespace BookCMS_WPF
         {
             XDGTest xdg = new XDGTest();
             xdg.ShowDialog();
+        }
+
+        private void MenuItem_Settings_Click(object sender, RoutedEventArgs e)
+        {
+            MySettings ms = new MySettings();
+            ms.ShowDialog();
         }
     }
 }

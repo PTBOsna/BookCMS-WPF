@@ -35,8 +35,12 @@ namespace BookCMS_WPF
         }
 
         private void connect(string suche)
+            
         {
-            string key = "1159cfc6b965e8a03abc3bd8227afa"; //TODO: wird später aus den Settings entnommen
+            mySettings ms = new mySettings();
+            //MessageBox.Show(ms.DNB_API);
+            //string key = "1159cfc6b965e8a03abc3bd8227afa"; //TODO: wird später aus den Settings entnommen
+            string key = ms.DNB_API;
             WebClient w = new WebClient();
             w.Encoding = Encoding.UTF8;
             string urlEnc = WebUtility.UrlEncode(suche);

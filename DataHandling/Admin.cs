@@ -33,20 +33,20 @@ namespace BookCMS_WPF.DataHandling
 
         public static void addAutorBuchLInk(AutorBuchLink autorBuchLink)
         {
-            
+
             {
                 conn.AutorBuchLink.InsertOnSubmit(autorBuchLink);
                 conn.SubmitChanges();
             }
         }
 
-        
+
         public static bool IsPageValid(string page)
         {
             WebClient w = new WebClient();
             try
             {
-               w.DownloadString(page);
+                w.DownloadString(page);
                 return true;
             }
             catch (Exception ex)
@@ -69,7 +69,7 @@ namespace BookCMS_WPF.DataHandling
         public static string GetSynopsis(string cUrl)
         {
             string[] url = cUrl.Split('#');
-            url[0]= url[0].Replace(';', '&');
+            url[0] = url[0].Replace(';', '&');
             WebBrowser web = new WebBrowser();
 
             Stopwatch timer = Stopwatch.StartNew(); // start a timer
@@ -96,30 +96,52 @@ namespace BookCMS_WPF.DataHandling
             }
         }
     }
+
+
+
+
+    public class NameRolle
+    {
+        public string name { get; set; }
+        public string rolle { get; set; }
+        public string nameInDB { get; set; }
+        public Int32 currID { get; set; }
+        public Int32 currRolleID { get; set; }
+        public Int32 currNameRolleID { get; set; }
     }
 
-   
+    public class DnbVerlag
+    {
+        public string verlag { get; set; }
+        public string verlagInDB { get; set; }
+        public Int32 verlID { get; set; }
+    }
 
-public class NameRolle
-{
-    public string name { get; set; }
-    public string rolle { get; set; }
-    public string nameInDB { get; set; }
-    public Int32 currID { get; set; }
-    public Int32 currRolleID { get; set; }
-    public Int32 currNameRolleID { get; set; }
+    public class DnbPrinter
+    {
+        public string druckerei { get; set; }
+        public string druckereiInDB { get; set; }
+        public Int32 drlID { get; set; }
+    }
+
+    public   class mySettings
+    {
+        public  string CoverPath { get; set; }
+        public  Int32 StarRolle { get; set; }
+        public  string DNB_API { get; set; }
+        public  string Google_API { get; set; }
+
+        public  mySettings()
+        {
+            var set = from ms in Admin.conn.Settings select ms;
+            foreach (var item in set)
+            {
+                CoverPath = item.CoverPath;
+                StarRolle = (Int32) item.StartRolle;
+                DNB_API = item.DNB_API;
+                Google_API = item.Google_API;
+            }
+        }
+    }
 }
 
-public class DnbVerlag
-{
-    public string verlag { get; set; }
-    public string verlagInDB { get; set; }
-    public Int32 verlID { get; set; }
-}
-
-public class DnbPrinter
-{
-    public string druckerei { get; set; }
-    public string druckereiInDB { get; set; }
-    public Int32 drlID { get; set; }
-}

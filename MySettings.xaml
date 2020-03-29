@@ -5,8 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookCMS_WPF"
         mc:Ignorable="d"
-        Title="MySettings" Height="450" Width="800">
+        Title="MySettings" Height="400" Width="400" Loaded="Window_Loaded">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Grid.Column="0" Content="Ordner für Bilder"
+               Margin="5 10" VerticalAlignment="Top" />
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <Label Content="Cover-Pfad"/>
+            <TextBox x:Name="txtImgPath" Text="{Binding Path=CoverPath, UpdateSourceTrigger=PropertyChanged}" Margin=" 5"/>
+            <Label Content="Start-Rolle"/>
+            <TextBox x:Name="txtStartRolle" Text="{Binding Path=StartRolle, Mode=TwoWay}" Margin="5"/>
+            <Label Content="DNB-API"/>
+            <TextBox x:Name="txtDNB_Api" Text="{Binding Path=DNB_API, Mode=TwoWay}" Margin="5"/>
+            <Label Content="Google-API"/>
+            <TextBox x:Name="txtGoogle_API" Text="{Binding Path=Google_API, Mode=TwoWay}" Margin="5"/>
+        </StackPanel>
+        <Button Grid.Row="1" Grid.Column="1" Content="..." HorizontalAlignment="Left" 
+                Margin="5" Name="btnFolder"  VerticalAlignment="Top" Width="47" Click="btnFolder_Click"/>
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2" >
+            <UniformGrid Columns="2">
+
+                <Button Content="Übernehmen" Name="btnAdd" HorizontalAlignment="Left" Width="80" Margin="5"  Click="btnAdd_Click"/>
+                <Button Content="Zurück" Name="btnCancel" HorizontalAlignment="Right" Width="80" Margin="5" Click="btnCancel_Click"/>
+            </UniformGrid>
+
+        </StackPanel>
+
     </Grid>
 </Window>

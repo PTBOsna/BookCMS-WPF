@@ -176,7 +176,7 @@ IsEditable="True" IsReadOnly="True" Text="-- Bindung  --" DropDownClosed="cbBind
                             <ComboBox x:Name="cbBuchTyp" Margin="5" DisplayMemberPath="typ" Text="-- Typ  --" 
 SelectedValuePath="id" StaysOpenOnEdit="False" IsTextSearchEnabled="True"
 IsEditable="True" IsReadOnly="False" DropDownClosed="cbBuchTyp_DropDownClosed" />
-                            
+
                             <Label Content="Kategorie"/>
                             <TextBox x:Name="txtKategorie" IsReadOnly="True" Style="{StaticResource cT}"/>
                             <ComboBox x:Name="cbKategorie" Margin="5" DisplayMemberPath="kat"
@@ -226,7 +226,18 @@ IsEditable="True" IsReadOnly="True" Text="-- Standort --" DropDownClosed="cbStan
                             <TextBox x:Name="txtAutorSort" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" />
                         </StackPanel>
                     </Border>
-                    <Image x:Name="ImgBox" Grid.Column="7" Grid.Row="2"/>
+                    <Border Grid.Column="7" Grid.Row="2" BorderBrush="Gray" BorderThickness="1" Margin="5">
+                        <StackPanel>
+                            <Image x:Name="MyImage" Grid.Column="7" Grid.Row="2"/>
+                            
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Column="8" Grid.Row="2" BorderBrush="Gray" BorderThickness="1" Margin="5">
+                        <StackPanel>
+                            <Label Name="lbCoverDNB" Content="Cover aus DNB"/>
+                            <CheckBox x:Name="cbSaveCover" Content="Cover wird gespreichert" IsChecked="True"/>
+                        </StackPanel>
+                    </Border>
                 </Grid>
             </TabItem>
             <!--Tab Sachgruppe/Details-->

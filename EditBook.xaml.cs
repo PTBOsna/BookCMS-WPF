@@ -137,6 +137,8 @@ namespace BookCMS_WPF
             }
             cBook.AutorSort = cAutorSort.Substring(0, cAutorSort.Length - 2);
             Admin.conn.SubmitChanges();
+            
+           
             DialogResult = true;
         }
 

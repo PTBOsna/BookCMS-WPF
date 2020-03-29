@@ -46,6 +46,9 @@ namespace BookCMS_WPF
     partial void InsertDDC_100(DDC_100 instance);
     partial void UpdateDDC_100(DDC_100 instance);
     partial void DeleteDDC_100(DDC_100 instance);
+    partial void InsertSettings(Settings instance);
+    partial void UpdateSettings(Settings instance);
+    partial void DeleteSettings(Settings instance);
     #endregion
 		
 		public BuchDataClassesDataContext() : 
@@ -219,6 +222,14 @@ namespace BookCMS_WPF
 			get
 			{
 				return this.GetTable<DDC_100>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Settings> Settings
+		{
+			get
+			{
+				return this.GetTable<Settings>();
 			}
 		}
 	}
@@ -4579,6 +4590,164 @@ namespace BookCMS_WPF
 					this._DCC_Name = value;
 					this.SendPropertyChanged("DCC_Name");
 					this.OnDCC_NameChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Settings")]
+	public partial class Settings : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id;
+		
+		private string _CoverPath;
+		
+		private System.Nullable<int> _StartRolle;
+		
+		private string _DNB_API;
+		
+		private string _Google_API;
+		
+    #region Definitionen der Erweiterungsmethoden
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnidChanging(int value);
+    partial void OnidChanged();
+    partial void OnCoverPathChanging(string value);
+    partial void OnCoverPathChanged();
+    partial void OnStartRolleChanging(System.Nullable<int> value);
+    partial void OnStartRolleChanged();
+    partial void OnDNB_APIChanging(string value);
+    partial void OnDNB_APIChanged();
+    partial void OnGoogle_APIChanging(string value);
+    partial void OnGoogle_APIChanged();
+    #endregion
+		
+		public Settings()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id
+		{
+			get
+			{
+				return this._id;
+			}
+			set
+			{
+				if ((this._id != value))
+				{
+					this.OnidChanging(value);
+					this.SendPropertyChanging();
+					this._id = value;
+					this.SendPropertyChanged("id");
+					this.OnidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CoverPath", DbType="NVarChar(250)")]
+		public string CoverPath
+		{
+			get
+			{
+				return this._CoverPath;
+			}
+			set
+			{
+				if ((this._CoverPath != value))
+				{
+					this.OnCoverPathChanging(value);
+					this.SendPropertyChanging();
+					this._CoverPath = value;
+					this.SendPropertyChanged("CoverPath");
+					this.OnCoverPathChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartRolle", DbType="Int")]
+		public System.Nullable<int> StartRolle
+		{
+			get
+			{
+				return this._StartRolle;
+			}
+			set
+			{
+				if ((this._StartRolle != value))
+				{
+					this.OnStartRolleChanging(value);
+					this.SendPropertyChanging();
+					this._StartRolle = value;
+					this.SendPropertyChanged("StartRolle");
+					this.OnStartRolleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DNB_API", DbType="NVarChar(250)")]
+		public string DNB_API
+		{
+			get
+			{
+				return this._DNB_API;
+			}
+			set
+			{
+				if ((this._DNB_API != value))
+				{
+					this.OnDNB_APIChanging(value);
+					this.SendPropertyChanging();
+					this._DNB_API = value;
+					this.SendPropertyChanged("DNB_API");
+					this.OnDNB_APIChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Google_API", DbType="NVarChar(250)")]
+		public string Google_API
+		{
+			get
+			{
+				return this._Google_API;
+			}
+			set
+			{
+				if ((this._Google_API != value))
+				{
+					this.OnGoogle_APIChanging(value);
+					this.SendPropertyChanging();
+					this._Google_API = value;
+					this.SendPropertyChanged("Google_API");
+					this.OnGoogle_APIChanged();
 				}
 			}
 		}
