@@ -49,10 +49,23 @@ namespace BookCMS_WPF
         {
             InitializeComponent();
             this.dnbID = _dnbID;
-            //this.DataContext = newBook;
+
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        { //this.DataContext = newBook;
             //Hilfstabellen laden/aktivieren
             sett = new mySettings();
+            //Genre-Checkboxen  laden
+            //var gen = from g in Admin.conn.Sachgruppe where g.Marked == true orderby g.SortBy select g;
+            //foreach (var g in gen)
+            //{
+            //    System.Windows.Controls.CheckBox newCkBox = new CheckBox();
+            //    newCkBox.Content = g.Sachgruppe1;
+            //    ugridGenre.Children.Add(newCkBox);
 
+            //    newCkBox.Tag = g.GenreID;
+            //}
+            Admin.LoadGenre(ugridGenre);
             LoadAuxTab();
             btnPublNew.Visibility = Visibility.Hidden;
             NameRolle nr = new NameRolle();
@@ -73,8 +86,19 @@ namespace BookCMS_WPF
             cbKategorie.ItemsSource = kat.ToList();
             var ukat = from uk in Admin.conn.Unterkategorie orderby uk.SortBy select new { ukat = uk.SortBy, id = uk.SubCategoryID };
             cbUKategorie.ItemsSource = ukat.ToList();
-            GetDataDNB();
 
+
+
+            GetDataDNB();
+            ShowPerson();
+            FindPublisher(db.dnb_verlagsname);
+            FindLanguage(db.dnb_sprache);
+            FindOrigLanguage(db.dnb_sprache_org);
+            LoadNewData();
+        }
+
+        private void ShowPerson()
+        {
             string[] name = null;
             string[] ret = null;
             //Personen finden und Anzeign
@@ -99,22 +123,14 @@ namespace BookCMS_WPF
 
             }
             DGPersonen.ItemsSource = nr_list;
-            FindPublisher(db.dnb_verlagsname);
-            FindLanguage(db.dnb_sprache);
-            FindOrigLanguage(db.dnb_sprache_org);
-
-
-            LoadNewData();
-
-
         }
 
         private void LoadNewData()
         {
-            //Einfache Felder/ TextFelder von newBook mit Daten aus db belegel
+            //Einfache Felder/ TextFelder von newBook mit Daten aus db belegen
             txtAuflage.Text = db.dnb_auflage;
             txtJahr.Text = db.dnb_jahr;
-            txtDCC.Text = db.dnb_dcc1 + "; " + db.dnb_dcc2;
+            txtDCC.Text = db.dnb_dcc1 + db.dnb_dcc2;
             txtDim.Text = db.dnb_dim;
             txtDNB.Text = db.dnb_nr;
             txtISBN.Text = db.dnb_isbn;
@@ -161,7 +177,7 @@ namespace BookCMS_WPF
             string s;
 
             //string key = "1159cfc6b965e8a03abc3bd8227afa"; //TODO: wird später aus den Settings entnommen
-            string key = sett.DNB_API;
+            string key = mySettings.DNB_API;
             //MessageBox.Show(sett.CoverPath);
             WebClient w = new WebClient();
             w.Encoding = Encoding.UTF8;
@@ -210,7 +226,7 @@ namespace BookCMS_WPF
         public void imgLoad(string _myUri)
         {
             Image myImage = new Image();
-            myImage.Width = 100;
+            myImage.Width = 200;
 
             // Create source
             myBitmapImage = new BitmapImage();
@@ -226,7 +242,7 @@ namespace BookCMS_WPF
             // the size that is displayed.
             // Note: In order to preserve aspect ratio, set DecodePixelWidth
             // or DecodePixelHeight but not both.
-            myBitmapImage.DecodePixelWidth = 100;
+            myBitmapImage.DecodePixelWidth = 200;
             myBitmapImage.EndInit();
             //set image source
             MyImage.Source = myBitmapImage;
@@ -437,14 +453,30 @@ namespace BookCMS_WPF
             {
                 NameRolle nr = DGPersonen.SelectedItem as NameRolle;
                 if (nr.currID == -1)
-                {
-                    MessageBox.Show("Form AddName aufrufen");
+                { //Index in nr_list finden
+                    int i = 0;
+                    foreach (var item in nr_list)
+                    {
+                        if (item.name.StartsWith(nr.name) == true)
+                        {
+                            i = nr_list.IndexOf(item);
+                        }
+                    }
+                    Listen.AddPerson addp = new Listen.AddPerson(nr.name);
+                    addp.ShowDialog();
+                    nr_list[i].nameInDB = "Eingefügt";
+                    nr_list[i].currID = Admin.currPersonID;
+                    DGPersonen.ItemsSource = null;
+                    DGPersonen.ItemsSource = nr_list;
+                   
+
                 }
                 else
                 {
                     EditNameRolle enr = new EditNameRolle(nr);
                     enr.ShowDialog();
-                    DGPersonen.ItemsSource = nr_list;
+                    List<NameRolle> _nr = new List<NameRolle>();
+                    DGPersonen.ItemsSource = _nr;
 
                 }
                 txtAutorSort.Text = GetAutorSort();
@@ -493,48 +525,13 @@ namespace BookCMS_WPF
         }
 
 
-      
+
 
 
         public void SaveNewBook()
         {
             //Int32 id = 0;
 
-            if (string.IsNullOrEmpty(txtTitel.Text) == true)
-            {
-                MessageBox.Show("Bitte einen Titel eingeben!");
-                return;
-            }
-            else if (string.IsNullOrEmpty(txtSignatur.Text) == true)
-            {
-                MessageBox.Show("Signatur fehlt!");
-                return;
-            }
-            else if (DGVerlag.Items.Count > 0 && newBook.VerlagsID == null)
-            {
-                MessageBox.Show("Bitte einen Verlag auswählen!");
-                return;
-            }
-            else if (DGDruckerei.Items.Count > 0 && newBook.DruckereiID == null)
-            {
-                MessageBox.Show("Bitte eine Druckerei auswählen!");
-                return;
-            }
-            else if (string.IsNullOrEmpty(txtBindung.Text) == true)
-            {
-                MessageBox.Show("Bitte Bindung auswählen!");
-                return;
-            }
-            else if (string.IsNullOrEmpty(txtTyp.Text) == true)
-            {
-                MessageBox.Show("Bitte Buchtyp auswählen!");
-                return;
-            }
-            if (string.IsNullOrEmpty(txtStandort.Text) == true)
-            {
-                MessageBox.Show("Bitte Standort auswählen!");
-                return;
-            }
 
             newBook.Titel = txtTitel.Text;
             newBook.TitelIndex = txtTitelIndex.Text;
@@ -615,7 +612,7 @@ namespace BookCMS_WPF
             // gegeben ist die liste nr_list
             foreach (var autor in nr_list)
             {
-            AutorBuchLink abl = new AutorBuchLink();
+                AutorBuchLink abl = new AutorBuchLink();
                 try
                 {
                     abl.BuchID = BuchID;
@@ -627,11 +624,33 @@ namespace BookCMS_WPF
                 catch (Exception ex)
                 {
 
-                    MessageBox.Show("Personen z.T. nicht übernommen!","Fehler beim Speichern!");
+                    MessageBox.Show("Personen evt. nicht übernommen!", "Fehler beim Speichern!");
                 }
 
             }
 
+            //GenreLing ergänzen
+            foreach (CheckBox item in ugridGenre.Children)
+            {
+                GenreLink gnl = new GenreLink();
+                try
+                {
+                    if (item.IsChecked == true)
+                    {
+                        gnl.BuchID = BuchID;
+                        gnl.SachgruppeID = (Int32)item.Tag;
+                        Admin.conn.GenreLink.InsertOnSubmit(gnl);
+                        Admin.conn.SubmitChanges();
+                        //MessageBox.Show(item.Tag.ToString() + " / " + item.Content.ToString());
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.Message + "\r\n" + "Genre/Sachgruppe evt. nicht übernommen!", "Fehler beim Speichern!");
+                }
+
+            }
             //speichern!
 
 
@@ -642,19 +661,22 @@ namespace BookCMS_WPF
                 SaveCover(BuchID);
 
             }
-
         }
+
+
 
         private void SaveCover(int id)
         {
             BitmapEncoder encoder = new JpegBitmapEncoder();
             encoder.Frames.Add(BitmapFrame.Create(myBitmapImage));
-            string cPath = System.IO.Path.Combine(sett.CoverPath, id.ToString() + ".jpg");
+            string cPath = System.IO.Path.Combine(mySettings.CoverPath, id.ToString() + ".jpg");
             try
             {
                 using (var fileStream = new System.IO.FileStream(cPath, System.IO.FileMode.Create))
                 {
                     encoder.Save(fileStream);
+                    fileStream.Close();
+
                 }
             }
             catch (Exception ex)
@@ -667,18 +689,74 @@ namespace BookCMS_WPF
 
         private void BtnSave_click(object sender, RoutedEventArgs e)
         {
-            if (cbSaveCover.IsChecked == true)
+            if (string.IsNullOrEmpty(txtTitel.Text) == true)
             {
-            SaveNewBook();
-
+                MessageBox.Show("Bitte einen Titel eingeben!");
+                return;
             }
+            if (string.IsNullOrEmpty(txtSignatur.Text) == true)
+            {
+                MessageBox.Show("Signatur fehlt!");
+                return;
+            }
+            if (DGVerlag.Items.Count > 0 && newBook.VerlagsID == null)
+            {
+                MessageBox.Show("Bitte einen Verlag auswählen!");
+                return;
+            }
+            if (DGDruckerei.Items.Count > 0 && newBook.DruckereiID == null)
+            {
+                MessageBox.Show("Bitte eine Druckerei auswählen!");
+                return;
+            }
+            if (string.IsNullOrEmpty(txtBindung.Text) == true || txtBindung.Text.Contains("Bitte"))
+            {
+                MessageBox.Show("Bitte Bindung auswählen!");
+                return;
+            }
+            if (string.IsNullOrEmpty(txtTyp.Text) == true || txtTyp.Text.Contains("Bitte"))
+            {
+                MessageBox.Show("Bitte Buchtyp auswählen!");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(txtStandort.Text) == true || txtStandort.Text.Contains("Bitte"))
+            {
+                MessageBox.Show("Bitte Standort auswählen!");
+                return;
+            }
+
+            SaveNewBook();
+            try
+            {
+                //DialogResult = true;
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+            //DialogResult = true;
         }
 
-        private void MeClose()
+
+
+        private void btnKat_click(object sender, RoutedEventArgs e)
         {
-            DialogResult = true;
+
+            MessageBox.Show(Admin.ChkDDC_Kat(txtDCC.Text));
         }
 
+        private void btnUkat_click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(Admin.ChkDDC_UKat(txtDCC.Text));
+        }
+
+        private void BtnCancel_click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
 

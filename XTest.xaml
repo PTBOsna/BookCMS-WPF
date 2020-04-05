@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookCMS_WPF"
         mc:Ignorable="d"
-        Title="XTest" Height="650" Width="1000">
+        Title="XTest" Height="650" Width="1200" Loaded="Window_Loaded">
     <Window.Resources>
         <Style x:Key="{x:Type Menu}"
        TargetType="{x:Type Menu}">
@@ -74,6 +74,8 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="45"/>
@@ -88,7 +90,7 @@
             </StackPanel>
 
             <StackPanel Grid.Row="1" Grid.Column="0">
-            <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Path=nr_list, Mode=TwoWay}"  x:Name="DGNamen" AutoGenerateColumns="False" >
+                <DataGrid Grid.Row="1" Grid.Column="0" ItemsSource="{Binding Path=nr_list, Mode=TwoWay}"  x:Name="DGNamen" AutoGenerateColumns="False" >
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Vorgeschlagen" Binding="{Binding name}"/>
                         <DataGridTextColumn Header="Rolle" Binding="{Binding rolle}"/>
@@ -103,17 +105,17 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
-               
-            </DataGrid>
 
-                
+                </DataGrid>
+
+
                 <UniformGrid Columns="3">
                     <Button Content="Hinzufügen" Click="BtnAdd_click"/>
                     <Button Content="Bearbeiten" Click="BtnEdit_click"/>
                     <Button Content="Entfernen" Click="BtnDel_click"/>
                 </UniformGrid>
             </StackPanel>
-            <StackPanel Grid.Row="1" Grid.Column="1">
+            <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
 
                 <TextBox x:Name="txtSearch"  TextChanged="txtSearch_TextChanged"/>
                 <DataGrid x:Name="DGNameInDB" ItemsSource="{Binding searchName}" AutoGenerateColumns="False" SelectionChanged="DGNameInDB_SelectionChanged">
@@ -127,7 +129,7 @@
           TextBoxBase.TextChanged="cbTest_TextChanged" SelectionChanged="cbTest_SelectionChanged" />
             </StackPanel>
 
-            <DataGrid Grid.Row="2" Grid.Column="2" ItemsSource="{Binding Path=nr_list, Mode=TwoWay}"  x:Name="DGNamen2" AutoGenerateColumns="False" >
+            <DataGrid Grid.Row="2" Grid.Column="3" ItemsSource="{Binding Path=nr_list, Mode=TwoWay}"  x:Name="DGNamen2" AutoGenerateColumns="False" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Vorgeschlagen" Binding="{Binding name}"/>
                     <DataGridTextColumn Header="Rolle" Binding="{Binding rolle}"/>
@@ -144,8 +146,13 @@
                 </DataGrid.Columns>
 
             </DataGrid>
+            <Button Content="Lesen" Name="btnReadGenre" Click="BtnReadGenre_clidk" Grid.Row="0" Grid.Column="4"/>
+            <Button Content="Speichern" Name="btnSaveGenre" Click="BtnSaveGenre_clidk" Grid.Row="0" Grid.Column="3"/>
             <ListBox Grid.Row="2" Grid.Column="0" x:Name="lbDDC" DisplayMemberPath="Name" SelectedValuePath="DDC" SelectionChanged="lbDDC_changed"/>
-            <ListBox Grid.Row="2" Grid.Column="1" x:Name="lbDDC100"/>
+            <ListBox Grid.Row="2" Grid.Column="1" x:Name="lbDDC100" Grid.ColumnSpan="2"/>
+            <UniformGrid x:Name="stkpnl" Grid.Row="1" Grid.Column="4" Columns="3" Grid.RowSpan="2" Margin="5">
+                
+            </UniformGrid>
         </Grid>
     </DockPanel>
 </Window>

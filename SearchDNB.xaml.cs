@@ -37,10 +37,10 @@ namespace BookCMS_WPF
         private void connect(string suche)
             
         {
-            mySettings ms = new mySettings();
+            //mySettings ms = new mySettings();
             //MessageBox.Show(ms.DNB_API);
             //string key = "1159cfc6b965e8a03abc3bd8227afa"; //TODO: wird später aus den Settings entnommen
-            string key = ms.DNB_API;
+            string key = mySettings.DNB_API;
             WebClient w = new WebClient();
             w.Encoding = Encoding.UTF8;
             string urlEnc = WebUtility.UrlEncode(suche);
@@ -130,7 +130,7 @@ namespace BookCMS_WPF
             string[] erg = sel.Split(';');
             //MessageBox.Show(erg[0]);
             AddBook ab = new AddBook(erg[0]);
-            ab.Show();
+            ab.ShowDialog();
             DialogResult = true;
         }
 

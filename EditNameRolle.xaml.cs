@@ -59,7 +59,8 @@ namespace BookCMS_WPF
             txtRolleID.Text = cbRolle.SelectedValue.ToString();
             cNR.rolle = rol.AutorKurz;
             cNR.currRolleID = rol.ID;
-           
+            cNR.nameInDB = "Eingefügt";
+
         }
 
         private void BtnNameNew_Click(object sender, RoutedEventArgs e)
@@ -71,6 +72,7 @@ namespace BookCMS_WPF
         private void Btn_close(object sender, RoutedEventArgs e)
         {
             _nr = cNR;
+            
             DialogResult = true;
         }
     }

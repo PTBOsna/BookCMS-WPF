@@ -92,6 +92,7 @@
     <Compile Include="AddBook2.xaml.cs">
       <DependentUpon>AddBook2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataHandling\DeleteBook.cs" />
     <Compile Include="DataHandling\DownloadImage.cs" />
     <Compile Include="EditBook.xaml.cs">
       <DependentUpon>EditBook.xaml</DependentUpon>
@@ -100,6 +101,9 @@
     <Compile Include="DataHandling\CheckData.cs" />
     <Compile Include="EditNameRolle.xaml.cs">
       <DependentUpon>EditNameRolle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Listen\AddPerson.xaml.cs">
+      <DependentUpon>AddPerson.xaml</DependentUpon>
     </Compile>
     <Compile Include="MySettings.xaml.cs">
       <DependentUpon>MySettings.xaml</DependentUpon>
@@ -126,6 +130,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EditNameRolle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Listen\AddPerson.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -234,6 +242,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Hinweise\DDC_100.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Hinweise\DDC_1000.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="buchDel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="buchAddDNB.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -152,10 +152,10 @@ namespace BookCMS_WPF.DataHandling
                             if (line.Contains("code=\"a\""))
                             {
                                 // wenn schneon ein Eintrag vorhanden, nicht noch einmal füllen!
-                                if (string.IsNullOrEmpty( dnb_dcc1)==true)
+                                if (string.IsNullOrEmpty( dnb_dcc1)==true && string.IsNullOrEmpty(SelectString(line)) == false)
                                 {
 
-                                dnb_dcc1 = SelectString(line) + " "; // Add to list.
+                                dnb_dcc1 = SelectString(line) + "; "; // Add to list.
                                 }
                                 //MessageBox.Show(SelectString(line));
                             }
@@ -172,7 +172,23 @@ namespace BookCMS_WPF.DataHandling
                             if (line.Contains("code=\"a\""))
                             {
                                 //LBShow.Items.Add(SelectString(line)); // Write to console.
-                                dnb_dcc1 += SelectString(line) + " "; // Add to list.
+                                dnb_dcc1 += SelectString(line) + "; "; // Add to list.
+                                //MessageBox.Show(SelectString(line));
+                            }
+                            line = reader.ReadLine();
+                            //return list;
+                        }
+
+                    }
+                    if (line.Contains("tag=\"084\""))
+                    {
+                        line = reader.ReadLine();
+                        while (line.Contains("</datafield>") == false)
+                        {
+                            if (line.Contains("code=\"a\""))
+                            {
+                                //LBShow.Items.Add(SelectString(line)); // Write to console.
+                                dnb_dcc2 += SelectString(line) + "; "; // Add to list.
                                 //MessageBox.Show(SelectString(line));
                             }
                             line = reader.ReadLine();

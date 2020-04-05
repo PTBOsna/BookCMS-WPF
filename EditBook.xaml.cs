@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,6 +24,7 @@ namespace BookCMS_WPF
         Int32 bookID;
         List<string> personen = new List<string>();
         List<NameRolle> cNameRolle = new List<NameRolle>();
+        mySettings ms = new mySettings();
         public AddEditBook(Int32 _bookID)
         {
             InitializeComponent();
@@ -31,11 +32,20 @@ namespace BookCMS_WPF
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
-        {// Buch laden
+        {
+           
+            // Buch laden
+            if (bookID<0)
+            {
+                MessageBox.Show("Kein Buch ausgewählt!");
+                return;
+            }
             cBook = (from b in Admin.conn.Buch
                      where b.ID == bookID
                      select b).FirstOrDefault();
-
+            //ggf. Image laden
+            string cPath = System.IO.Path.Combine(mySettings.CoverPath, bookID.ToString() + ".jpg");
+            Admin.ShowImage(ImgBox, cPath);
             //Personen laden
             var erg = (from abl in Admin.conn.AutorBuchLink
                        from pers in Admin.conn.Person
@@ -50,6 +60,21 @@ namespace BookCMS_WPF
             lbPersonen.ItemsSource = cNameRolle;
             lbPersonen.DataContext = cNameRolle;
             this.DataContext = cBook;
+
+            //Genre Laden
+            Admin.LoadGenre(ugridGenre);
+            var c_genre = from g in Admin.conn.GenreLink where g.BuchID == bookID select g;
+            foreach (var book in c_genre)
+            {
+                foreach (CheckBox item in ugridGenre.Children)
+                {
+                    if (book.SachgruppeID == (int) item.Tag)
+                    {
+                        item.IsChecked = true;
+                        item.FontWeight = FontWeights.Bold;
+                    }
+                }
+            }
 
             //Verknüpfungen laden
             var _verlag = (from v in Admin.conn.Verlag where v.PublisherID == cBook.VerlagsID select v.SortBy).FirstOrDefault();
@@ -135,11 +160,32 @@ namespace BookCMS_WPF
                 editAR.RolleID = item.currRolleID;
                 cAutorSort += item.name + "; ";
             }
+            //Änderung in GenereLink
+            foreach (CheckBox item in ugridGenre.Children)
+            {
+                GenreLink gnl = new GenreLink();
+                try
+                {
+                    if (item.IsChecked == true)
+                    {
+                        gnl.BuchID = bookID;
+                        gnl.SachgruppeID = (Int32)item.Tag;
+                        Admin.conn.GenreLink.InsertOnSubmit(gnl);
+                        Admin.conn.SubmitChanges();
+                        //MessageBox.Show(item.Tag.ToString() + " / " + item.Content.ToString());
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.Message + "\r\n" + "Genre/Sachgruppe evt. nicht übernommen!", "Fehler beim Speichern!");
+                }
+            }
+            //AutorSort eintragen
             cBook.AutorSort = cAutorSort.Substring(0, cAutorSort.Length - 2);
+            //Und alle Änderungen speichern
             Admin.conn.SubmitChanges();
-            
-           
-            DialogResult = true;
+                DialogResult = true;
         }
 
        
@@ -249,7 +295,11 @@ namespace BookCMS_WPF
 
         private void BtnChangePerson_click(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show(lbPersonen.SelectedValue.ToString());
+            if (lbPersonen.SelectedValue==null)
+            {
+                MessageBox.Show("Bitte zuerst eine Person auswählen!");
+                return;
+            }
             int index = 0;
             {
                 NameRolle nr = new NameRolle();

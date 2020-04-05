@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-
+using System.IO;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -25,19 +25,20 @@ namespace BookCMS_WPF
         string selDilplay;
         Int32 rolle;
         Int32 cBookID;
+        //public    mySettings ms = new mySettings();
         public MainWindow()
         {
             InitializeComponent();
-
+            mySettings.loadSetting();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            mySettings ms = new mySettings();
-           
+
             selDilplay = "Titel";
-            var buch = from b in Admin.conn.Buch select b;
-            BuchGrid.ItemsSource = buch.ToList();
+            LoadBooks();
+
+
             //TreeView Personen laden
             LoadPersonTV();
             //Combobox Rolle laden
@@ -50,8 +51,17 @@ namespace BookCMS_WPF
             //    ComboBoxPersonen.Items.Add(item);
             //}
             ComboBoxPersonen.ItemsSource = AutorRolle;
-            ComboBoxPersonen.SelectedValue = 7; //wird später über Settings voreingestellt
+            ComboBoxPersonen.SelectedValue = mySettings.StarRolle; //wird später über Settings voreingestellt
         }
+
+        private void LoadBooks()
+
+        {
+
+            var buch = from b in Admin.conn.Buch select b;
+            BuchGrid.ItemsSource = buch.ToList();
+        }
+
         private void LoadPersonTV()
         {
 
@@ -59,7 +69,7 @@ namespace BookCMS_WPF
             {
                 //create a new Item
                 var item = new TreeViewItem();
-
+                item.FontWeight = FontWeights.Bold;
                 item.Header = letter;
                 item.Tag = letter;
                 //Add ad dummy-Item
@@ -94,7 +104,7 @@ namespace BookCMS_WPF
 
         }
 
-      
+
 
         private void tb1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -218,19 +228,22 @@ namespace BookCMS_WPF
 
         private void DGBuch_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            ImgBox.Source = null;
             Buch sel = BuchGrid.SelectedItem as Buch;
-            if (sel==null)
+            if (sel == null)
             {
                 return;
             }
             var selBuch = (from b in Admin.conn.Buch
-                          from s in Admin.conn.BuchTyp
-                          where b.ID == sel.ID && s.ID == b.TypID
-                          select new { b, s }).FirstOrDefault();
+                           from s in Admin.conn.BuchTyp
+                           where b.ID == sel.ID && s.ID == b.TypID
+                           select new { b, s }).FirstOrDefault();
             cBookID = selBuch.b.ID;
             DetailPanel.DataContext = selBuch;
-          
-          
+            //ggf. Image laden
+            string cPath = System.IO.Path.Combine(mySettings.CoverPath, cBookID.ToString() + ".jpg");
+            Admin.ShowImage(ImgBox, cPath);
+
         }
 
         private void Click_ExitMnu(object sender, RoutedEventArgs e)
@@ -263,19 +276,20 @@ namespace BookCMS_WPF
         private void MenuItemTest_Click(object sender, RoutedEventArgs e)
         {
             AddBook ts = new AddBook("#");
-            ts.ShowDialog();
+            ts.Show();
         }
 
         private void AddDNB(object sender, RoutedEventArgs e)
         {
             SearchDNB ab = new SearchDNB();
             ab.ShowDialog();
+           
         }
 
         private void MenuItemTestForm_Click(object sender, RoutedEventArgs e)
         {
             XTest xt = new XTest();
-            xt.ShowDialog();
+            xt.Show();
         }
 
         private void MenuItemTestDG_Click(object sender, RoutedEventArgs e)
@@ -288,6 +302,70 @@ namespace BookCMS_WPF
         {
             MySettings ms = new MySettings();
             ms.ShowDialog();
+        }
+
+        private void btnExpand_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (object item in this.PersonTrv.Items)
+            {
+                TreeViewItem treeItem = this.PersonTrv.ItemContainerGenerator.ContainerFromItem(item) as TreeViewItem;
+                if (treeItem != null)
+                    ExpandAll(treeItem, true);
+                treeItem.IsExpanded = true;
+            }
+        }
+
+        private void btnCollaps_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (object item in this.PersonTrv.Items)
+            {
+                TreeViewItem treeItem = this.PersonTrv.ItemContainerGenerator.ContainerFromItem(item) as TreeViewItem;
+                if (treeItem != null)
+                    ExpandAll(treeItem, false);
+                treeItem.IsExpanded = false;
+            }
+        }
+        private void ExpandAll(ItemsControl items, bool expand)
+        {
+            foreach (object obj in items.Items)
+            {
+                ItemsControl childControl = items.ItemContainerGenerator.ContainerFromItem(obj) as ItemsControl;
+                if (childControl != null)
+                {
+                    ExpandAll(childControl, expand);
+                }
+                TreeViewItem item = childControl as TreeViewItem;
+                if (item != null)
+                    item.IsExpanded = true;
+            }
+        }
+
+        private void DelBook(object sender, RoutedEventArgs e)
+
+        {
+            Buch sel = BuchGrid.SelectedItem as Buch;
+            if (sel == null)
+            {
+                MessageBox.Show("Bitte zunächst einen Titel auswählen!");
+                return;
+            }
+            var erg = MessageBox.Show("Möchten Sie das Buch '" + sel.Titel + "' wirklich löschen?", "Buch löschen!", MessageBoxButton.YesNo);
+            if (erg == MessageBoxResult.Yes)
+            {
+
+            }
+            if (DeleteBook.delBook(cBookID))
+            {
+                LoadBooks();
+
+                MessageBox.Show("Buch wurde gelöscht.");
+            }
+
+        }
+
+        private void BtnAll_Click(object sender, RoutedEventArgs e)
+        {
+            LoadBooks();
         }
     }
 }

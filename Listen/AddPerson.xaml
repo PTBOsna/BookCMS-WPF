@@ -1,0 +1,69 @@
+﻿<Window x:Class="BookCMS_WPF.Listen.AddPerson"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookCMS_WPF.Listen"
+        mc:Ignorable="d"
+        Title="AddPerson" Height="650" Width="450" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+        
+        <TabControl Margin="0 10">
+            <TabItem Header="Grunddaten">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <Label Content="ID"/>
+                        <Label Content="Vorname, Name"/>
+                        <Label Content="Name, Vorname"/>
+                        <Label Content="Geboren"/>
+                        <Label Content="Gestorben"/>
+                        <Label Content="Land"/>
+                        <Label Content="Web"/>
+                        <Label Content="Mail"/>
+                        <Label Content="Anschrift"/>
+                        <Label Content="Phone"/>
+                        <Label Content="Fax"/>
+                        <Label Content="Geburtsname"/>
+                        <Label Content="Geburtsort"/>
+                        <Label Content="Sterbeort"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <TextBlock Margin="4" Text="{Binding Path=PersonID, Mode=TwoWay}" x:Name ="txtID" />
+                        <TextBox Margin="4" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"  x:Name = "txtName" />
+                        <TextBox Margin="4" Text="{Binding Path=SortBy, UpdateSourceTrigger=PropertyChanged}"  x:Name = "txtSortBy" />
+                        <TextBox Margin="4" Text="{Binding Path=Geboren, Mode=TwoWay}"  x:Name = "txtGeboren" />
+                        <TextBox Margin="4" Text="{Binding Path=Gesorbe, Mode=TwoWay}"  x:Name = "txtGestorben" />
+                        <TextBox Margin="4" Text="{Binding Path=LandID, Mode=TwoWay}"  x:Name = "txtLandID" />
+                        <TextBox Margin="4" Text="{Binding Path=WWW, Mode=TwoWay}"  x:Name = "txtWeb" />
+                        <TextBox Margin="4" Text="{Binding Path=Email, Mode=TwoWay}"  x:Name = "txtMail"/>
+                        <TextBox Margin="4" Text="{Binding Path=Adresse_PlainText, Mode=TwoWay}"  x:Name = "txtAnschrift" />
+                        <TextBox Margin="4" Text="{Binding Path=Phone, Mode=TwoWay}"  x:Name = "txtPhone" />
+                        <TextBox Margin="4" Text="{Binding Path=Fax, Mode=TwoWay}"  x:Name = "txtFAx"/>
+                        <TextBox Margin="4" Text="{Binding Path=Geburtsname, Mode=TwoWay}"  x:Name = "txtGeburtsname" />
+                        <TextBox Margin="4" Text="{Binding Path=Geburtsort, Mode=TwoWay}"  x:Name = "txtGeburtsort" />
+                        <TextBox Margin="4" Text="{Binding Path=Sterbeort, Mode=TwoWay}"  x:Name = "txtSterbeort" />
+                    </StackPanel>
+                </Grid> 
+                
+            </TabItem>
+            <TabItem Header="Biografie">
+                
+            </TabItem>
+            <TabItem Header="Notizen">
+                
+            </TabItem>
+        </TabControl>
+        <UniformGrid Grid.Row="1" Columns="2">
+            <Button Content="Übernehmen" Click="BtnSave_click" Margin="5"/>
+            <Button Content="Abbrechen" Click="BtnCancel_click" Margin="5"/>
+        </UniformGrid>
+    </Grid>
+</Window>

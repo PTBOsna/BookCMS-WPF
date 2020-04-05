@@ -24,7 +24,7 @@ namespace BookCMS_WPF
         public XDGTest()
         {
             InitializeComponent();
-            var pr = from p in Admin.conn.Person1 select p;
+            var pr = from p in Admin.conn.Person select p;
             this.DataContext = pr.ToList();
             DGPeson.ItemsSource = pr;
         }

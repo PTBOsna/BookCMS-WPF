@@ -104,8 +104,8 @@ namespace BookCMS_WPF
 
         private void FindDDC(string ddc)
         {
-           
-                string vDDC = null;
+
+            string vDDC = null;
             ddc = ddc.Substring(0, ddc.Length - 1);
 
             List<string> dd = ddc.Split(' ').ToList();
@@ -117,8 +117,8 @@ namespace BookCMS_WPF
                     //auf Dopplung prüfen
                     if (selDDC != vDDC)
                     {
-                        var _ddc = (from d in Admin.conn.DDC_100 where d.DCC_100.StartsWith(selDDC) select d).FirstOrDefault();
-                        MessageBox.Show(_ddc.DCC_Name + "\r\n");
+                        var _ddc = (from d in Admin.conn.DDC_1000 where d.DDC.StartsWith(selDDC) select d).FirstOrDefault();
+                        MessageBox.Show(_ddc.DDC_Name + "\r\n");
                         vDDC = selDDC;
                     }
 
@@ -225,14 +225,66 @@ namespace BookCMS_WPF
             lbDDC100.Items.Clear();
             string selDDC = lbDDC.SelectedValue.ToString();
             selDDC = selDDC.Substring(2, 1);
-            var ddc = from dd in Admin.conn.DDC_100 where dd.DCC_100.StartsWith(selDDC) select dd;
+            var ddc = from dd in Admin.conn.DDC_1000 where dd.DDC.StartsWith(selDDC) select dd;
 
             foreach (var item in ddc)
             {
-                lbDDC100.Items.Add(item.DCC_Name);
+                lbDDC100.Items.Add(item.DDC_Name);
 
             }
 
+        }
+
+        private void loadButton()
+        {
+            var gen = from g in Admin.conn.Sachgruppe where g.Marked ==true orderby g.SortBy select g;
+            foreach (var g in gen)
+            {
+                System.Windows.Controls.CheckBox newBtn = new CheckBox();
+                newBtn.Content = g.Sachgruppe1;
+                stkpnl.Children.Add(newBtn);
+
+                newBtn.Tag = g.GenreID;
+            } 
+         
+           
+
+        }
+        private void auslesen()
+        {
+            //List<CheckBox> loc = new List<CheckBox>();
+            foreach (CheckBox item in stkpnl.Children)
+            {
+                if (item.IsChecked==true)
+                {
+                    MessageBox.Show(item.Tag.ToString() + " / " + item.Content.ToString());
+                }       
+            }
+
+        }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            loadButton();
+        }
+
+        private void BtnReadGenre_clidk(object sender, RoutedEventArgs e)
+        {
+            auslesen();
+        }
+
+        private void BtnSaveGenre_clidk(object sender, RoutedEventArgs e)
+        {
+            int bookID = 0;
+            GenreLink gnl = new GenreLink();
+            foreach (CheckBox item in stkpnl.Children)
+            {
+                if (item.IsChecked == true)
+                {
+                    gnl.BuchID = bookID;
+                    gnl.SachgruppeID = (Int32) item.Tag;
+                    MessageBox.Show(item.Tag.ToString() + " / " + item.Content.ToString());
+                }
+            }
         }
     }
 }
