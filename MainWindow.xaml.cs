@@ -269,6 +269,11 @@ namespace BookCMS_WPF
 
         private void BtnDetail_Click(object sender, RoutedEventArgs e)
         {
+            if (cBookID==0)
+            {
+                MessageBox.Show("Bitte zunächst ein Buch auswählen!");
+                return;
+            }
             AddEditBook ae = new AddEditBook(cBookID);
             ae.ShowDialog();
         }
@@ -366,6 +371,28 @@ namespace BookCMS_WPF
         private void BtnAll_Click(object sender, RoutedEventArgs e)
         {
             LoadBooks();
+        }
+
+        private void btnEditDNBClick(object sender, RoutedEventArgs e)
+        {
+            if (cBookID == 0)
+            {
+                MessageBox.Show("Bitte zunächst ein Buch auswählen!");
+                return;
+            }
+            EditBookDNB eb = new EditBookDNB(cBookID);
+            eb.ShowDialog();
+        }
+
+        private void btnEditClick(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("noch nicht implementiert!");
+        }
+
+        private void MenuItemDDC1000_Click(object sender, RoutedEventArgs e)
+        {
+            Listen.DDC1000_Liste ddcList = new Listen.DDC1000_Liste();
+            ddcList.ShowDialog();
         }
     }
 }

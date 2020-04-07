@@ -129,7 +129,7 @@ namespace BookCMS_WPF.DataHandling
                     {
                         try
                         {
-                            var ddc = (from d in Admin.conn.DDC_Haupt where d.DDC_Haupt1.Contains(ddc2) select new { code = d.DDC_Haupt1, DDCname = d.DDC_Name }).FirstOrDefault();
+                            var ddc = (from d in Admin.conn.DDC_Haupt where d.DDC.Contains(ddc2) select new { code = d.DDC, DDCname = d.DDC_Name }).FirstOrDefault();
                             vor = ddc2;
                             ergeb += ddc.code + ", " + ddc.DDCname + "\r\n";
                         }
@@ -239,7 +239,7 @@ namespace BookCMS_WPF.DataHandling
         public Int32 drlID { get; set; }
     }
 
-    public  class mySettings
+    public class mySettings
     {
         public static string CoverPath { get; set; }
         public static Int32 StarRolle { get; set; }
@@ -257,7 +257,8 @@ namespace BookCMS_WPF.DataHandling
                 DNB_API = item.DNB_API;
                 Google_API = item.Google_API;
             }
-            return cms;  
+           
+            return cms;
         }
     }
 

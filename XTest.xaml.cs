@@ -26,7 +26,7 @@ namespace BookCMS_WPF
         {
             InitializeComponent();
             txtInput.Focus();
-            var ddc = from dd in Admin.conn.DDC_Haupt select new { Name = dd.DDC_Name, DDC = dd.DDC_Haupt1 };
+            var ddc = from dd in Admin.conn.DDC_Haupt select new { Name = dd.DDC_Name, DDC = dd.DDC };
 
             lbDDC.ItemsSource = ddc;
 

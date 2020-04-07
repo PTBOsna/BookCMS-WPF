@@ -93,17 +93,24 @@
       <DependentUpon>AddBook2.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataHandling\DeleteBook.cs" />
+    <Compile Include="DataHandling\DNBDataHandling.cs" />
     <Compile Include="DataHandling\DownloadImage.cs" />
     <Compile Include="EditBook.xaml.cs">
       <DependentUpon>EditBook.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataHandling\BookData.cs" />
     <Compile Include="DataHandling\CheckData.cs" />
+    <Compile Include="EditBookDNB.xaml.cs">
+      <DependentUpon>EditBookDNB.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EditNameRolle.xaml.cs">
       <DependentUpon>EditNameRolle.xaml</DependentUpon>
     </Compile>
     <Compile Include="Listen\AddPerson.xaml.cs">
       <DependentUpon>AddPerson.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Listen\DDC1000_Liste.xaml.cs">
+      <DependentUpon>DDC1000_Liste.xaml</DependentUpon>
     </Compile>
     <Compile Include="MySettings.xaml.cs">
       <DependentUpon>MySettings.xaml</DependentUpon>
@@ -129,11 +136,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="EditBookDNB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="EditNameRolle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Listen\AddPerson.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Listen\DDC1000_Liste.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

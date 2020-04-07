@@ -57,5 +57,16 @@ namespace BookCMS_WPF.Properties {
                     "LDB_BIN_DEBUG_BOOKSQL_DB_MDFConnectionS"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=Books_from_Access;Integrated S" +
+            "ecurity=True")]
+        public string Books_from_AccessConnectionString {
+            get {
+                return ((string)(this["Books_from_AccessConnectionString"]));
+            }
+        }
     }
 }

@@ -1,11 +1,11 @@
-﻿<Window x:Class="BookCMS_WPF.AddEditBook"
+﻿<Window x:Class="BookCMS_WPF.EditBookDNB"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookCMS_WPF"
         mc:Ignorable="d"
-        Title="AddEditBook" Height="850" Width="1000" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+        Title="EditBookDNB" Height="1000" Width="1200" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="DataGridRowHeader">
             <Setter Property="Background" Value="#49274a"/>
@@ -49,6 +49,14 @@
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Foreground" Value="#49274a" />
         </Style>
+        <Style x:Key="DNB" TargetType="TextBox">
+            <Setter Property="Background" Value="#f8eee7"/>
+            <Setter Property="Margin"  Value="4 2 2 2"/>
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#49274a" />
+        </Style>
         <Style TargetType="Border">
             <Setter Property="BorderBrush" Value="SteelBlue"/>
             <Setter Property="BorderThickness" Value="1"/>
@@ -66,17 +74,19 @@
             <Setter Property="Background" Value="#F4DECB"/>
         </Style>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="150"/>
+            <RowDefinition Height="200"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="#94618E">
             <Label Content="Titel:" Foreground="AntiqueWhite"/>
             <TextBox x:Name="txtTitel" Text="{Binding Path=Titel, Mode=TwoWay}" FontSize="16"/>
+            <TextBox x:Name="txtTitelDNB"  FontSize="16" Background="#f4decb"/>
             <TextBox x:Name="txtSubTitel" Text="{Binding Path=Untertitel, Mode=TwoWay}" FontSize="14" FontWeight="Bold"/>
+            <TextBox x:Name="txtSubTitelDNB" Text="{Binding Path=Untertitel, Mode=TwoWay}" FontSize="14" FontWeight="Bold" Background="#f4decb"/>
             <Label Content="Signatur:" Foreground="AntiqueWhite" ></Label>
             <TextBlock x:Name="txtSignatur" Text="{Binding Path=Signatur}" FontSize="14" FontWeight="Bold" Foreground="AntiqueWhite" />
         </StackPanel>
@@ -87,7 +97,7 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="161*"/>
-                           <ColumnDefinition Width="163*"/>
+                        <ColumnDefinition Width="163*"/>
                         <ColumnDefinition Width="163*"/>
                         <ColumnDefinition Width="161*"/>
 
@@ -108,58 +118,105 @@
                         <StackPanel>
                             <Label Content="Autor(en)"  FontSize="14" FontWeight="Bold"/>
                             <ListBox x:Name="lbPersonen" DisplayMemberPath="name" SelectedValuePath="currID" ItemsSource="{Binding lbPerson}">
-                                
+
                             </ListBox>
                             <Button Content="Ändern" Click="BtnChangePerson_click" x:Name="BtnChangePersson"/>
                         </StackPanel>
                     </Border>
                     <Border Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" >
-                        
+
                         <StackPanel  >
-                        <Label Content="Verlag"/>
-                        <TextBox x:Name="txtVerlag" IsReadOnly="True"/>
-                        <Label Content="Ändern in"/>
-                        <ComboBox x:Name="cbVerlag"  DisplayMemberPath="verl"
-SelectedValuePath="id" Text="-- Bitte wählen --" DropDownClosed="cbVerlag_DropDownClosed" />
-                        <Label Content="Verlagsort"/>
-                        <TextBox x:Name="txtVerlagsOrt" IsReadOnly="True"/>
-                        <Label Content="Ändern in"/>
-                        <ComboBox x:Name="cbVerlagsOrt"  DisplayMemberPath="verlort"
-SelectedValuePath="id" Text="-- Bitte wählen --" DropDownClosed="cbVerlagsOrt_DropDownClosed" />
-                        <Label Content="Druckerei"/>
-                        <TextBox x:Name="txtDruckerei" IsReadOnly="True"/>
-                        <Label Content="Ändern in:"/>
-                        <ComboBox x:Name="cbDruckerei"  DisplayMemberPath="druck"
-SelectedValuePath="id" Text="-- Bitte wählen --" DropDownClosed="cbDruckerei_DropDownClosed" />
-                    </StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Label  Grid.Column="0" Grid.Row="0"  Content="Verlag"/>
+                                <TextBox Grid.Column="0" Grid.Row="1" x:Name="txtVerlag" IsReadOnly="True"/>
+                                <TextBox  Grid.Column="1" Grid.Row="1"  x:Name="txtVerlagDNB" Style="{DynamicResource DNB}"/>
+                                <Label  Grid.Column="0" Grid.Row="2"  Content="Ändern in"/>
+                                <ComboBox Grid.Row="3" Grid.ColumnSpan="2" x:Name="cbVerlag"  DisplayMemberPath="verl"
+SelectedValuePath="id" Text="-- Verlag wählen --" DropDownClosed="cbVerlag_DropDownClosed" />
+                                <Label  Grid.Column="0" Grid.Row="4"  Content="Verlagsort"/>
+                                <TextBox  Grid.Column="0" Grid.Row="5"  x:Name="txtVerlagsOrt" IsReadOnly="True"/>
+                                <TextBox x:Name="txtVerlagsOrtDNB"  Grid.Column="1" Grid.Row="5" Style="{DynamicResource DNB}"/>
+
+                                <Label  Grid.Column="0" Grid.Row="6"  Content="Ändern in"/>
+                                <ComboBox Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" x:Name="cbVerlagsOrt"  DisplayMemberPath="verlort"
+SelectedValuePath="id" Text="-- Ort wählen --" DropDownClosed="cbVerlagsOrt_DropDownClosed" />
+
+                                <Label  Grid.Column="0" Grid.Row="8" Content="Druckerei"/>
+                                <TextBox Grid.Column="0" Grid.Row="9"  x:Name="txtDruckerei" IsReadOnly="True"/>
+                                <TextBox Grid.Column="1" Grid.Row="9"  x:Name="txtDruckereiDNB" Style="{DynamicResource DNB}"/>
+                                <Label Grid.Column="0" Grid.Row="10" Content="Ändern in:"/>
+                                <ComboBox Grid.Row="11" Grid.ColumnSpan="2" x:Name="cbDruckerei"  DisplayMemberPath="druck"
+SelectedValuePath="id" Text="-- Druckerei wählen --" DropDownClosed="cbDruckerei_DropDownClosed" />
+                            </Grid>
+                        </StackPanel>
                     </Border>
                     <!--Grunddaten-->
                     <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" >
                         <StackPanel >
                             <Label Content="Bibliografische Angaben" FontSize="14" FontWeight="Bold"/>
 
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" Orientation="Vertical">
 
-                            <Label Content="Auflage"/>
-                            <TextBox x:Name="txtAuflage" Text="{Binding Path=Auiflage, Mode=TwoWay}"/>
-                            <Label Content="Seiten"/>
-                            <TextBox x:Name="txtSeiten" Text="{Binding Path=Seiten, Mode=TwoWay}"/>
-                            <Label Content="Jahr/Copyright"/>
-                            <TextBox x:Name="txtJahr" Text="{Binding Path=Veroeffentlicht, Mode=TwoWay}"/>
-                            <Label Content="ISBN"/>
-                            <TextBox x:Name="txtISBN" Text="{Binding Path=ISBN, Mode=TwoWay}"/>
-                            <Label Content="Sprache"/>
-                            <TextBox x:Name="txtLanguage" IsReadOnly="True"/>
-                            <Label Content="Ändern in:" />
-                            <ComboBox x:Name="cbLang" DisplayMemberPath="lng"
-SelectedValuePath="id"  Text="-- Bitte wählen --" DropDownClosed="cbLang_DropDownClosed" />
+
+                                    <Label Content="Auflage"/>
+                                    <TextBox x:Name="txtAuflage" Grid.Column="0" Text="{Binding Path=Auiflage, Mode=TwoWay}"/>
+
+                                    <Label Content="Seiten"/>
+                                    <TextBox x:Name="txtSeiten" Text="{Binding Path=Seiten, Mode=TwoWay}"/>
+                                    <Label Content="Jahr/Copyright"/>
+                                    <TextBox x:Name="txtJahr" Text="{Binding Path=Veroeffentlicht, Mode=TwoWay}"/>
+                                    <Label Content="ISBN"/>
+                                    <TextBox x:Name="txtISBN" Text="{Binding Path=ISBN, Mode=TwoWay}"/>
+                                    <Label Content="Sprache"/>
+                                    <TextBox x:Name="txtLanguage" IsReadOnly="True"/>
+                                    <Label Content="Ändern in:"/>
+                                    <ComboBox x:Name="cbLang" DisplayMemberPath="lng"
+SelectedValuePath="id"  Text="-- Sprache wählen --" Grid.ColumnSpan="2" DropDownClosed="cbLang_DropDownClosed"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Orientation="Vertical">
+                                    <Label Content="Auflage DNB"/>
+                                    <TextBox x:Name="txtAuflageDNB" Grid.Column="1" Style="{DynamicResource DNB}"/>
+                                    <Label Content="Seiten DNB"/>
+                                    <TextBox x:Name="txtSeitenDNB" Style="{DynamicResource DNB}"/>
+                                    <Label Content="Jahr/Copyright DNB"/>
+                                    <TextBox x:Name="txtJahrDNB" Style="{DynamicResource DNB}"/>
+                                    <Label Content="ISBN DNB"/>
+                                    <TextBox x:Name="txtISBNDNB" Style="{DynamicResource DNB}"/>
+                                    <Label Content="Sprache DNB"/>
+                                    <TextBox x:Name="txtLanguageDNB" Style="{DynamicResource DNB}"/>
+                                </StackPanel>
+                            </Grid>
                             <Border BorderBrush="SteelBlue" BorderThickness="1">
                                 <StackPanel>
-                                    
-                            <Label Content="Bindung:"/>
-                            <TextBox x:Name="txtBindung" Style="{StaticResource cT}" IsReadOnly="True"/>
-                            <ComboBox x:Name="cbBindung"  DisplayMemberPath="bnd"
-SelectedValuePath="id"  Text="-- Bindung  --" DropDownClosed="cbBindung_DropDownClosed" />
-                                </StackPanel>  
+
+                                    <Label Content="Bindung:"/>
+                                    <TextBox x:Name="txtBindung" Style="{StaticResource cT}" IsReadOnly="True"/>
+                                    <ComboBox x:Name="cbBindung"  DisplayMemberPath="bnd"
+SelectedValuePath="id"  Text="-- Bindung wählen --" DropDownClosed="cbBindung_DropDownClosed" />
+                                </StackPanel>
                             </Border>
                         </StackPanel>
                     </Border>
@@ -169,20 +226,20 @@ SelectedValuePath="id"  Text="-- Bindung  --" DropDownClosed="cbBindung_DropDown
                             <Label Content="Organisation" FontSize="14" FontWeight="Bold"/>
                             <Border>
                                 <StackPanel>
-                            <Label Content="Buchtyp"/>
-                            <TextBox x:Name="txtTyp" IsReadOnly="True" Style="{StaticResource cT}"/>
-                            <ComboBox x:Name="cbBuchTyp" DisplayMemberPath="typ" Text="-- Typ  --" SelectedValuePath="id" DropDownClosed="cbBuchTyp_DropDownClosed" />
-                                    
+                                    <Label Content="Buchtyp"/>
+                                    <TextBox x:Name="txtTyp" IsReadOnly="True" Style="{StaticResource cT}"/>
+                                    <ComboBox x:Name="cbBuchTyp" DisplayMemberPath="typ" Text="-- Typ wählen --" SelectedValuePath="id" DropDownClosed="cbBuchTyp_DropDownClosed" />
+
                                 </StackPanel>
                             </Border>
                            
                             <Border>
                                 <StackPanel>
-                            <Label Content="Standort" />
-                            <TextBox x:Name="txtStandort" IsReadOnly="True" Style="{StaticResource cT}"/>
-                            <ComboBox x:Name="cbStandort" DisplayMemberPath="so"
-SelectedValuePath="id"  Text="-- Standort --" DropDownClosed="cbStandort_DropDownClosed" />
-                                    
+                                    <Label Content="Standort" />
+                                    <TextBox x:Name="txtStandort" IsReadOnly="True" Style="{StaticResource cT}"/>
+                                    <ComboBox x:Name="cbStandort" DisplayMemberPath="so"
+SelectedValuePath="id"  Text="-- Standort wählen --" DropDownClosed="cbStandort_DropDownClosed" />
+
                                 </StackPanel>
                             </Border>
 
@@ -198,14 +255,16 @@ SelectedValuePath="id"  Text="-- Standort --" DropDownClosed="cbStandort_DropDow
                             <TextBox Text=""/>
                             <Label Content="Preis"/>
                             <TextBox x:Name="txtPreis" Text="{Binding Path=Preis, Mode=TwoWay}"/>
+                            <TextBox x:Name="txtPreisDNB" Style="{StaticResource DNB}" />
                             <Label Content="Format"/>
                             <TextBox x:Name="txtDim" Text="{Binding Path=Dim_Width, Mode=TwoWay}"/>
+                            <TextBox x:Name="txtDimDNB"  Style="{StaticResource DNB}"/>
                         </StackPanel>
                     </Border>
                     <!--Generierte Daten-->
                     <Border  Grid.Column="3" Grid.Row="2" Margin="5 0 5 3" Background="#F4DECB">
-                    <Image x:Name="ImgBox" />
-                        
+                        <Image x:Name="ImgBox" />
+
                     </Border>
                 </Grid>
             </TabItem>
@@ -213,59 +272,65 @@ SelectedValuePath="id"  Text="-- Standort --" DropDownClosed="cbStandort_DropDow
             <TabItem Header="Sachgruppe/Details">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                       
+
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0" >
-                        <Label Content="Sammlung (DNB)"/>
-                        <TextBlock x:Name="txtSammlung"/>
-                        <Label Content="DNB-ID"/>
-                        <TextBlock x:Name="txtDNB" Text="{Binding Path=DNB, Mode=TwoWay}"/>
-                        <Label Content="Original Titel"/>
-                        <TextBox x:Name="txtOrigTitel" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding Path=OriginalTitel, Mode=TwoWay}"/>
-                        <Label Content="Original Sprache"/>
-                        <TextBlock x:Name="txtOrigLang"/>
-                    </StackPanel>
                     <StackPanel Grid.Column="1" >
+                        
+                       
                         <Label Content="Stichworte"/>
                         <TextBox x:Name="txtStichworte" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding Path=Stichworte, Mode=TwoWay}"/>
+                        <TextBox x:Name="txtStichworteDNB" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Style="{DynamicResource DNB}"/>
                         <Label  Content="DNB-Index"/>
 
-                        <TextBox x:Name="txtIndex" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"/>
+                        <TextBox x:Name="txtIndex" HorizontalAlignment="Stretch"  Text="{Binding Path=Index}" MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Style="{DynamicResource DNB}"/>
+
+                        <TextBox x:Name="txtIndexDNB" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"/>
                         <Label Content="DDC"/>
-                        <TextBlock x:Name="txtDCC" Text="{Binding Path=DDC, Mode=TwoWay}"/>
-                        <Border>
-                            <StackPanel>
-                                <Label Content="Kategorie"/>
-                                <TextBox x:Name="txtKategorie" IsReadOnly="True" Style="{StaticResource cT}"/>
-                                <ComboBox x:Name="cbKategorie" DisplayMemberPath="kat"
-SelectedValuePath="id"  Text="-- Kategorie  --" DropDownClosed="cbKategorie_DropDownClosed" />
+                        <TextBox x:Name="txtDCC" Text="{Binding Path=DDC, Mode=TwoWay}"/>
+                        <TextBox x:Name="txtDCCDNB" Style="{DynamicResource DNB}"/>
+                        <Border >
+                        <StackPanel>
+                            <Label Content="Kategorie"/>
+                            <TextBox x:Name="txtKategorie" IsReadOnly="True" Style="{StaticResource cT}"/>
+                            <ComboBox x:Name="cbKategorie" DisplayMemberPath="kat"
+SelectedValuePath="id"  Text="-- Kategorie wählen  --" DropDownClosed="cbKategorie_DropDownClosed" />
 
-                            </StackPanel>
-                        </Border>
-                        <Border>
-                            <StackPanel>
-                                <Label Content="Unterkategorie"/>
-                                <TextBox x:Name="txtUKategorie" IsReadOnly="True" Style="{StaticResource cT}"/>
-                                <ComboBox x:Name="cbUKategorie" DisplayMemberPath="ukat"
-SelectedValuePath="id"  Text="-- Unterkategorie  --" DropDownClosed="cbUKategorie_DropDownClosed" DropDownOpened="cbUKategorie_DropDownOpened" />
+                        </StackPanel>
+                    </Border>
+                    <Border>
+                        <StackPanel>
+                            <Label Content="Unterkategorie"/>
+                            <TextBox x:Name="txtUKategorie" IsReadOnly="True" Style="{StaticResource cT}"/>
+                            <ComboBox x:Name="cbUKategorie" DisplayMemberPath="ukat"
+SelectedValuePath="id"  Text="-- Unterkategorie wählen --" DropDownClosed="cbUKategorie_DropDownClosed" DropDownOpened="cbUKategorie_DropDownOpened" />
 
-                            </StackPanel>
-                        </Border>
-                        <Border>
-                            <StackPanel>
-                                <Label Content="Sachgruppe"/>
-                                <TextBox x:Name="txtSachgruppe" IsReadOnly="True" Style="{StaticResource cT}"/>
-                                <ComboBox x:Name="cbSachgruppe"  DisplayMemberPath="sg"
-SelectedValuePath="id" Text="-- Sachgruppe --" DropDownClosed="cbSachgruppe_DropDownClosed" />
+                        </StackPanel>
+                    </Border>
+                    <Border>
+                        <StackPanel>
+                            <Label Content="Sachgruppe"/>
+                            <TextBox x:Name="txtSachgruppe" IsReadOnly="True" Style="{StaticResource cT}"/>
+                            <ComboBox x:Name="cbSachgruppe"  DisplayMemberPath="sg"
+SelectedValuePath="id" Text="-- Sachgruppe wählen --" DropDownClosed="cbSachgruppe_DropDownClosed" />
 
-                            </StackPanel>
-                        </Border>
-                       
-                      
+                        </StackPanel>
+                    </Border>
+                    </StackPanel>
+                    <StackPanel Grid.Column="0" >
+                        <Label Content="DNB-ID"/>
+                        <TextBlock x:Name="txtDNB" Text="{Binding Path=DNB, Mode=TwoWay}"/>
+                        <Label Content="Sammlung (DNB)"/>
+                        <TextBox x:Name="txtSammlung" Text="{Binding Path=Sammlung, Mode=TwoWay}"/>
+                        <TextBox x:Name="txtSammlungDNB" Style="{DynamicResource DNB}" />
+                        <Label Content="Original Titel"/>
+                        <TextBox x:Name="txtOrigTitel" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding Path=OriginalTitel, Mode=TwoWay}"/>
+                        <TextBox x:Name="txtOrigTitelDNB" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Style="{DynamicResource DNB}"/>
+                        <Label Content="Original Sprache"/>
+                        <TextBlock x:Name="txtOrigLang"/>
                     </StackPanel>
                     <Border CornerRadius="5" BorderThickness="1" BorderBrush="Gray" Grid.Column="2" Grid.ColumnSpan="2" Margin="5">
                         <StackPanel>
@@ -280,25 +345,27 @@ SelectedValuePath="id" Text="-- Sachgruppe --" DropDownClosed="cbSachgruppe_Drop
             <TabItem Header="Erweiterte Angaben">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                       
-                     
+
+
                         <ColumnDefinition Width="282*"/>
                         <ColumnDefinition Width="329*"/>
                         <ColumnDefinition Width="328*"/>
                         <ColumnDefinition Width="*"/>
 
                     </Grid.ColumnDefinitions>
-                   
+
                     <Border Grid.Column="2" BorderBrush="Aqua" BorderThickness="1">
                         <DockPanel>
                             <Label DockPanel.Dock="Top" Content="Ergänzende Hinweise"/>
                             <TextBox DockPanel.Dock="Top" x:Name="txtAddInfo" HorizontalAlignment="Stretch"  VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding Path=Anmerkungen_PlainText, Mode=TwoWay}"/>
+                            <TextBox DockPanel.Dock="Top" x:Name="txtAddInfoDNB" HorizontalAlignment="Stretch"  VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Style="{DynamicResource DNB}"/>
                         </DockPanel>
                     </Border>
                     <Border Grid.Column="1" BorderBrush="Aqua" BorderThickness="1">
                         <DockPanel  >
                             <Label DockPanel.Dock="Top" Content="Inhalt"/>
                             <TextBox DockPanel.Dock="Top" x:Name="txtInhalt" HorizontalAlignment="Stretch"  VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding Path=Synopsis_PlainText, Mode=TwoWay}"/>
+                            <TextBox DockPanel.Dock="Top" x:Name="txtInhaltDNB" HorizontalAlignment="Stretch"  VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Style="{DynamicResource DNB}"/>
                         </DockPanel>
                     </Border>
                     <StackPanel Grid.Column="0" Background="AntiqueWhite">

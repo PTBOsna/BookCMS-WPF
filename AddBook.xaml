@@ -278,13 +278,13 @@ IsEditable="True" IsReadOnly="True" Text="-- Standort --" DropDownClosed="cbStan
                         <TextBox x:Name="txtKategorie" IsReadOnly="True" Style="{StaticResource cT}"/>
                         <ComboBox x:Name="cbKategorie" Margin="5" DisplayMemberPath="kat"
 SelectedValuePath="id" StaysOpenOnEdit="True" IsTextSearchEnabled="True"
-IsEditable="True" IsReadOnly="True" Text="-- Kategorie  --" DropDownClosed="cbKategorie_DropDownClosed" />
+IsEditable="True" IsReadOnly="False" DropDownClosed="cbKategorie_DropDownClosed" />
                         <Button Content="Vorschlag" Click="btnKat_click" />
                         <Label Content="Unterkategorie"/>
                         <TextBox x:Name="txtUKategorie" IsReadOnly="True" Style="{StaticResource cT}"/>
                         <ComboBox x:Name="cbUKategorie" Margin="5" DisplayMemberPath="ukat"
 SelectedValuePath="id" StaysOpenOnEdit="True" 
-IsEditable="True" IsReadOnly="True" Text="-- Unterkategorie  --" DropDownClosed="cbUKategorie_DropDownClosed" />
+IsEditable="True" IsReadOnly="False" DropDownClosed="cbUKategorie_DropDownClosed" />
                         <Button Content="Vorschlag" Click="btnUkat_click"/>
                     </StackPanel>
                     <StackPanel Grid.Column="1" >

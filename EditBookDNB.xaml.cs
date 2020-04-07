@@ -1,7 +1,8 @@
-﻿using System;
+﻿using BookCMS_WPF.DataHandling;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,22 +12,23 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using BookCMS_WPF.DataHandling;
 
 namespace BookCMS_WPF
 {
     /// <summary>
-    /// Interaktionslogik für AddEditBook.xaml
+    /// Interaktionslogik für EditBookDNB.xaml
     /// </summary>
-    public partial class AddEditBook : Window
+    public partial class EditBookDNB : Window
     {
         public Buch cBook;
         Int32 bookID;
+        string cKat;
+        string DNBSuchString;
+        DNBBookData cDNBBook;
         List<string> personen = new List<string>();
         List<NameRolle> cNameRolle = new List<NameRolle>();
-        //mySettings ms = new mySettings();
-        string cKat;
-        public AddEditBook(Int32 _bookID)
+        mySettings ms = new mySettings();
+        public EditBookDNB(Int32 _bookID)
         {
             InitializeComponent();
             this.bookID = _bookID;
@@ -44,6 +46,27 @@ namespace BookCMS_WPF
             cBook = (from b in Admin.conn.Buch
                      where b.ID == bookID
                      select b).FirstOrDefault();
+            //Zunächst prüfen, ob ISBN oder DNB-Id vorhanden ist
+            if (cBook.DNB != null)
+            {
+                DNBSuchString = cBook.DNB;
+            }
+            else if (cBook.ISBN != null)
+            {
+                DNBSuchString = cBook.ISBN;
+            }
+            else
+            {
+                MessageBox.Show("Bitte zunächst eine gültige ISBN ermitteln ");
+                this.Close();
+            }
+            //DNB-Daten laden
+            cDNBBook = DNBDataHandling.GetDataDNB(DNBSuchString);
+            if (cDNBBook.dnb_nr==null)
+            {
+                MessageBox.Show("Kein Datensatz in der DNB vorhanden!" + "\r\n" + "Bitte gültige ISBN in der DNB suchen!");
+            }
+            ShowDNB_Book();
             //ggf. Image laden
             string cPath = System.IO.Path.Combine(mySettings.CoverPath, bookID.ToString() + ".jpg");
             Admin.ShowImage(ImgBox, cPath);
@@ -106,7 +129,7 @@ namespace BookCMS_WPF
             if (_kat != null)
             {
                 txtKategorie.Text = _kat.DDC_Name;
-                cKat = _kat.DDC;
+
             }
             var _uKat = (from u in Admin.conn.DDC_1000 where u.ID == cBook.UnterkategorieID select u).FirstOrDefault();
             if (_uKat != null)
@@ -140,7 +163,8 @@ namespace BookCMS_WPF
             cbStandort.ItemsSource = sto.ToList();
             var kat = from k in Admin.conn.DDC_Haupt orderby k.DDC select new { kat = k.DDC_Name, id = k.ID };
             cbKategorie.ItemsSource = kat.ToList();
-
+            var ukat = from uk in Admin.conn.DDC_1000 orderby uk.DDC_Name select new { ukat = uk.DDC_Name, id = uk.ID };
+            cbUKategorie.ItemsSource = ukat.ToList();
             var verlag = from v in Admin.conn.Verlag orderby v.SortBy select new { verl = v.SortBy, id = v.PublisherID };
             cbVerlag.ItemsSource = verlag.ToList();
             var verlagOrt = from vo in Admin.conn.VerlagsOrt orderby vo.SortBy select new { verlort = vo.SortBy, id = vo.ID };
@@ -149,51 +173,39 @@ namespace BookCMS_WPF
             cbDruckerei.ItemsSource = druck.ToList();
         }
 
-        private void BtnSave_click(object sender, RoutedEventArgs e)
+        private void ShowDNB_Book()
         {
-            //Änderung bei Personen speichern
-            string cAutorSort = null;
-            foreach (var item in cNameRolle)
+            txtTitelDNB.Text = cDNBBook.dnb_titel;
+            txtSubTitelDNB.Text = cDNBBook.dnb_untertitel;
+            txtVerlagDNB.Text = cDNBBook.dnb_verlagsname;
+            txtVerlagsOrtDNB.Text = cDNBBook.dnb_verlagsort;
+            txtDruckereiDNB.Text = "Kein DNB-Feld";
+            txtAuflageDNB.Text = cDNBBook.dnb_auflage;
+            txtDimDNB.Text = cDNBBook.dnb_dim;
+            txtISBNDNB.Text = cDNBBook.dnb_isbn;
+            txtJahrDNB.Text = cDNBBook.dnb_jahr;
+            txtLanguageDNB.Text = cDNBBook.dnb_sprache;
+            txtPreisDNB.Text = cDNBBook.dnb_preis;
+            txtSeitenDNB.Text = cDNBBook.dnb_seiten;
+            txtVerlagDNB.Text = cDNBBook.dnb_verlagsname;
+            txtVerlagsOrtDNB.Text = cDNBBook.dnb_verlagsort;
+            string tmp = null;
+            if (string.IsNullOrEmpty(cDNBBook.dnb_begleit) == false)
             {
-                var editAR = (from ar in Admin.conn.AutorBuchLink where ar.id == item.currNameRolleID select ar).FirstOrDefault();
-                editAR.BuchID = bookID;
-                editAR.PersonID = item.currID;
-                editAR.RolleID = item.currRolleID;
-                cAutorSort += item.name + "; ";
+                tmp = "Begleitmaterial:" + "\r\n" + cDNBBook.dnb_begleit;
             }
-            //Änderung in GenereLink
-            foreach (CheckBox item in ugridGenre.Children)
+
+            if (string.IsNullOrEmpty(cDNBBook.dnb_thema) == false)
             {
-                GenreLink gnl = new GenreLink();
-                try
-                {
-                    if (item.IsChecked == true)
-                    {
-                        gnl.BuchID = bookID;
-                        gnl.SachgruppeID = (Int32)item.Tag;
-                        Admin.conn.GenreLink.InsertOnSubmit(gnl);
-                        Admin.conn.SubmitChanges();
-                        //MessageBox.Show(item.Tag.ToString() + " / " + item.Content.ToString());
-                    }
-                }
-                catch (Exception ex)
-                {
-
-                    MessageBox.Show(ex.Message + "\r\n" + "Genre/Sachgruppe evt. nicht übernommen!", "Fehler beim Speichern!");
-                }
+                tmp += "\r\n" + "Thema:" + "\r\n" + cDNBBook.dnb_thema;
             }
-            //AutorSort eintragen
-            cBook.AutorSort = cAutorSort.Substring(0, cAutorSort.Length - 2);
-            //Und alle Änderungen speichern
-            Admin.conn.SubmitChanges();
-            DialogResult = true;
-        }
+            txtAddInfoDNB.Text = tmp;
+            if (cDNBBook.dnb_inhalt != null)
+            {
+                txtInhaltDNB.Text = Admin.GetSynopsis(cDNBBook.dnb_inhalt);
 
+            }
 
-
-        private void BtnExit_click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = true;
         }
 
         private void cbLang_DropDownClosed(object sender, EventArgs e)
@@ -242,12 +254,18 @@ namespace BookCMS_WPF
                 var kate = (from k in Admin.conn.DDC_Haupt where k.ID == (Int32)cbKategorie.SelectedValue select k).FirstOrDefault();
                 txtKategorie.Text = kate.DDC_Name;
                 cBook.KategorieID = kate.ID;
+                cKat = kate.DDC;
 
             }
         }
         private void cbUKategorie_DropDownOpened(object sender, EventArgs e)
         {
-            var ukate = from k in Admin.conn.DDC_1000 where k.DDC.StartsWith(cKat.Substring(0, 1)) select new {ukat = k.DDC + " - " + k.DDC_Name, id = k.ID };
+            if (cKat==null)
+            {
+                var kate = (from k in Admin.conn.DDC_Haupt where k.ID == cBook.KategorieID select k).FirstOrDefault();
+                cKat =kate.DDC;
+            }
+            var ukate = from k in Admin.conn.DDC_1000 where k.DDC.StartsWith(cKat.Substring(0, 1)) select new { ukat = k.DDC + " - " + k.DDC_Name, id = k.ID };
             cbUKategorie.ItemsSource = ukate;
         }
         private void cbUKategorie_DropDownClosed(object sender, EventArgs e)
@@ -302,35 +320,28 @@ namespace BookCMS_WPF
 
         private void BtnChangePerson_click(object sender, RoutedEventArgs e)
         {
-            if (lbPersonen.SelectedValue == null)
-            {
-                MessageBox.Show("Bitte zuerst eine Person auswählen!");
-                return;
-            }
-            int index = 0;
-            {
-                NameRolle nr = new NameRolle();
-                foreach (var item in cNameRolle)
-                {
-                    if (item.currID == (Int32)lbPersonen.SelectedValue)
-                    {
-                        nr.currID = item.currID;
-                        nr.currRolleID = item.currRolleID;
-                        nr.name = item.name;
-                        nr.rolle = item.rolle;
-                        nr.currNameRolleID = item.currNameRolleID;
-
-                        EditNameRolle enr = new EditNameRolle(nr);
-                        enr.ShowDialog();
-                        index = cNameRolle.IndexOf(item);
-
-                    }
-                }
-                cNameRolle[index] = nr;
-                lbPersonen.ItemsSource = null;
-                lbPersonen.ItemsSource = cNameRolle;
-            }
+            MessageBox.Show("Noch nicht implementiert!");
         }
 
+        private void BtnSave_click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+                Admin.conn.SubmitChanges();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            DialogResult = true;
+        }
+
+        private void BtnExit_click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+        }
+
+      
     }
 }

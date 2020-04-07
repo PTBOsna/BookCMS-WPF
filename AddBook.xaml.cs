@@ -34,7 +34,7 @@ namespace BookCMS_WPF
         public Int32 BuchID;
         public string cSignatur;
         //Variablen für DNB-Connect
-        public string sampleXml = @"H:\VisualStudio-Projekte\BookCMS-WPF\test5.mrcx"; //für Testlauf
+        
         public string dnbID;
         public DNBBookData db;
         //public List<NameRolle> nr_list;
@@ -82,18 +82,18 @@ namespace BookCMS_WPF
             cbSachgruppe.ItemsSource = sach.ToList();
             var sto = from st in Admin.conn.Standort orderby st.SortBy select new { so = st.SortBy, id = st.ID };
             cbStandort.ItemsSource = sto.ToList();
-            var kat = from k in Admin.conn.Kategorie orderby k.SortBy select new { kat = k.SortBy, id = k.CategoryID };
+            var kat = from k in Admin.conn.DDC_Haupt orderby k.DDC select new { kat = k.DDC_Name, id = k.ID };
             cbKategorie.ItemsSource = kat.ToList();
-            var ukat = from uk in Admin.conn.Unterkategorie orderby uk.SortBy select new { ukat = uk.SortBy, id = uk.SubCategoryID };
-            cbUKategorie.ItemsSource = ukat.ToList();
+           
 
 
 
-            GetDataDNB();
+            db = DNBDataHandling.GetDataDNB(dnbID);
             ShowPerson();
             FindPublisher(db.dnb_verlagsname);
             FindLanguage(db.dnb_sprache);
             FindOrigLanguage(db.dnb_sprache_org);
+            imgLoad();
             LoadNewData();
         }
 
@@ -136,7 +136,7 @@ namespace BookCMS_WPF
             txtISBN.Text = db.dnb_isbn;
             txtVerlagsort.Text = db.dnb_verlagsort;
             string tmp = null;
-            ; if (string.IsNullOrEmpty(db.dnb_begleit) == false)
+             if (string.IsNullOrEmpty(db.dnb_begleit) == false)
             {
                 tmp = "Begleitmaterial:" + "\r\n" + db.dnb_begleit;
             }
@@ -172,59 +172,67 @@ namespace BookCMS_WPF
 
 
 
-        public void GetDataDNB()
-        {
-            string s;
+        //public void GetDataDNB()
+        //{
+        //    string s;
 
-            //string key = "1159cfc6b965e8a03abc3bd8227afa"; //TODO: wird später aus den Settings entnommen
-            string key = mySettings.DNB_API;
-            //MessageBox.Show(sett.CoverPath);
-            WebClient w = new WebClient();
-            w.Encoding = Encoding.UTF8;
+        //    //string key = "1159cfc6b965e8a03abc3bd8227afa"; //TODO: wird später aus den Settings entnommen
+        //    string key = mySettings.DNB_API;
+        //    //MessageBox.Show(sett.CoverPath);
+        //    WebClient w = new WebClient();
+        //    w.Encoding = Encoding.UTF8;
 
-            //MessageBox.Show(cSignatur);
-            if (dnbID == "#")
-            { //für Testlauf
-                s = File.ReadAllText(sampleXml);
-            }
-            else
-            {
-                string urlEnc = WebUtility.UrlEncode(dnbID);
-                s = w.DownloadString("https://services.dnb.de/sru/dnb?version=1.1&operation=searchRetrieve&query=" + urlEnc + "&recordSchema=MARC21-xml&accessToken=" + key);
+        //    //MessageBox.Show(cSignatur);
+        //    if (dnbID == "#")
+        //    { //für Testlauf
+        //        s = File.ReadAllText(sampleXml);
+        //    }
+        //    else
+        //    {
+        //        string urlEnc = WebUtility.UrlEncode(dnbID);
+        //        s = w.DownloadString("https://services.dnb.de/sru/dnb?version=1.1&operation=searchRetrieve&query=" + urlEnc + "&recordSchema=MARC21-xml&accessToken=" + key);
 
-            }
-            db = new DNBBookData(s);
+        //    }
+        //    db = new DNBBookData(s);
 
 
-            //Prüfen ob Cover vorhanden (Abfrage mit allen drei ISBN-Varianten)
-            string imgUrl = @"https://portal.dnb.de/opac/mvb/cover.htm?isbn=";
+        //    //Prüfen ob Cover vorhanden (Abfrage mit allen drei ISBN-Varianten)
+        //    string imgUrl = @"https://portal.dnb.de/opac/mvb/cover.htm?isbn=";
 
-            if (Admin.IsPageValid(imgUrl + db.dnb_isbn_) == true)
-            {
-                imgUrl += db.dnb_isbn_;
-            }
-            else if (Admin.IsPageValid(imgUrl + db.dnb_isbn) == true)
-            {
-                imgUrl += db.dnb_isbn;
-            }
-            else if (Admin.IsPageValid(imgUrl + db.dnb_isbn_13) == true)
-            {
-                imgUrl += db.dnb_isbn_13;
-            }
-            else
+        //    if (Admin.IsPageValid(imgUrl + db.dnb_isbn_) == true)
+        //    {
+        //        imgUrl += db.dnb_isbn_;
+        //    }
+        //    else if (Admin.IsPageValid(imgUrl + db.dnb_isbn) == true)
+        //    {
+        //        imgUrl += db.dnb_isbn;
+        //    }
+        //    else if (Admin.IsPageValid(imgUrl + db.dnb_isbn_13) == true)
+        //    {
+        //        imgUrl += db.dnb_isbn_13;
+        //    }
+        //    else
+        //    {
+        //        cbSaveCover.IsChecked = false;
+        //        lbCoverDNB.Content = "Kein Conver vorhanden!";
+        //        return;
+        //    }
+        //    Uri myUri = new Uri(imgUrl);
+        //    HandleImage(MyImage, myUri);
+        //    imgLoad(imgUrl);
+        //    //MessageBox.Show(ImgBox.Width.ToString());
+        //}
+
+        public void imgLoad()
+        { string _myUri = DNBDataHandling.GetCover(db);
+
+            if (_myUri == null)
             {
                 cbSaveCover.IsChecked = false;
                 lbCoverDNB.Content = "Kein Conver vorhanden!";
                 return;
             }
-            Uri myUri = new Uri(imgUrl);
-            HandleImage(MyImage, myUri);
-            imgLoad(imgUrl);
-            //MessageBox.Show(ImgBox.Width.ToString());
-        }
 
-        public void imgLoad(string _myUri)
-        {
             Image myImage = new Image();
             myImage.Width = 200;
 
@@ -422,18 +430,20 @@ namespace BookCMS_WPF
         {
             if (cbKategorie.SelectedIndex != -1)
             {
-                var kate = (from k in Admin.conn.Kategorie where k.CategoryID == (Int32)cbKategorie.SelectedValue select k).FirstOrDefault();
-                txtKategorie.Text = kate.SortBy;
-                newBook.KategorieID = kate.CategoryID;
+                var kate = (from k in Admin.conn.DDC_Haupt where k.ID == (Int32)cbKategorie.SelectedValue select k).FirstOrDefault();
+                txtKategorie.Text = kate.DDC_Name;
+                newBook.KategorieID = kate.ID;
+                var ukat = from uk in Admin.conn.DDC_1000 orderby uk.DDC where uk.DDC.StartsWith(kate.DDC.Substring(0,1)) select new { ukat = uk.DDC + " - " + uk.DDC_Name, id = uk.ID };
+                cbUKategorie.ItemsSource = ukat.ToList();
             }
         }
         private void cbUKategorie_DropDownClosed(object sender, EventArgs e)
         {
             if (cbUKategorie.SelectedIndex != -1)
             {
-                var ukate = (from k in Admin.conn.Unterkategorie where k.SubCategoryID == (Int32)cbUKategorie.SelectedValue select k).FirstOrDefault();
-                txtUKategorie.Text = ukate.SortBy;
-                newBook.UnterkategorieID = ukate.SubCategoryID;
+                var ukate = (from k in Admin.conn.DDC_1000 where k.ID == (Int32)cbUKategorie.SelectedValue select k).FirstOrDefault();
+                txtUKategorie.Text = ukate.DDC_Name;
+                newBook.UnterkategorieID = ukate.ID;
             }
         }
         private void cbStandort_DropDownClosed(object sender, EventArgs e)
