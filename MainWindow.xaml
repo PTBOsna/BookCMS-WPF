@@ -81,7 +81,7 @@
                 <MenuItem Header="Settings" Click="Click_SettingMnu"/>
             </MenuItem>
             <MenuItem Header="_Listen">
-                <MenuItem Header="_Bildarten"/>
+                <MenuItem Header="_Standorte" Click="MenuItemStandorte_click"/>
                 <MenuItem Header="_Module"/>
                 <MenuItem Header="_Ablageort" Click="MenuItem_Ablage_Click"/>
                 <MenuItem Header="_DDC-Katalog" Click="MenuItemDDC1000_Click"/>
@@ -96,6 +96,9 @@
         </Menu>
         <ToolBarTray DockPanel.Dock="Top" Background="#49274a">
             <ToolBar Height="40" Background="#64618e">
+                <Button Click="BtnExit_Click" ToolTip="Programm beenden">
+                    <Image Source="exit.png" />
+                </Button>
                 <Button Command="Cut" ToolTip="Cut selection to Windows Clipboard.">
                     <Image Source="H:\SammlungMS-WPF\SammlungMS-WPF\Resources\editcut.png" />
                 </Button>
@@ -189,6 +192,11 @@
             <DataGrid Grid.Column="1" Grid.Row="3" x:Name="BuchGrid" ItemsSource="{Binding buch}" HorizontalAlignment="Left"   AutoGenerateColumns="False" Background="#f4decb"
                               AlternatingRowBackground="#f8eee7" GridLinesVisibility="None"  
                               SelectionChanged="DGBuch_SelectionChanged" >
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridRow">
+                        <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
+                    </Style>
+                </DataGrid.Resources>
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="35" Header="ID" Binding="{Binding Path=ID}"/>
                     <DataGridTextColumn Width="50" Header="Signatur" Binding="{Binding Path=Signatur}"/>

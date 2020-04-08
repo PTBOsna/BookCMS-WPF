@@ -394,5 +394,22 @@ namespace BookCMS_WPF
             Listen.DDC1000_Liste ddcList = new Listen.DDC1000_Liste();
             ddcList.ShowDialog();
         }
+        private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+            AddEditBook ae = new AddEditBook(cBookID);
+            ae.ShowDialog();
+          
+        }
+        private void BtnExit_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void MenuItemStandorte_click(object sender, RoutedEventArgs e)
+        {
+            Listen.Standorte st = new Listen.Standorte();
+            st.ShowDialog();
+        }
     }
 }

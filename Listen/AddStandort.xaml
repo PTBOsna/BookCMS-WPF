@@ -1,0 +1,50 @@
+﻿<Window x:Class="BookCMS_WPF.Listen.AddStandort"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookCMS_WPF.Listen"
+        mc:Ignorable="d"
+        Title="AddStandort" Height="450" Width="600">
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="#94618e" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Foreground" Value="Gray" />
+            <Setter Property="Margin"  Value="4 2 2 2"/>
+            <Setter Property="Padding" Value="2"/>
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Background" Value="#49274A"/>
+            <Setter Property="Foreground" Value="AntiqueWhite"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+    </Window.Resources>
+    <Grid Background="#f4decb">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Orientation="Vertical">
+            <Label Content="Bücherstandort:" FontWeight="Bold" Margin="5 15 5 15"/>
+            <Label Content="Standort"/>
+            <TextBox x:Name="txtStandort"/>
+            <Label Content="Hinweise"/>
+            <TextBox x:Name="txtHinweise"  HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Orientation="Vertical">
+            <Button Content="Übernehmem" Click="BtnEdit_click" Margin="5 15"/>
+            <Button Content="Zurück" Click="BtnCanel_click"/>
+        </StackPanel>
+    </Grid>
+
+</Window>

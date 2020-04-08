@@ -109,8 +109,17 @@
     <Compile Include="Listen\AddPerson.xaml.cs">
       <DependentUpon>AddPerson.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Listen\AddStandort.xaml.cs">
+      <DependentUpon>AddStandort.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Listen\DDC1000_Liste.xaml.cs">
       <DependentUpon>DDC1000_Liste.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Listen\EditStandort.xaml.cs">
+      <DependentUpon>EditStandort.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Listen\Standorte.xaml.cs">
+      <DependentUpon>Standorte.xaml</DependentUpon>
     </Compile>
     <Compile Include="MySettings.xaml.cs">
       <DependentUpon>MySettings.xaml</DependentUpon>
@@ -148,7 +157,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Listen\AddStandort.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Listen\DDC1000_Liste.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Listen\EditStandort.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Listen\Standorte.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -266,6 +287,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="buchAddDNB.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="exit.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
