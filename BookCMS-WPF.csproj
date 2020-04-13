@@ -92,6 +92,11 @@
     <Compile Include="AddBook2.xaml.cs">
       <DependentUpon>AddBook2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BuchDataClasses.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BuchDataClasses.dbml</DependentUpon>
+    </Compile>
     <Compile Include="DataHandling\DeleteBook.cs" />
     <Compile Include="DataHandling\DNBDataHandling.cs" />
     <Compile Include="DataHandling\DownloadImage.cs" />
@@ -180,11 +185,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="BuchDataClasses.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BuchDataClasses.dbml</DependentUpon>
     </Compile>
     <Compile Include="Buecher\myBuecher.cs" />
     <Compile Include="DataHandling\Admin.cs" />

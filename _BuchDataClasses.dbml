@@ -1,5 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BOOKS_FROM_ACCESS.MDF" Class="BuchDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=PETER-PC\SQLEXPRESS;Initial Catalog=BOOKS_FROM_ACCESS.MDF;Integrated Security=True" SettingsObjectName="BookCMS_WPF.Properties.Settings" SettingsPropertyName="BOOKS_FROM_ACCESS_MDFConnectionString" Provider="System.Data.SqlClient" />
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Books_from_Access" Class="BuchDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=Books_from_Access;Integrated Security=True" SettingsObjectName="BookCMS_WPF.Properties.Settings" SettingsPropertyName="Books_from_AccessConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.AutorBuchLink" Member="AutorBuchLink">
     <Type Name="AutorBuchLink">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -42,62 +42,6 @@
       <Column Name="Notiz_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Buch" Member="Buch">
-    <Type Name="Buch">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Marked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="Titel" Type="System.String" DbType="NVarChar(253) NOT NULL" CanBeNull="false" />
-      <Column Name="TitelIndex" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="AutorSort" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="Signatur" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
-      <Column Name="Veroeffentlicht" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="CopyrightDatum" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
-      <Column Name="TypID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Untertitel" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="TitleSort" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="VerlagsID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ISBN" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
-      <Column Name="DNB" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="DDC" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="LCCN" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="LandD" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="SprachenID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="DruckereiID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="BindungID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="AuflageID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Auiflage" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="DruckID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="SerienID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Seiten" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Abschnitte" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
-      <Column Name="OriginalTitel" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="OriginalUntertitel" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="OriginaVerlagID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="OriginalLandID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="OriginalSpracheID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="OriginalCopyright" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
-      <Column Name="Preisangabe" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="ZustandID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Erworben" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
-      <Column Name="StandortID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="verliehen" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="Anmerkungen_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Synopsis_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Reviews_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="BarCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="OriginalSerieID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Dim_Width" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="Preis" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="VerlagsOrtID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="ASIN" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="LetzteAenderung" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="SachgruppeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="KategorieID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="UnterkategorieID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Stichworte" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Bibliothek" Type="System.Int32" DbType="Int" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.BuchSachgruppe" Member="BuchSachgruppe">
     <Type Name="BuchSachgruppe">
       <Column Name="Titel" Type="System.String" DbType="NVarChar(253)" CanBeNull="true" />
@@ -116,12 +60,11 @@
       <Column Name="neu" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.DDC_1000" Member="DDC_1000">
-    <Type Name="DDC_1000">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="DDC" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="DDC_Name_Engl" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
-      <Column Name="DDC_Name" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+  <Table Name="dbo.DDC" Member="DDC">
+    <Type Name="DDC">
+      <Column Name="DDC" Member="DDC1" Type="System.String" DbType="NVarChar(7)" CanBeNull="true" />
+      <Column Name="Inhalt" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Natiz" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.DDC_Haupt" Member="DDC_Haupt">
@@ -252,11 +195,75 @@
       <Column Name="Fax" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.Buch" Member="Buch">
+    <Type Name="Buch">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Marked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Titel" Type="System.String" DbType="NVarChar(253) NOT NULL" CanBeNull="false" />
+      <Column Name="TitelIndex" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="AutorSort" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Signatur" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
+      <Column Name="Veroeffentlicht" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CopyrightDatum" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="TypID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Untertitel" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="TitleSort" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="VerlagsID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ISBN" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="DNB" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="DDC" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="LCCN" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LandD" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SprachenID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DruckereiID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BindungID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AuflageID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Auiflage" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="DruckID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="SerienID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Seiten" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Abschnitte" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="OriginalTitel" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="OriginalUntertitel" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="OriginaVerlagID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OriginalLandID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OriginalSpracheID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OriginalCopyright" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="Preisangabe" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="ZustandID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Erworben" Type="System.String" DbType="NVarChar(8)" CanBeNull="true" />
+      <Column Name="StandortID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="verliehen" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Anmerkungen_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Synopsis_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Reviews_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="BarCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="OriginalSerieID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Dim_Width" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Preis" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="VerlagsOrtID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ASIN" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="LetzteAenderung" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="SachgruppeID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="KategorieID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UnterkategorieID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Stichworte" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Bibliothek" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
   <Table Name="dbo.PersonRolle" Member="PersonRolle">
     <Type Name="PersonRolle">
       <Column Name="PersonID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="RolleID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="SortBy" Type="System.String" DbType="NVarChar(152)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DDC_1000" Member="DDC_1000">
+    <Type Name="DDC_1000">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DDC" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="DDC_Name_Engl" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
+      <Column Name="DDC_Name" Type="System.String" DbType="VarChar(250)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

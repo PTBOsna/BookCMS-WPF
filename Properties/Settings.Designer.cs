@@ -26,6 +26,18 @@ namespace BookCMS_WPF.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=H:\\VISUALSTUDIO-PROJEKTE\\BOOKC" +
+            "MS-WPF\\BIN\\DEBUG\\BOOKS_FROM_ACCESS.MDF;Integrated Security=True")]
+        public string H__VISUALSTUDIO_PROJEKTE_BOOKCMS_WPF_BIN_DEBUG_BOOKS_FROM_ACCESS_MDFConnectionString {
+            get {
+                return ((string)(this["H__VISUALSTUDIO_PROJEKTE_BOOKCMS_WPF_BIN_DEBUG_BOOKS_FROM_ACCESS_MDFConnectionStr" +
+                    "ing"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
         [global::System.Configuration.DefaultSettingValueAttribute("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\\bin\\Daten\\BookCMS-T" +
             "est.accdb")]
         public string BookCMS_TestConnectionString {
@@ -66,6 +78,17 @@ namespace BookCMS_WPF.Properties {
         public string Books_from_AccessConnectionString {
             get {
                 return ((string)(this["Books_from_AccessConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=PETER-PC\\SQLEXPRESS;Initial Catalog=BOOKS_FROM_ACCESS.MDF;Integrated " +
+            "Security=True")]
+        public string BOOKS_FROM_ACCESS_MDFConnectionString {
+            get {
+                return ((string)(this["BOOKS_FROM_ACCESS_MDFConnectionString"]));
             }
         }
     }
