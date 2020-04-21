@@ -34,7 +34,7 @@ namespace BookCMS_WPF
         public Int32 BuchID;
         public string cSignatur;
         //Variablen für DNB-Connect
-        
+
         public string dnbID;
         public DNBBookData db;
         //public List<NameRolle> nr_list;
@@ -44,7 +44,7 @@ namespace BookCMS_WPF
         public Buch newBook = new Buch();
         public mySettings sett;
         public BitmapImage myBitmapImage;
-
+        public bool editOrNew; //true = new, false = edit
         public AddBook(string _dnbID)
         {
             InitializeComponent();
@@ -84,7 +84,7 @@ namespace BookCMS_WPF
             cbStandort.ItemsSource = sto.ToList();
             var kat = from k in Admin.conn.DDC_Haupt orderby k.DDC select new { kat = k.DDC_Name, id = k.ID };
             cbKategorie.ItemsSource = kat.ToList();
-           
+
 
 
 
@@ -102,11 +102,14 @@ namespace BookCMS_WPF
             string[] name = null;
             string[] ret = null;
             //Personen finden und Anzeign
+            var pers = from p in Admin.conn.Person orderby p.SortBy select new { PName = p.SortBy };
             if (db.dnb_Autor_sort != null)
             {
                 name = db.dnb_Autor_sort.Split(',');
                 ret = FindAutor(name[0]).Split('#');
                 nr_list.Add(new NameRolle() { name = db.dnb_Autor_sort, rolle = db.dnb_Rolle, nameInDB = ret[1], currID = Int32.Parse(ret[0]), currRolleID = FindRolleID(db.dnb_Rolle) });
+
+
             }
             if (db.dnb_mitautor != null)
             {
@@ -123,6 +126,8 @@ namespace BookCMS_WPF
 
             }
             DGPersonen.ItemsSource = nr_list;
+            DGPersonTes.ItemsSource = nr_list;
+            //cbPerson. = pers.ToList();
         }
 
         private void LoadNewData()
@@ -136,7 +141,7 @@ namespace BookCMS_WPF
             txtISBN.Text = db.dnb_isbn;
             txtVerlagsort.Text = db.dnb_verlagsort;
             string tmp = null;
-             if (string.IsNullOrEmpty(db.dnb_begleit) == false)
+            if (string.IsNullOrEmpty(db.dnb_begleit) == false)
             {
                 tmp = "Begleitmaterial:" + "\r\n" + db.dnb_begleit;
             }
@@ -172,59 +177,10 @@ namespace BookCMS_WPF
 
 
 
-        //public void GetDataDNB()
-        //{
-        //    string s;
-
-        //    //string key = "1159cfc6b965e8a03abc3bd8227afa"; //TODO: wird später aus den Settings entnommen
-        //    string key = mySettings.DNB_API;
-        //    //MessageBox.Show(sett.CoverPath);
-        //    WebClient w = new WebClient();
-        //    w.Encoding = Encoding.UTF8;
-
-        //    //MessageBox.Show(cSignatur);
-        //    if (dnbID == "#")
-        //    { //für Testlauf
-        //        s = File.ReadAllText(sampleXml);
-        //    }
-        //    else
-        //    {
-        //        string urlEnc = WebUtility.UrlEncode(dnbID);
-        //        s = w.DownloadString("https://services.dnb.de/sru/dnb?version=1.1&operation=searchRetrieve&query=" + urlEnc + "&recordSchema=MARC21-xml&accessToken=" + key);
-
-        //    }
-        //    db = new DNBBookData(s);
-
-
-        //    //Prüfen ob Cover vorhanden (Abfrage mit allen drei ISBN-Varianten)
-        //    string imgUrl = @"https://portal.dnb.de/opac/mvb/cover.htm?isbn=";
-
-        //    if (Admin.IsPageValid(imgUrl + db.dnb_isbn_) == true)
-        //    {
-        //        imgUrl += db.dnb_isbn_;
-        //    }
-        //    else if (Admin.IsPageValid(imgUrl + db.dnb_isbn) == true)
-        //    {
-        //        imgUrl += db.dnb_isbn;
-        //    }
-        //    else if (Admin.IsPageValid(imgUrl + db.dnb_isbn_13) == true)
-        //    {
-        //        imgUrl += db.dnb_isbn_13;
-        //    }
-        //    else
-        //    {
-        //        cbSaveCover.IsChecked = false;
-        //        lbCoverDNB.Content = "Kein Conver vorhanden!";
-        //        return;
-        //    }
-        //    Uri myUri = new Uri(imgUrl);
-        //    HandleImage(MyImage, myUri);
-        //    imgLoad(imgUrl);
-        //    //MessageBox.Show(ImgBox.Width.ToString());
-        //}
 
         public void imgLoad()
-        { string _myUri = DNBDataHandling.GetCover(db);
+        {
+            string _myUri = DNBDataHandling.GetCover(db);
 
             if (_myUri == null)
             {
@@ -255,19 +211,6 @@ namespace BookCMS_WPF
             //set image source
             MyImage.Source = myBitmapImage;
 
-        }
-
-
-
-        private void HandleImage(Image image, Uri webUri)
-        {
-            BitmapDecoder bDecoder = BitmapDecoder.Create(
-              webUri,
-              BitmapCreateOptions.PreservePixelFormat,
-              BitmapCacheOption.None);
-
-            if (bDecoder != null && bDecoder.Frames.Count > 0)
-                image.Source = bDecoder.Frames[0];
         }
 
 
@@ -433,7 +376,7 @@ namespace BookCMS_WPF
                 var kate = (from k in Admin.conn.DDC_Haupt where k.ID == (Int32)cbKategorie.SelectedValue select k).FirstOrDefault();
                 txtKategorie.Text = kate.DDC_Name;
                 newBook.KategorieID = kate.ID;
-                var ukat = from uk in Admin.conn.DDC_1000 orderby uk.DDC where uk.DDC.StartsWith(kate.DDC.Substring(0,1)) select new { ukat = uk.DDC + " - " + uk.DDC_Name, id = uk.ID };
+                var ukat = from uk in Admin.conn.DDC_1000 orderby uk.DDC where uk.DDC.StartsWith(kate.DDC.Substring(0, 1)) select new { ukat = uk.DDC + " - " + uk.DDC_Name, id = uk.ID };
                 cbUKategorie.ItemsSource = ukat.ToList();
             }
         }
@@ -462,33 +405,39 @@ namespace BookCMS_WPF
             try
             {
                 NameRolle nr = DGPersonen.SelectedItem as NameRolle;
+                int i = 0;
+                foreach (var item in nr_list)
+                {
+                    if (item.name.StartsWith(nr.name) == true)
+                    {
+                        i = nr_list.IndexOf(item);
+                    }
+                }
                 if (nr.currID == -1)
                 { //Index in nr_list finden
-                    int i = 0;
-                    foreach (var item in nr_list)
-                    {
-                        if (item.name.StartsWith(nr.name) == true)
-                        {
-                            i = nr_list.IndexOf(item);
-                        }
-                    }
+
                     Listen.AddPerson addp = new Listen.AddPerson(nr.name);
                     addp.ShowDialog();
                     nr_list[i].nameInDB = "Eingefügt";
                     nr_list[i].currID = Admin.currPersonID;
-                    DGPersonen.ItemsSource = null;
-                    DGPersonen.ItemsSource = nr_list;
-                   
+                    //DGPersonen.ItemsSource = null;
+                    //DGPersonen.ItemsSource = nr_list;
+
 
                 }
                 else
-                {
+                {//bestehende 
                     EditNameRolle enr = new EditNameRolle(nr);
                     enr.ShowDialog();
-                    List<NameRolle> _nr = new List<NameRolle>();
-                    DGPersonen.ItemsSource = _nr;
+                    nr_list[i].currID =  enr.cNR.currID;
+                    nr_list[i].currRolleID = enr.cNR.currRolleID;
+                    nr_list[i].name = enr.cNR.name;
+                    //List<NameRolle> _nr = new List<NameRolle>() { enr.cNR };
+                  
 
                 }
+                DGPersonen.ItemsSource = null;
+                DGPersonen.ItemsSource = nr_list;
                 txtAutorSort.Text = GetAutorSort();
 
             }

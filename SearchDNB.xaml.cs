@@ -23,9 +23,16 @@ namespace BookCMS_WPF
     public partial class SearchDNB : Window
     {
         public DNBBookData dnbdata;
-        public SearchDNB()
+        public bool addOrEdit;
+        public string dnbID { get; set; }
+        public SearchDNB(bool _addOrEdit, string _titel) //Add = treu, Edit = false
         {
             InitializeComponent();
+            this.addOrEdit = _addOrEdit;
+            if (string.IsNullOrEmpty(_titel)==false)
+            {
+                txtInput.Text = _titel;
+            }
             txtInput.Focus();
         }
 
@@ -45,7 +52,10 @@ namespace BookCMS_WPF
             w.Encoding = Encoding.UTF8;
             string urlEnc = WebUtility.UrlEncode(suche);
 
-            string s = w.DownloadString("https://services.dnb.de/sru/dnb?version=1.1&operation=searchRetrieve&query=" + urlEnc + "&recordSchema=MARC21-xml&accessToken=" + key);
+            urlEnc = urlEnc.Replace("+","%20and%20");
+            //string myURL = "https://services.dnb.de/sru/dnb?version=1.1&operation=searchRetrieve&query=" + urlEnc + "&recordSchema=MARC21-xml&accessToken=" + key;
+
+            string s = w.DownloadString("https://services.dnb.de/sru/dnb?version=1.1&operation=searchRetrieve&query=" + urlEnc  + "&recordSchema=MARC21-xml&accessToken=" + key);
            dnbdata = new DNBBookData(s);
             //txtVorschau.Text = s;
             //txtInput.Focus();
@@ -53,6 +63,7 @@ namespace BookCMS_WPF
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(s);
             var nodeList = doc.GetElementsByTagName("numberOfRecords");
+            
             Int32 count = 0;
             List<string> infolist = new List<string>();
             foreach (XmlNode item in nodeList)
@@ -61,9 +72,9 @@ namespace BookCMS_WPF
                 count = Int32.Parse(item.InnerText);
                 if (count >= 1)
                 {
-                    if (count > 10)
+                    if (count > 20)
                     {
-                        MessageBox.Show("Die Suche brachte mehr als 10 Treffer!" + "\r\n" + "Bitte Suchfrage ändern!");
+                        MessageBox.Show("Die Suche brachte mehr als 20 Treffer!" + "\r\n" + "Bitte Suchfrage ändern!");
                         return;
                     }
                     else
@@ -74,6 +85,7 @@ namespace BookCMS_WPF
                     }
                    
                 }
+                else { MessageBox.Show("Kein Treffer, Suche verfeinern!"); }
             //lbAuswahl.Items.Add("Titel: " + dnbdata.dnb_titel + ", Autor: " + dnbdata.dnb_autor + ", Jahr: " + dnbdata.dnb_jahr + ", ISBN: " + dnbdata.dnb_isbn_13);
             }
             //lbAuswahl.ItemsSource = InfoMulti._InfoMulti(s).Split('~').ToList();
@@ -86,7 +98,11 @@ namespace BookCMS_WPF
             if (e.Key != System.Windows.Input.Key.Enter) return;
             lbAuswahl.Items.Clear();
             connect(txtInput.Text);
+            if (dnbdata.dnb_titel != null)
+            {
             CheckTitle(dnbdata. dnb_titel);
+
+            }
         }
         private void CheckTitle(string dnb_titel)
         {
@@ -129,14 +145,33 @@ namespace BookCMS_WPF
             string sel = lbAuswahl.SelectedItem as string;
             string[] erg = sel.Split(';');
             //MessageBox.Show(erg[0]);
-            AddBook ab = new AddBook(erg[0]);
-            ab.ShowDialog();
-            DialogResult = true;
+            if (addOrEdit==true)
+            {
+                AddBook ab = new AddBook(erg[0]);
+                ab.ShowDialog();
+                DialogResult = true;
+
+            }
+            else
+            {
+                dnbID = erg[0];
+                //EditBookDNB eb = new EditBookDNB(Int32.Parse( erg[0]));
+                //eb.ShowDialog();
+                DialogResult = true;
+            }
+
         }
 
         private void btnExit_click(object sender, RoutedEventArgs e)
         {
+            if (addOrEdit == false)
+            {
+                dnbID = "#"; //Suche abgebrochen
+
+
+            }
             DialogResult = false;
+           
         }
 
         private void btnNew_click(object sender, RoutedEventArgs e)

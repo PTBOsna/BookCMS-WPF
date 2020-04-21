@@ -21,7 +21,7 @@ namespace BookCMS_WPF
     /// </summary>
     public partial class EditNameRolle : Window
     {
-        public  NameRolle cNR;
+        public NameRolle cNR { get; set; }
         public EditNameRolle(NameRolle _cNR)
         {
             InitializeComponent();
@@ -65,7 +65,10 @@ namespace BookCMS_WPF
 
         private void BtnNameNew_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Form AddName aufrufen");
+            Listen.AddPerson addp = new Listen.AddPerson(cNR .name);
+            addp.ShowDialog();
+            DGNameInDB.ItemsSource = null;
+           
         }
 
          public static NameRolle _nr = new NameRolle();

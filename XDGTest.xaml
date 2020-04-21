@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="XDGTest" Height="450" Width="800">
     <Grid>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -17,14 +18,26 @@
         </Grid.RowDefinitions>
         <Border BorderBrush="Aqua" BorderThickness="1" Margin="5">
             
-        <DataGrid Grid.Row="0" x:Name="DGPeson" AutoGenerateColumns="False"  VerticalAlignment="Top" ItemsSource="{Binding Path=pr}"  Margin="5">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding PeronID}"/>
-                <DataGridTextColumn Header="SortBy" Binding="{Binding SortBy}"/>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-            </DataGrid.Columns>  
-        </DataGrid>
-        </Border>
+        <DataGrid  x:Name="DGPeson" AutoGenerateColumns="False"  VerticalAlignment="Top" Margin="5" SelectionChanged="DGPeson_SelectionChanged" >
 
+                <DataGrid.Columns >
+                    <DataGridTextColumn Header="Name" Binding="{Binding Path=SortBy}" Width="100"/>
+                    <DataGridComboBoxColumn x:Name="dgtest" SelectedItemBinding="{Binding Name}" Header="test"
+                      SelectedValueBinding="{Binding id}"
+                       Width="100"                   >
+                        <DataGridComboBoxColumn.EditingElementStyle>
+                            <Style TargetType="ComboBox">
+                                <Setter Property="IsDropDownOpen" Value="True" />
+                            </Style>
+                        </DataGridComboBoxColumn.EditingElementStyle>
+                    </DataGridComboBoxColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+        <DataGrid Grid.Column="1" x:Name="dgVorschlag" AutoGenerateColumns="False" SelectedCellsChanged="dgVorschlag_SelectedCellsChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Vorschlag" Binding="{Binding Path=DBName}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

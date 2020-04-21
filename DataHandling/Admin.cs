@@ -9,6 +9,8 @@ using System.Text;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
 using System.Windows.Media.Imaging;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace BookCMS_WPF.DataHandling
 {
@@ -18,6 +20,23 @@ namespace BookCMS_WPF.DataHandling
         public static List<string> myAlpha = new List<string> { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
         public static int currPersonID;
 
+        public static bool CheckDatabaseExists(string connectionString, string databaseName)
+        {
+            string connString = connectionString;
+            string cmdText = @"if Exists(select 1 from master.dbo.sysdatabases where name=@db) 
+                       select 1 else select 0";
+            using (SqlConnection sqlConnection = new SqlConnection(connString))
+            {
+                sqlConnection.Open();
+                using (SqlCommand sqlCmd = new SqlCommand(cmdText, sqlConnection))
+                {
+                    sqlCmd.Parameters.Add("@db", SqlDbType.NVarChar).Value = databaseName;
+                    int nRet = Convert.ToInt32(sqlCmd.ExecuteScalar());
+                    return (nRet > 0);
+                }
+            }
+
+        }
         public static string CleanString(string cString)
         {
             //alle Sonderzeichen entfernen

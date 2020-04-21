@@ -67,7 +67,10 @@ namespace BookCMS_WPF.DataHandling
 
         public static string GetCover(DNBBookData db)
         {
+            
+            {
 
+            }
             //Prüfen ob Cover vorhanden (Abfrage mit allen drei ISBN-Varianten)
             string imgUrl = @"https://portal.dnb.de/opac/mvb/cover.htm?isbn=";
 

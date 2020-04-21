@@ -24,10 +24,13 @@ namespace BookCMS_WPF
         Int32 bookID;
         string cKat;
         string DNBSuchString;
+        bool keineDNBSuche = false;
         DNBBookData cDNBBook;
         List<string> personen = new List<string>();
         List<NameRolle> cNameRolle = new List<NameRolle>();
+        public BitmapImage myBitmapImage;
         mySettings ms = new mySettings();
+         public delegate void TextChangedEventHandler(object sender, TextChangedEventArgs e);
         public EditBookDNB(Int32 _bookID)
         {
             InitializeComponent();
@@ -47,25 +50,21 @@ namespace BookCMS_WPF
                      where b.ID == bookID
                      select b).FirstOrDefault();
             //Zunächst prüfen, ob ISBN oder DNB-Id vorhanden ist
-            if (cBook.DNB != null)
+            if (string.IsNullOrEmpty( cBook.DNB) == false)
             {
                 DNBSuchString = cBook.DNB;
             }
-            else if (cBook.ISBN != null)
+            else if (string.IsNullOrEmpty( cBook.ISBN) == false)
             {
                 DNBSuchString = cBook.ISBN;
             }
             else
             {
-                MessageBox.Show("Bitte zunächst eine gültige ISBN ermitteln ");
-                this.Close();
+                MessageBox.Show("Keine ISBN oder DNB-Nr. vorhanden.\r\n Bitte mit Titel suchen!" );
             }
+                LoadBookFromDNB(DNBSuchString);
             //DNB-Daten laden
-            cDNBBook = DNBDataHandling.GetDataDNB(DNBSuchString);
-            if (cDNBBook.dnb_nr==null)
-            {
-                MessageBox.Show("Kein Datensatz in der DNB vorhanden!" + "\r\n" + "Bitte gültige ISBN in der DNB suchen!");
-            }
+           
             ShowDNB_Book();
             //ggf. Image laden
             string cPath = System.IO.Path.Combine(mySettings.CoverPath, bookID.ToString() + ".jpg");
@@ -85,7 +84,8 @@ namespace BookCMS_WPF
             lbPersonen.ItemsSource = cNameRolle;
             lbPersonen.DataContext = cNameRolle;
             this.DataContext = cBook;
-
+            //ggf Cover laden
+            imgLoad();
             //Genre Laden
             Admin.LoadGenre(ugridGenre);
             var c_genre = from g in Admin.conn.GenreLink where g.BuchID == bookID select g;
@@ -173,8 +173,34 @@ namespace BookCMS_WPF
             cbDruckerei.ItemsSource = druck.ToList();
         }
 
+        private void LoadBookFromDNB(string dNBSuchString)
+        {
+            if (string.IsNullOrEmpty(dNBSuchString)==false)
+            {
+                if (dNBSuchString=="#")
+                {
+                    MessageBox.Show("DNB-Suche wurde abgebrochen!");
+                    keineDNBSuche = true;
+                    return;
+                }
+            cDNBBook = DNBDataHandling.GetDataDNB(dNBSuchString);
+
+            }
+           else
+            {
+                //MessageBox.Show("Kein Datensatz in der DNB vorhanden!" + "\r\n" + "Bitte gültige ISBN in der DNB suchen!");
+                SearchDNB f = new SearchDNB(false, cBook.Titel);
+                f.ShowDialog();
+               LoadBookFromDNB( f.dnbID);
+            }
+        }
+
         private void ShowDNB_Book()
         {
+            if (keineDNBSuche==true)
+            {
+                return;
+            }
             txtTitelDNB.Text = cDNBBook.dnb_titel;
             txtSubTitelDNB.Text = cDNBBook.dnb_untertitel;
             txtVerlagDNB.Text = cDNBBook.dnb_verlagsname;
@@ -205,6 +231,7 @@ namespace BookCMS_WPF
                 txtInhaltDNB.Text = Admin.GetSynopsis(cDNBBook.dnb_inhalt);
 
             }
+            txtDNBNr.Text = cDNBBook.dnb_nr;
 
         }
 
@@ -313,7 +340,7 @@ namespace BookCMS_WPF
             if (cbVerlag.SelectedIndex != -1)
             {
                 var verlag = (from v in Admin.conn.Verlag where v.PublisherID == (Int32)cbVerlag.SelectedValue select v).FirstOrDefault();
-                txtStandort.Text = verlag.SortBy;
+                txtVerlag.Text = verlag.SortBy;
                 cBook.VerlagsID = verlag.PublisherID;
             }
         }
@@ -322,13 +349,54 @@ namespace BookCMS_WPF
         {
             MessageBox.Show("Noch nicht implementiert!");
         }
+        public void imgLoad()
+        {
+            if (keineDNBSuche==true)
+            {
+                return;
+            }
+            string _myUri = DNBDataHandling.GetCover(cDNBBook);
 
+            if (_myUri == null)
+            {
+                cbSaveCover.IsChecked = false;
+                lbCoverDNB.Content = "Kein Conver vorhanden!";
+                return;
+            }
+
+            Image myImage = new Image();
+            myImage.Width = 200;
+
+            // Create source
+            myBitmapImage = new BitmapImage();
+
+            // BitmapImage.UriSource must be in a BeginInit/EndInit block
+            myBitmapImage.BeginInit();
+            myBitmapImage.UriSource = new Uri(_myUri);
+
+            // To save significant application memory, set the DecodePixelWidth or  
+            // DecodePixelHeight of the BitmapImage value of the image source to the desired 
+            // height or width of the rendered image. If you don't do this, the application will 
+            // cache the image as though it were rendered as its normal size rather then just 
+            // the size that is displayed.
+            // Note: In order to preserve aspect ratio, set DecodePixelWidth
+            // or DecodePixelHeight but not both.
+            myBitmapImage.DecodePixelWidth = 200;
+            myBitmapImage.EndInit();
+            //set image source
+            ImgBoxDNB.Source = myBitmapImage;
+
+        }
         private void BtnSave_click(object sender, RoutedEventArgs e)
         {
             try
             {
-
                 Admin.conn.SubmitChanges();
+                if (cbSaveCover.IsChecked==true && keineDNBSuche==false)
+                {
+                SaveCover(bookID);
+
+                }
             }
             catch (Exception ex)
             {
@@ -336,10 +404,110 @@ namespace BookCMS_WPF
             }
             DialogResult = true;
         }
+        private void SaveCover(int id)
+        {
+            BitmapEncoder encoder = new JpegBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(myBitmapImage));
+            string cPath = System.IO.Path.Combine(mySettings.CoverPath, id.ToString() + ".jpg");
+            try
+            {
+                using (var fileStream = new System.IO.FileStream(cPath, System.IO.FileMode.Create))
+                {
+                    encoder.Save(fileStream);
+                    fileStream.Close();
 
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Cover wurde nicht gespeichert!" + "\r\n" + ex.Message);
+            }
+
+        }
         private void BtnExit_click(object sender, RoutedEventArgs e)
         {
             DialogResult = true;
+        }
+
+        private void txtDNBNr_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            txtDNB.Text = txtDNBNr.Text;
+        }
+
+        private void txtAuflageDNB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            txtAuflage.Text = txtAuflageDNB.Text;
+        }
+
+        private void txtSeitenDNB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            txtSeiten.Text = txtSeitenDNB.Text;
+        }
+
+        private void txtJahrDNB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            txtJahr.Text = txtJahrDNB.Text;
+        }
+
+        private void txtISBNDNB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            txtISBN.Text = txtISBNDNB.Text;
+        }
+
+        private void txtPreisDNB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            txtPreis.Text = txtPreisDNB.Text;
+        }
+
+        private void txtDimDNB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            txtDim.Text = txtDimDNB.Text;
+        }
+
+        private void txtSammlungDNB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            txtSammlung.Text = txtSammlungDNB.Text;
+        }
+
+        private void txtOrigTitelDNB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            txtOrigTitel.Text = txtOrigTitelDNB.Text;
+        }
+
+        private void txtIndexDNB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        { 
+            txtIndex.Text = txtIndexDNB.Text;
+        }
+
+        private void txtDCCDNB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            txtDCC.Text = txtDCCDNB.Text;
+        }
+
+        private void txtInhaltDNB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            txtInhalt.Text = txtInhaltDNB.Text;
+        }
+
+        private void txtAddInfoDNB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            txtAddInfo.Text = txtAddInfoDNB.Text;
+        }
+
+        private void txtTitelDNB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            txtTitel.Text = txtTitelDNB.Text;
+        }
+
+        private void txtSubTitelDNB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            txtSubTitel.Text = txtSubTitelDNB.Text;
+        }
+
+        private void txtStichworteDNB_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            txtStichworte.Text = txtStichworteDNB.Text;
         }
 
       

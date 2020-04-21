@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BOOKS_FROM_ACCESS.MDF" Class="BuchDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=PETER-PC\SQLEXPRESS;Initial Catalog=BOOKS_FROM_ACCESS.MDF;Integrated Security=True" SettingsObjectName="BookCMS_WPF.Properties.Settings" SettingsPropertyName="BOOKS_FROM_ACCESS_MDFConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=BooksCMS_TestDB;Integrated Security=True" SettingsObjectName="BookCMS_WPF.Properties.Settings" SettingsPropertyName="BOOKS_FROM_ACCESS_MDFConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.AutorBuchLink" Member="AutorBuchLink">
     <Type Name="AutorBuchLink">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />

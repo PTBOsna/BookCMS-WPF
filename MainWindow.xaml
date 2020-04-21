@@ -85,6 +85,7 @@
                 <MenuItem Header="_Module"/>
                 <MenuItem Header="_Ablageort" Click="MenuItem_Ablage_Click"/>
                 <MenuItem Header="_DDC-Katalog" Click="MenuItemDDC1000_Click"/>
+                <MenuItem Header="_Personen" Click="MenuItem_Click"/>
             </MenuItem>
             <MenuItem Header="Extras">
                 <MenuItem Header="Bilder Zuordnung" Click="MenuItem_ImgToGD_Click"/>

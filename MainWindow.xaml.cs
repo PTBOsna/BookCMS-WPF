@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BookCMS_WPF.DataHandling;
+using System.Data.SqlClient;
 
 namespace BookCMS_WPF
 {
@@ -29,6 +30,21 @@ namespace BookCMS_WPF
         public MainWindow()
         {
             InitializeComponent();
+            try
+            {
+
+                //conn.Open();
+                //BuchDataClassesDataContext con = new BuchDataClassesDataContext(@"Server = .\SQLEXPRESS; Database = BOOKS_FROM_ACCESS.DBF; Trusted_Connection = True;");
+                Admin.CheckDatabaseExists(@"Server = .\SQLEXPRESS; Database = BooksCMS_TestDB; Trusted_Connection = True;", "BooksCMS_TestDB");
+                MessageBox.Show("Verbindung hergestellt");
+
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
             mySettings.loadSetting();
         }
 
@@ -286,7 +302,7 @@ namespace BookCMS_WPF
 
         private void AddDNB(object sender, RoutedEventArgs e)
         {
-            SearchDNB ab = new SearchDNB();
+            SearchDNB ab = new SearchDNB(true, null);
             ab.ShowDialog();
            
         }
@@ -410,6 +426,12 @@ namespace BookCMS_WPF
         {
             Listen.Standorte st = new Listen.Standorte();
             st.ShowDialog();
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Listen.Personen ps = new Listen.Personen();
+            ps.ShowDialog();
         }
     }
 }

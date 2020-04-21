@@ -27,6 +27,7 @@
             <Setter Property="TextWrapping" Value="Wrap"/>
         </Style>
         <Style TargetType="TextBox">
+           
             <Setter Property="Foreground" Value="Gray" />
             <Setter Property="Margin"  Value="4 2 2 2"/>
             <Setter Property="Padding" Value="2"/>
@@ -83,10 +84,10 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="#94618E">
             <Label Content="Titel:" Foreground="AntiqueWhite"/>
-            <TextBox x:Name="txtTitel" Text="{Binding Path=Titel, Mode=TwoWay}" FontSize="16"/>
-            <TextBox x:Name="txtTitelDNB"  FontSize="16" Background="#f4decb"/>
-            <TextBox x:Name="txtSubTitel" Text="{Binding Path=Untertitel, Mode=TwoWay}" FontSize="14" FontWeight="Bold"/>
-            <TextBox x:Name="txtSubTitelDNB" Text="{Binding Path=Untertitel, Mode=TwoWay}" FontSize="14" FontWeight="Bold" Background="#f4decb"/>
+            <TextBox x:Name="txtTitel" Text="{Binding Path=Titel, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}" FontSize="16"/>
+            <TextBox x:Name="txtTitelDNB"  FontSize="16" Background="#f4decb" MouseDoubleClick="txtTitelDNB_MouseDoubleClick"/>
+            <TextBox x:Name="txtSubTitel" Text="{Binding Path=Untertitel, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}" FontSize="14" FontWeight="Bold"/>
+            <TextBox x:Name="txtSubTitelDNB" Text="{Binding Path=Untertitel, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}" FontSize="14" FontWeight="Bold" Background="#f4decb" MouseDoubleClick="txtSubTitelDNB_MouseDoubleClick"/>
             <Label Content="Signatur:" Foreground="AntiqueWhite" ></Label>
             <TextBlock x:Name="txtSignatur" Text="{Binding Path=Signatur}" FontSize="14" FontWeight="Bold" Foreground="AntiqueWhite" />
         </StackPanel>
@@ -182,14 +183,14 @@ SelectedValuePath="id" Text="-- Druckerei wählen --" DropDownClosed="cbDruckere
 
 
                                     <Label Content="Auflage"/>
-                                    <TextBox x:Name="txtAuflage" Grid.Column="0" Text="{Binding Path=Auiflage, Mode=TwoWay}"/>
+                                    <TextBox x:Name="txtAuflage" Grid.Column="0" Text="{Binding Path=Auiflage, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
 
                                     <Label Content="Seiten"/>
-                                    <TextBox x:Name="txtSeiten" Text="{Binding Path=Seiten, Mode=TwoWay}"/>
+                                    <TextBox x:Name="txtSeiten" Text="{Binding Path=Seiten, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
                                     <Label Content="Jahr/Copyright"/>
-                                    <TextBox x:Name="txtJahr" Text="{Binding Path=Veroeffentlicht, Mode=TwoWay}"/>
+                                    <TextBox x:Name="txtJahr" Text="{Binding Path=Veroeffentlicht, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
                                     <Label Content="ISBN"/>
-                                    <TextBox x:Name="txtISBN" Text="{Binding Path=ISBN, Mode=TwoWay}"/>
+                                    <TextBox x:Name="txtISBN" Text="{Binding Path=ISBN, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
                                     <Label Content="Sprache"/>
                                     <TextBox x:Name="txtLanguage" IsReadOnly="True"/>
                                     <Label Content="Ändern in:"/>
@@ -197,14 +198,14 @@ SelectedValuePath="id" Text="-- Druckerei wählen --" DropDownClosed="cbDruckere
 SelectedValuePath="id"  Text="-- Sprache wählen --" Grid.ColumnSpan="2" DropDownClosed="cbLang_DropDownClosed"/>
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" Orientation="Vertical">
-                                    <Label Content="Auflage DNB"/>
-                                    <TextBox x:Name="txtAuflageDNB" Grid.Column="1" Style="{DynamicResource DNB}"/>
+                                    <Label Content="Auflage DNB*)"/>
+                                    <TextBox x:Name="txtAuflageDNB" Grid.Column="1" Style="{DynamicResource DNB}" MouseDoubleClick="txtAuflageDNB_MouseDoubleClick" />
                                     <Label Content="Seiten DNB"/>
-                                    <TextBox x:Name="txtSeitenDNB" Style="{DynamicResource DNB}"/>
+                                    <TextBox x:Name="txtSeitenDNB" Style="{DynamicResource DNB}" MouseDoubleClick="txtSeitenDNB_MouseDoubleClick"/>
                                     <Label Content="Jahr/Copyright DNB"/>
-                                    <TextBox x:Name="txtJahrDNB" Style="{DynamicResource DNB}"/>
+                                    <TextBox x:Name="txtJahrDNB" Style="{DynamicResource DNB}" MouseDoubleClick="txtJahrDNB_MouseDoubleClick"/>
                                     <Label Content="ISBN DNB"/>
-                                    <TextBox x:Name="txtISBNDNB" Style="{DynamicResource DNB}"/>
+                                    <TextBox x:Name="txtISBNDNB" Style="{DynamicResource DNB}" MouseDoubleClick="txtISBNDNB_MouseDoubleClick"/>
                                     <Label Content="Sprache DNB"/>
                                     <TextBox x:Name="txtLanguageDNB" Style="{DynamicResource DNB}"/>
                                 </StackPanel>
@@ -218,6 +219,10 @@ SelectedValuePath="id"  Text="-- Sprache wählen --" Grid.ColumnSpan="2" DropDow
 SelectedValuePath="id"  Text="-- Bindung wählen --" DropDownClosed="cbBindung_DropDownClosed" />
                                 </StackPanel>
                             </Border>
+                            
+                                
+                                    <Label Content="*)DoppelClick um DNB-Daten zu übernehmen!"  FontWeight="Bold" Foreground="#49274A" Margin="0 30"/>
+                           
                         </StackPanel>
                     </Border>
                     <!--Organisation-->
@@ -254,16 +259,38 @@ SelectedValuePath="id"  Text="-- Standort wählen --" DropDownClosed="cbStandort
                             <Label Content="Zusatand"/>
                             <TextBox Text=""/>
                             <Label Content="Preis"/>
-                            <TextBox x:Name="txtPreis" Text="{Binding Path=Preis, Mode=TwoWay}"/>
-                            <TextBox x:Name="txtPreisDNB" Style="{StaticResource DNB}" />
+                            <TextBox x:Name="txtPreis" Text="{Binding Path=Preis, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox x:Name="txtPreisDNB" Style="{StaticResource DNB}" MouseDoubleClick="txtPreisDNB_MouseDoubleClick"/>
                             <Label Content="Format"/>
-                            <TextBox x:Name="txtDim" Text="{Binding Path=Dim_Width, Mode=TwoWay}"/>
-                            <TextBox x:Name="txtDimDNB"  Style="{StaticResource DNB}"/>
+                            <TextBox x:Name="txtDim" Text="{Binding Path=Dim_Width, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox x:Name="txtDimDNB"  Style="{StaticResource DNB}" MouseDoubleClick="txtDimDNB_MouseDoubleClick"/>
                         </StackPanel>
                     </Border>
                     <!--Generierte Daten-->
+                    <Border  Grid.Column="2" Grid.Row="2" Margin="5 0 5 3" Background="#F4DECB">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Content="Vorhandenes Cover"/>
+                            <Image Grid.Row="2" x:Name="ImgBox" />
+                        </Grid>
+
+                    </Border>
                     <Border  Grid.Column="3" Grid.Row="2" Margin="5 0 5 3" Background="#F4DECB">
-                        <Image x:Name="ImgBox" />
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Name="lbCoverDNB" Content="Cover aus DNB"/>
+                            <CheckBox Grid.Row="1" x:Name="cbSaveCover" Content="Cover wird gespreichert" IsChecked="False"/>
+
+                            <Image Grid.Row="2" x:Name="ImgBoxDNB" Stretch="Uniform"/>
+                        </Grid>
 
                     </Border>
                 </Grid>
@@ -282,16 +309,16 @@ SelectedValuePath="id"  Text="-- Standort wählen --" DropDownClosed="cbStandort
                         
                        
                         <Label Content="Stichworte"/>
-                        <TextBox x:Name="txtStichworte" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding Path=Stichworte, Mode=TwoWay}"/>
-                        <TextBox x:Name="txtStichworteDNB" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Style="{DynamicResource DNB}"/>
+                        <TextBox x:Name="txtStichworte" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding Path=Stichworte, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="txtStichworteDNB" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Style="{DynamicResource DNB}" MouseDoubleClick="txtStichworteDNB_MouseDoubleClick"/>
                         <Label  Content="DNB-Index"/>
 
-                        <TextBox x:Name="txtIndex" HorizontalAlignment="Stretch"  Text="{Binding Path=Index}" MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Style="{DynamicResource DNB}"/>
+                        <TextBox x:Name="txtIndex" HorizontalAlignment="Stretch"  Text="{Binding Path=Index}" MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" />
 
-                        <TextBox x:Name="txtIndexDNB" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"/>
+                        <TextBox x:Name="txtIndexDNB" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Style="{DynamicResource DNB}" MouseDoubleClick="txtIndexDNB_MouseDoubleClick" />
                         <Label Content="DDC"/>
-                        <TextBox x:Name="txtDCC" Text="{Binding Path=DDC, Mode=TwoWay}"/>
-                        <TextBox x:Name="txtDCCDNB" Style="{DynamicResource DNB}"/>
+                        <TextBox x:Name="txtDCC" Text="{Binding Path=DDC, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="txtDCCDNB" Style="{DynamicResource DNB}" MouseDoubleClick="txtDCCDNB_MouseDoubleClick"/>
                         <Border >
                         <StackPanel>
                             <Label Content="Kategorie"/>
@@ -322,13 +349,14 @@ SelectedValuePath="id" Text="-- Sachgruppe wählen --" DropDownClosed="cbSachgru
                     </StackPanel>
                     <StackPanel Grid.Column="0" >
                         <Label Content="DNB-ID"/>
-                        <TextBlock x:Name="txtDNB" Text="{Binding Path=DNB, Mode=TwoWay}"/>
+                         <TextBox x:Name="txtDNB" Text="{Binding Path=DNB, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="txtDNBNr" Style="{DynamicResource DNB}" MouseDoubleClick="txtDNBNr_MouseDoubleClick" />
                         <Label Content="Sammlung (DNB)"/>
-                        <TextBox x:Name="txtSammlung" Text="{Binding Path=Sammlung, Mode=TwoWay}"/>
-                        <TextBox x:Name="txtSammlungDNB" Style="{DynamicResource DNB}" />
+                        <TextBox x:Name="txtSammlung" Text="{Binding Path=Sammlung, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="txtSammlungDNB" Style="{DynamicResource DNB}" MouseDoubleClick="txtSammlungDNB_MouseDoubleClick"/>
                         <Label Content="Original Titel"/>
-                        <TextBox x:Name="txtOrigTitel" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding Path=OriginalTitel, Mode=TwoWay}"/>
-                        <TextBox x:Name="txtOrigTitelDNB" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Style="{DynamicResource DNB}"/>
+                        <TextBox x:Name="txtOrigTitel" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding Path=OriginalTitel, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox x:Name="txtOrigTitelDNB" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Style="{DynamicResource DNB}" MouseDoubleClick="txtOrigTitelDNB_MouseDoubleClick"/>
                         <Label Content="Original Sprache"/>
                         <TextBlock x:Name="txtOrigLang"/>
                     </StackPanel>
@@ -357,15 +385,15 @@ SelectedValuePath="id" Text="-- Sachgruppe wählen --" DropDownClosed="cbSachgru
                     <Border Grid.Column="2" BorderBrush="Aqua" BorderThickness="1">
                         <DockPanel>
                             <Label DockPanel.Dock="Top" Content="Ergänzende Hinweise"/>
-                            <TextBox DockPanel.Dock="Top" x:Name="txtAddInfo" HorizontalAlignment="Stretch"  VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding Path=Anmerkungen_PlainText, Mode=TwoWay}"/>
-                            <TextBox DockPanel.Dock="Top" x:Name="txtAddInfoDNB" HorizontalAlignment="Stretch"  VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Style="{DynamicResource DNB}"/>
+                            <TextBox DockPanel.Dock="Top" x:Name="txtAddInfo" HorizontalAlignment="Stretch"  VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding Path=Anmerkungen_PlainText, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox DockPanel.Dock="Top" x:Name="txtAddInfoDNB" HorizontalAlignment="Stretch"  VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Style="{DynamicResource DNB}" MouseDoubleClick="txtAddInfoDNB_MouseDoubleClick"/>
                         </DockPanel>
                     </Border>
                     <Border Grid.Column="1" BorderBrush="Aqua" BorderThickness="1">
                         <DockPanel  >
                             <Label DockPanel.Dock="Top" Content="Inhalt"/>
-                            <TextBox DockPanel.Dock="Top" x:Name="txtInhalt" HorizontalAlignment="Stretch"  VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding Path=Synopsis_PlainText, Mode=TwoWay}"/>
-                            <TextBox DockPanel.Dock="Top" x:Name="txtInhaltDNB" HorizontalAlignment="Stretch"  VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Style="{DynamicResource DNB}"/>
+                            <TextBox DockPanel.Dock="Top" x:Name="txtInhalt" HorizontalAlignment="Stretch"  VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding Path=Synopsis_PlainText, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox DockPanel.Dock="Top" x:Name="txtInhaltDNB" HorizontalAlignment="Stretch"  VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Style="{DynamicResource DNB}" MouseDoubleClick="txtInhaltDNB_MouseDoubleClick"/>
                         </DockPanel>
                     </Border>
                     <StackPanel Grid.Column="0" Background="AntiqueWhite">
@@ -373,11 +401,11 @@ SelectedValuePath="id" Text="-- Sachgruppe wählen --" DropDownClosed="cbSachgru
                             <StackPanel Background="#94618e">
                                 <Label Content="Generierte Daten" FontSize="14" FontWeight="Bold" Foreground="AntiqueWhite"/>
                                 <Label Content="Titelindex" Foreground="AntiqueWhite"/>
-                                <TextBox x:Name="txtTitelIndex" Text="{Binding Path=TitelIndex, Mode=TwoWay}"/>
+                                <TextBox x:Name="txtTitelIndex" Text="{Binding Path=TitelIndex, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
                                 <Label Content="TitelSort" Foreground="AntiqueWhite"/>
-                                <TextBox x:Name="txtTitelSort" Text="{Binding Path=TitleSort, Mode=TwoWay}"/>
+                                <TextBox x:Name="txtTitelSort" Text="{Binding Path=TitleSort, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
                                 <Label Content="AutorSort" Foreground="AntiqueWhite"/>
-                                <TextBox x:Name="txtAutorSort" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding Path=AutorSort, Mode=TwoWay}"/>
+                                <TextBox x:Name="txtAutorSort" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding Path=AutorSort, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
                             </StackPanel>
                         </Border>
                     </StackPanel>
