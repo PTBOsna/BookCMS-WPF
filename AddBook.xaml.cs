@@ -55,16 +55,7 @@ namespace BookCMS_WPF
         { //this.DataContext = newBook;
             //Hilfstabellen laden/aktivieren
             sett = new mySettings();
-            //Genre-Checkboxen  laden
-            //var gen = from g in Admin.conn.Sachgruppe where g.Marked == true orderby g.SortBy select g;
-            //foreach (var g in gen)
-            //{
-            //    System.Windows.Controls.CheckBox newCkBox = new CheckBox();
-            //    newCkBox.Content = g.Sachgruppe1;
-            //    ugridGenre.Children.Add(newCkBox);
-
-            //    newCkBox.Tag = g.GenreID;
-            //}
+         
             Admin.LoadGenre(ugridGenre);
             LoadAuxTab();
             btnPublNew.Visibility = Visibility.Hidden;
@@ -119,9 +110,18 @@ namespace BookCMS_WPF
                 List<string> rolleMitAutor = db.dnb_mitautor_rolle.Split(';').ToList();
                 for (int i = 0; i < mitAutor.Count; i++)
                 {
-                    name = mitAutor[i].Split(',');
+                    try
+                    {
+name = mitAutor[i].Split(',');
                     string[] retA = FindAutor(name[0]).Split('#');
-                    nr_list.Add(new NameRolle() { name = mitAutor[i], rolle = rolleMitAutor[i], nameInDB = retA[1], currID = Int32.Parse(retA[0]), currRolleID = FindRolleID(rolleMitAutor[i]) });
+                        nr_list.Add(new NameRolle() { name = mitAutor[i], rolle = rolleMitAutor[i], nameInDB = retA[1], currID = Int32.Parse(retA[0]), currRolleID = FindRolleID(rolleMitAutor[i]) });
+                    }
+                    catch (Exception ex)
+                    {
+
+                        MessageBox.Show("Fehler bei Übernahme der Person! \r\n Bitte püfen! \r\n" + ex.Message, "Fehler!");
+                    }
+                    ;
                 }
 
             }
@@ -413,29 +413,14 @@ namespace BookCMS_WPF
                         i = nr_list.IndexOf(item);
                     }
                 }
-                if (nr.currID == -1)
-                { //Index in nr_list finden
-
-                    Listen.AddPerson addp = new Listen.AddPerson(nr.name);
-                    addp.ShowDialog();
-                    nr_list[i].nameInDB = "Eingefügt";
-                    nr_list[i].currID = Admin.currPersonID;
-                    //DGPersonen.ItemsSource = null;
-                    //DGPersonen.ItemsSource = nr_list;
 
 
-                }
-                else
-                {//bestehende 
-                    EditNameRolle enr = new EditNameRolle(nr);
-                    enr.ShowDialog();
-                    nr_list[i].currID =  enr.cNR.currID;
-                    nr_list[i].currRolleID = enr.cNR.currRolleID;
-                    nr_list[i].name = enr.cNR.name;
-                    //List<NameRolle> _nr = new List<NameRolle>() { enr.cNR };
-                  
+                EditNameRolle enr = new EditNameRolle(nr);
+                enr.ShowDialog();
+                nr_list[i].currID = enr.cNR.currID;
+                nr_list[i].currRolleID = enr.cNR.currRolleID;
+                nr_list[i].name = enr.cNR.name;
 
-                }
                 DGPersonen.ItemsSource = null;
                 DGPersonen.ItemsSource = nr_list;
                 txtAutorSort.Text = GetAutorSort();
@@ -492,33 +477,33 @@ namespace BookCMS_WPF
             //Int32 id = 0;
 
 
-            newBook.Titel = txtTitel.Text;
-            newBook.TitelIndex = txtTitelIndex.Text;
+            newBook.Titel = txtTitel.Text.Trim();
+            newBook.TitelIndex = txtTitelIndex.Text.Trim();
 
-            newBook.AutorSort = txtAutorSort.Text;
-            newBook.Signatur = txtSignatur.Text;
-            newBook.Veroeffentlicht = txtJahr.Text;
-            newBook.CopyrightDatum = txtJahr.Text;
+            newBook.AutorSort = txtAutorSort.Text.Trim();
+            newBook.Signatur = txtSignatur.Text.Trim();
+            newBook.Veroeffentlicht = txtJahr.Text.Trim();
+            newBook.CopyrightDatum = txtJahr.Text.Trim();
 
-            newBook.Untertitel = txtSubTitel.Text;
-            newBook.TitleSort = txtTitelSort.Text;
+            newBook.Untertitel = txtSubTitel.Text.Trim();
+            newBook.TitleSort = txtTitelSort.Text.Trim();
 
-            newBook.ISBN = txtISBN.Text;
-            newBook.DNB = txtDNB.Text;
-            newBook.DDC = txtDCC.Text;
+            newBook.ISBN = txtISBN.Text.Trim();
+            newBook.DNB = txtDNB.Text.Trim();
+            newBook.DDC = txtDCC.Text.Trim();
             //newBook.LCCN =  
             //newBook.LCCallNum =  [nvarchar = (50) NULL,
-            //newBook.LandD = txtLanguage.Text;
+            //newBook.LandD = txtLanguage.Text.Trim();
             //newBook.SprachenID =  [int = NULL,
             //newBook.DruckereiID =  [int = NULL,
             //newBook.BindungID =  [int = NULL,
             //newBook.AuflageID =  [int = NULL,
-            newBook.Auiflage = txtAuflage.Text;
+            newBook.Auiflage = txtAuflage.Text.Trim();
             //newBook.DruckID =  [int = NULL,
             //newBook.SerienID =  [int = NULL,
-            newBook.Seiten = txtSeiten.Text;
+            newBook.Seiten = txtSeiten.Text.Trim();
             //newBook.Abschnitte =  [smallint = NULL,
-            newBook.OriginalTitel = txtOrigTitel.Text;
+            newBook.OriginalTitel = txtOrigTitel.Text.Trim();
             //newBook.OriginalUntertitel = txt
             //newBook.OriginaVerlagID =  [int = NULL,
             //newBook.OriginalLandID =  [int = NULL,
@@ -526,7 +511,7 @@ namespace BookCMS_WPF
             //newBook.OriginalCopyright =  [nvarchar = (8) NULL,
             //newBook.Preisangabe =  [nvarchar = (255) NULL,
             //newBook.Value =  [nvarchar = (255) NULL,
-            newBook.Preis = txtPreis.Text;
+            newBook.Preis = txtPreis.Text.Trim();
             //newBook.ZustandID =  [int = NULL,
             //newBook.GutachterID =  [int = NULL,
             //newBook.Versicherung =  [int = NULL,
@@ -541,15 +526,15 @@ namespace BookCMS_WPF
             //newBook.DatumAusleihe =  [nvarchar = (8) NULL,
             //newBook.RueckgabeDatum =  [nvarchar = (8) NULL,
             //newBook
-            //        newBook.Anmerkungen_PlainText = txtAddInfo.Text;
-            //        newBook.Synopsis_PlainText = txtIndex.Text;
-            //newBook.Reviews_PlainText =  [nvarchar = (max)NULL,
+            //        newBook.Anmerkungen_PlainText.Trim() = txtAddInfo.Text.Trim();
+            //        newBook.Synopsis_PlainText.Trim() = txtIndex.Text.Trim();
+            //newBook.Reviews_PlainText.Trim() =  [nvarchar = (max)NULL,
             //newBook.BarCode =  [nvarchar = (50) NULL,
             //newBook.OriginalSerieID =  [int = NULL,
             //newBook.zuletztGelesen =  [nvarchar = (8) NULL,
             //newBook.AnzahlGelesen =  [smallint = NULL,
             //newBook.ZustandSchutzumschlagID =  [int = NULL,
-            newBook.Dim_Width = txtDim.Text;
+            newBook.Dim_Width = txtDim.Text.Trim();
             //newBook.Dim_Height =  [nvarchar = (255) NULL,
             //newBook.Dim_Depth =  [nvarchar = (255) NULL,
             //newBook.Verkaufspreis =  [nvarchar = (255) NULL,
@@ -562,7 +547,7 @@ namespace BookCMS_WPF
             //newBook.KategorieID =  [int = NULL,
             //newBook.UnterkategorieID =  [int = NULL,
             //newBook.SachgruppeID =  [int = NULL,
-            newBook.Stichworte = txtStichworte.Text;
+            newBook.Stichworte = txtStichworte.Text.Trim();
             //speichern!
             Admin.conn.Buch.InsertOnSubmit(newBook);
             Admin.conn.SubmitChanges();

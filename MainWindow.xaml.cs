@@ -36,7 +36,7 @@ namespace BookCMS_WPF
                 //conn.Open();
                 //BuchDataClassesDataContext con = new BuchDataClassesDataContext(@"Server = .\SQLEXPRESS; Database = BOOKS_FROM_ACCESS.DBF; Trusted_Connection = True;");
                 Admin.CheckDatabaseExists(@"Server = .\SQLEXPRESS; Database = BooksCMS_TestDB; Trusted_Connection = True;", "BooksCMS_TestDB");
-                MessageBox.Show("Verbindung hergestellt");
+                MessageBox.Show("Verbindung mit Datenbank hergestellt");
 
 
             }
@@ -231,7 +231,7 @@ namespace BookCMS_WPF
             //MessageBox.Show(txtSuche.Text);
             if (string.IsNullOrEmpty(txtSuche.Text) == false)
             {
-                var buch = from b in Admin.conn.Buch where b.TitelIndex.Contains(txtSuche.Text) select b;
+                var buch = from b in Admin.conn.Buch where b.Titel.Contains(txtSuche.Text) select b;
                 BuchGrid.ItemsSource = buch.ToList();
             }
             else
@@ -386,6 +386,7 @@ namespace BookCMS_WPF
 
         private void BtnAll_Click(object sender, RoutedEventArgs e)
         {
+            txtSuche.Text = null;
             LoadBooks();
         }
 

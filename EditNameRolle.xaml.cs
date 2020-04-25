@@ -65,7 +65,7 @@ namespace BookCMS_WPF
 
         private void BtnNameNew_Click(object sender, RoutedEventArgs e)
         {
-            Listen.AddPerson addp = new Listen.AddPerson(cNR .name);
+            Listen.AddPerson addp = new Listen.AddPerson(cNR.name,true);
             addp.ShowDialog();
             DGNameInDB.ItemsSource = null;
            

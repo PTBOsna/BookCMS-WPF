@@ -40,8 +40,14 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="45"/>
         </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+            <Label Content="Suche Person"/>
+            <TextBox x:Name="txtSuchPerson" TextChanged="txtSuchPerson_TextChanged" Margin="10 10 0 10" MinWidth="100"/>
+            <Button x:Name="btnClear" Content="X"  Click="btnClear_Click" Padding="1" Margin="10" Width="20" />
+        </StackPanel>
         <DataGrid Grid.Row="1" x:Name="dgPersonen" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" ItemsSource="{Binding}" FontSize="14">
             <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding PersonID}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Personen" Binding="{Binding SortBy}" Width="*" FontSize="12"/>
             </DataGrid.Columns>
 

@@ -147,7 +147,7 @@
                 <Label Content="Titel suchen: " VerticalAlignment="Center"/>
                 <TextBox x:Name="txtSuche" Width="100" Margin=" 5 7" TextChanged="txtSuche_TextChanged"/>
                 <Button x:Name="btDel" Content="Suche löschen" Padding="5 0 5 0" Click="btDel_Click" />
-                    <Button x:Name="btnAll" Content="Alles anzeigen" Padding="5 0 5 0" Click="BtnAll_Click" />
+                    <Button x:Name="btnAll" Content="Alles anzeigen" Padding="5 0 5 0" Click="BtnAll_Click" Height="29" Margin="5,5,5,0" VerticalAlignment="Top" />
                 </StackPanel>
             </Border>
             <Border   Grid.Row="2" Grid.Column="0" BorderBrush="Gray" BorderThickness="1">
@@ -192,43 +192,20 @@
             </TabControl>
             <DataGrid Grid.Column="1" Grid.Row="3" x:Name="BuchGrid" ItemsSource="{Binding buch}" HorizontalAlignment="Left"   AutoGenerateColumns="False" Background="#f4decb"
                               AlternatingRowBackground="#f8eee7" GridLinesVisibility="None"  
-                              SelectionChanged="DGBuch_SelectionChanged" >
+                              SelectionChanged="DGBuch_SelectionChanged" 
+                      IsReadOnly="True">
                 <DataGrid.Resources>
                     <Style TargetType="DataGridRow">
                         <EventSetter Event="MouseDoubleClick" Handler="Row_DoubleClick"/>
                     </Style>
                 </DataGrid.Resources>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Width="35" Header="ID" Binding="{Binding Path=ID}"/>
+                    <DataGridTextColumn Width="35" Header="ID" Binding="{Binding Path=ID}" IsReadOnly="True"/>
                     <DataGridTextColumn Width="50" Header="Signatur" Binding="{Binding Path=Signatur}"/>
                     <DataGridTextColumn Width="3*" Header="Titel" Binding="{Binding Path=Titel}"/>
                     <DataGridTextColumn Width="2*" Header="Autor" Binding="{Binding Path=AutorSort}"/>
                 </DataGrid.Columns>
-                <DataGrid.RowDetailsTemplate>
-                    <DataTemplate>
-                        <Border BorderThickness="0" Background="AliceBlue" Padding="10">
-                            <StackPanel Orientation="Vertical">
-                                <StackPanel Orientation="Horizontal">
 
-                                    <TextBlock FontSize="12" Text="Untertitel: " VerticalAlignment="Center" />
-                                    <TextBlock FontSize="12" Foreground="MidnightBlue" Text="{Binding Untertitel}" VerticalAlignment="Center" TextWrapping="Wrap"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock FontSize="12" Text="ISBN: " VerticalAlignment="Center" />
-                                    <TextBlock FontSize="12" Foreground="MidnightBlue" Text="{Binding ISBN}" VerticalAlignment="Center" />
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock FontSize="12" Text="Auflage: " VerticalAlignment="Center" />
-                                    <TextBlock FontSize="12" Foreground="MidnightBlue" Text="{Binding Auflage}" VerticalAlignment="Center" />
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock FontSize="12" Text="Veröffentlicht: " VerticalAlignment="Center" />
-                                    <TextBlock FontSize="12" Foreground="MidnightBlue" Text="{Binding Veroeffentlicht}" VerticalAlignment="Center" />
-                                </StackPanel>
-                            </StackPanel>
-                        </Border>
-                    </DataTemplate>
-                </DataGrid.RowDetailsTemplate>
             </DataGrid>
             <TreeView x:Name="PersonTrv" Grid.Row="3" Grid.Column="0" SelectedItemChanged="PersonTrv_SelectedItemChanged" Background="#94618e">
                 <TreeViewItem Margin="3" Header="Personen" FontSize="12" FontWeight="Bold" Foreground="#f4decb"/>

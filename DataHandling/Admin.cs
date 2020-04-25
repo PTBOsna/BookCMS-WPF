@@ -18,7 +18,7 @@ namespace BookCMS_WPF.DataHandling
     {
         public static BuchDataClassesDataContext conn = new BuchDataClassesDataContext();
         public static List<string> myAlpha = new List<string> { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
-        public static int currPersonID;
+        //public static int currPersonID;
 
         public static bool CheckDatabaseExists(string connectionString, string databaseName)
         {
@@ -98,16 +98,21 @@ namespace BookCMS_WPF.DataHandling
 
                 web.ScriptErrorsSuppressed = true;
                 web.Navigate(url[0]);
+                string inhalt = null;
 
-                // MAKE SURE ReadyState = Complete
-                while (web.ReadyState.ToString() != "Complete")
+                // MAKE SURE ReadyState = Complet
+                while (web.ReadyState != WebBrowserReadyState.Complete )
                 {
                     if (timer.ElapsedMilliseconds >= 1000) break;
-                    Application.DoEvents();
+                    //Application.DoEvents();
+                    if (web.Document!=null)
+                    {
 
+                    inhalt = web.Document.Body.InnerText;
+                    }
                 }
-                return web.Document.Body.InnerText;
-
+                return inhalt;
+               
             }
             catch (Exception)
             {

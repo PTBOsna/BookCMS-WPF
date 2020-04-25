@@ -7,46 +7,57 @@ using System.Windows;
 
 namespace BookCMS_WPF.DataHandling
 {
-     public class DeleteBook
+    public class DeleteBook
     {
         public static bool delBook(int bookID)
         {
             try
             {
-            //Buch löschen
-            var buch = from b in Admin.conn.Buch where b.ID == bookID select b;
-            Admin.conn.Buch.DeleteAllOnSubmit(buch);
-            //AutorBuch löschen
-            //testen, ob Autor mehrfach vorhanden
-            Int32 pID = 0;
-            var personenBuch = from p in Admin.conn.AutorBuchLink where p.BuchID == bookID select p;
-            if (personenBuch.Count()==1)
-            {
-                foreach (var eintrag in personenBuch)
+                //Buch löschen
+                var buch = (from b in Admin.conn.Buch where b.ID == bookID select b).FirstOrDefault();
+                Admin.conn.Buch.DeleteOnSubmit(buch);
+
+                //AutorBuch löschen
+                //testen, ob Autor mehrfach vorhanden
+              
+                //zunächst PersonID's finden
+                var buchPersonen = from bp in Admin.conn.AutorBuchLink where bp.BuchID == bookID select bp;
+
+                foreach (var personen in buchPersonen)
                 {
-                    pID = (Int32) eintrag.PersonID;
-                Admin.conn.AutorBuchLink.DeleteAllOnSubmit(personenBuch);
+                    var person = from p in Admin.conn.AutorBuchLink where p.PersonID == personen.PersonID select p;
+                    if (person.Count()==1)
+                    {
+                        //DelPerson(personen.PersonID);
+                        var delPers = from dp in Admin.conn.Person where dp.PersonID == personen.PersonID select dp;
+                        if (delPers.Count() > 1)
+                        {
+                            Admin.conn.Person.DeleteAllOnSubmit(delPers);
+                            //DelAutorBuchLink(personen.id);  
+                            Admin.conn.AutorBuchLink.DeleteAllOnSubmit(buchPersonen);
+                        }
+                        else //delAutorBuchLink(personen.id);
+                            Admin.conn.AutorBuchLink.DeleteAllOnSubmit(buchPersonen);
+                     
+                    }
+                    Admin.conn.AutorBuchLink.DeleteAllOnSubmit(buchPersonen);
                 }
 
-                var c_person = from ps in Admin.conn.Person where ps.PersonID == pID select ps;
-                Admin.conn.Person.DeleteAllOnSubmit(c_person);
-            }
+                //GenreLink löschen
+                var genLink = from gl in Admin.conn.GenreLink where gl.BuchID == bookID select gl;
+                if (genLink.Count() > 0)
+                {
+                    Admin.conn.GenreLink.DeleteAllOnSubmit(genLink);
+                }
 
-            //GenreLink löschen
-            var genLink = from gl in Admin.conn.GenreLink where gl.BuchID == bookID select gl;
-            if (genLink.Count()>0)
-            {
-                Admin.conn.GenreLink.DeleteAllOnSubmit(genLink);
-            }
-          
 
-            Admin. conn.SubmitChanges();
+                Admin.conn.SubmitChanges();
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                return false;
+                MessageBox.Show(ex.Message);
             }
             //jetzt noch Cover löschen
             //Cover löschen
@@ -63,5 +74,6 @@ namespace BookCMS_WPF.DataHandling
             }
             return true;
         }
+
     }
 }

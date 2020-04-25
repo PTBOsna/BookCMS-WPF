@@ -161,7 +161,7 @@ namespace BookCMS_WPF
             cbSachgruppe.ItemsSource = sach.ToList();
             var sto = from st in Admin.conn.Standort orderby st.SortBy select new { so = st.SortBy, id = st.ID };
             cbStandort.ItemsSource = sto.ToList();
-            var kat = from k in Admin.conn.DDC_Haupt orderby k.DDC select new { kat = k.DDC_Name, id = k.ID };
+            var kat = from k in Admin.conn.DDC_Haupt orderby k.DDC select new { kat = k.DDC + " - " + k.DDC_Name, id = k.ID };
             cbKategorie.ItemsSource = kat.ToList();
             var ukat = from uk in Admin.conn.DDC_1000 orderby uk.DDC_Name select new { ukat = uk.DDC_Name, id = uk.ID };
             cbUKategorie.ItemsSource = ukat.ToList();

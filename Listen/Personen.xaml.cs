@@ -29,23 +29,49 @@ namespace BookCMS_WPF.Listen
 
         private void BtnEditClick(object sender, RoutedEventArgs e)
         {
-
+            Person sel = dgPersonen.SelectedItem as Person;
+            AddPerson ad = new AddPerson(sel.PersonID.ToString(), false);
+            ad.ShowDialog();
+            dgPersonen.ItemsSource = null;
+            dgPersonen.ItemsSource = Admin.conn.Person;
         }
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            AddPerson ad = new AddPerson("Name");
+            AddPerson ad = new AddPerson("Name, Vorname",true);
             ad.ShowDialog();
+            dgPersonen.ItemsSource = null;
+            dgPersonen.ItemsSource = Admin.conn.Person;
         }
 
         private void BtnDel_Click(object sender, RoutedEventArgs e)
         {
-
+            Person sel = dgPersonen.SelectedItem as Person;
+            if (MessageBoxResult.Yes == MessageBox.Show("Are you shure", "Person '" + sel.SortBy + "' entfernen", MessageBoxButton.YesNo, MessageBoxImage.Warning))
+            {
+                var sto = from s in Admin.conn.Person where s.PersonID == sel.PersonID select s;
+                Admin.conn.Person.DeleteAllOnSubmit(sto);
+                Admin.conn.SubmitChanges();
+                dgPersonen.ItemsSource = null;
+                dgPersonen.ItemsSource = Admin.conn.Person;
+            }
         }
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
+        }
+
+        private void txtSuchPerson_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var erg = from ep in Admin.conn.Person where ep.SortBy.StartsWith(txtSuchPerson.Text) select ep;
+            dgPersonen.ItemsSource = erg;
+            dgPersonen.DataContext = erg;
+        }
+
+        private void btnClear_Click(object sender, RoutedEventArgs e)
+        {
+            txtSuchPerson.Text = null;
         }
     }
 }

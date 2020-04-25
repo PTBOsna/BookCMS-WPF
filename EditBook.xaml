@@ -66,7 +66,7 @@
             <Setter Property="Background" Value="#F4DECB"/>
         </Style>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="150"/>
@@ -87,7 +87,7 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="161*"/>
-                           <ColumnDefinition Width="163*"/>
+                        <ColumnDefinition Width="163*"/>
                         <ColumnDefinition Width="163*"/>
                         <ColumnDefinition Width="161*"/>
 
@@ -108,30 +108,30 @@
                         <StackPanel>
                             <Label Content="Autor(en)"  FontSize="14" FontWeight="Bold"/>
                             <ListBox x:Name="lbPersonen" DisplayMemberPath="name" SelectedValuePath="currID" ItemsSource="{Binding lbPerson}">
-                                
+
                             </ListBox>
                             <Button Content="Ändern" Click="BtnChangePerson_click" x:Name="BtnChangePersson"/>
                         </StackPanel>
                     </Border>
                     <Border Grid.Row="1" Grid.Column="0" Grid.RowSpan="2" >
-                        
+
                         <StackPanel  >
-                        <Label Content="Verlag"/>
-                        <TextBox x:Name="txtVerlag" IsReadOnly="True"/>
-                        <Label Content="Ändern in"/>
-                        <ComboBox x:Name="cbVerlag"  DisplayMemberPath="verl"
+                            <Label Content="Verlag"/>
+                            <TextBox x:Name="txtVerlag" IsReadOnly="True"/>
+                            <Label Content="Ändern in"/>
+                            <ComboBox x:Name="cbVerlag"  DisplayMemberPath="verl"
 SelectedValuePath="id" Text="-- Bitte wählen --" DropDownClosed="cbVerlag_DropDownClosed" />
-                        <Label Content="Verlagsort"/>
-                        <TextBox x:Name="txtVerlagsOrt" IsReadOnly="True"/>
-                        <Label Content="Ändern in"/>
-                        <ComboBox x:Name="cbVerlagsOrt"  DisplayMemberPath="verlort"
+                            <Label Content="Verlagsort"/>
+                            <TextBox x:Name="txtVerlagsOrt" IsReadOnly="True"/>
+                            <Label Content="Ändern in"/>
+                            <ComboBox x:Name="cbVerlagsOrt"  DisplayMemberPath="verlort"
 SelectedValuePath="id" Text="-- Bitte wählen --" DropDownClosed="cbVerlagsOrt_DropDownClosed" />
-                        <Label Content="Druckerei"/>
-                        <TextBox x:Name="txtDruckerei" IsReadOnly="True"/>
-                        <Label Content="Ändern in:"/>
-                        <ComboBox x:Name="cbDruckerei"  DisplayMemberPath="druck"
+                            <Label Content="Druckerei"/>
+                            <TextBox x:Name="txtDruckerei" IsReadOnly="True"/>
+                            <Label Content="Ändern in:"/>
+                            <ComboBox x:Name="cbDruckerei"  DisplayMemberPath="druck"
 SelectedValuePath="id" Text="-- Bitte wählen --" DropDownClosed="cbDruckerei_DropDownClosed" />
-                    </StackPanel>
+                        </StackPanel>
                     </Border>
                     <!--Grunddaten-->
                     <Border Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" >
@@ -154,12 +154,12 @@ SelectedValuePath="id" Text="-- Bitte wählen --" DropDownClosed="cbDruckerei_Dr
 SelectedValuePath="id"  Text="-- Bitte wählen --" DropDownClosed="cbLang_DropDownClosed" />
                             <Border BorderBrush="SteelBlue" BorderThickness="1">
                                 <StackPanel>
-                                    
-                            <Label Content="Bindung:"/>
-                            <TextBox x:Name="txtBindung" Style="{StaticResource cT}" IsReadOnly="True"/>
-                            <ComboBox x:Name="cbBindung"  DisplayMemberPath="bnd"
+
+                                    <Label Content="Bindung:"/>
+                                    <TextBox x:Name="txtBindung" Style="{StaticResource cT}" IsReadOnly="True"/>
+                                    <ComboBox x:Name="cbBindung"  DisplayMemberPath="bnd"
 SelectedValuePath="id"  Text="-- Bindung  --" DropDownClosed="cbBindung_DropDownClosed" />
-                                </StackPanel>  
+                                </StackPanel>
                             </Border>
                         </StackPanel>
                     </Border>
@@ -169,20 +169,27 @@ SelectedValuePath="id"  Text="-- Bindung  --" DropDownClosed="cbBindung_DropDown
                             <Label Content="Organisation" FontSize="14" FontWeight="Bold"/>
                             <Border>
                                 <StackPanel>
-                            <Label Content="Buchtyp"/>
-                            <TextBox x:Name="txtTyp" IsReadOnly="True" Style="{StaticResource cT}"/>
-                            <ComboBox x:Name="cbBuchTyp" DisplayMemberPath="typ" Text="-- Typ  --" SelectedValuePath="id" DropDownClosed="cbBuchTyp_DropDownClosed" />
-                                    
+                                    <Label Content="Buchtyp"/>
+                                    <TextBox x:Name="txtTyp" IsReadOnly="True" Style="{StaticResource cT}"/>
+                                    <ComboBox x:Name="cbBuchTyp" DisplayMemberPath="typ" Text="-- Typ  --" SelectedValuePath="id" DropDownClosed="cbBuchTyp_DropDownClosed" />
+
                                 </StackPanel>
                             </Border>
-                           
+
                             <Border>
                                 <StackPanel>
-                            <Label Content="Standort" />
-                            <TextBox x:Name="txtStandort" IsReadOnly="True" Style="{StaticResource cT}"/>
-                            <ComboBox x:Name="cbStandort" DisplayMemberPath="so"
-SelectedValuePath="id"  Text="-- Standort --" DropDownClosed="cbStandort_DropDownClosed" />
-                                    
+                                    <Label Content="Standort" />
+                                    <TextBox x:Name="txtStandort" IsReadOnly="True" Style="{StaticResource cT}"/>
+                                    <ComboBox x:Name="cbStandort" DisplayMemberPath="so" SelectedValuePath="id"  Text="-- Standort --" DropDownClosed="cbStandort_DropDownClosed" />
+
+                                </StackPanel>
+                            </Border>
+                            <Border>
+                                <StackPanel IsEnabled="False">
+                                    <Label Content="Serie" />
+                                    <TextBox x:Name="txtSerie" IsReadOnly="True" Style="{StaticResource cT}"/>
+                                    <ComboBox x:Name="cbSerie" DisplayMemberPath="so" SelectedValuePath="id"  Text="-- Serie --" DropDownClosed="cbStandort_DropDownClosed"  />
+
                                 </StackPanel>
                             </Border>
 
@@ -204,8 +211,8 @@ SelectedValuePath="id"  Text="-- Standort --" DropDownClosed="cbStandort_DropDow
                     </Border>
                     <!--Generierte Daten-->
                     <Border  Grid.Column="3" Grid.Row="2" Margin="5 0 5 3" Background="#F4DECB">
-                    <Image x:Name="ImgBox" />
-                        
+                        <Image x:Name="ImgBox" />
+
                     </Border>
                 </Grid>
             </TabItem>
@@ -213,7 +220,7 @@ SelectedValuePath="id"  Text="-- Standort --" DropDownClosed="cbStandort_DropDow
             <TabItem Header="Sachgruppe/Details">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                       
+
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -264,8 +271,8 @@ SelectedValuePath="id" Text="-- Sachgruppe --" DropDownClosed="cbSachgruppe_Drop
 
                             </StackPanel>
                         </Border>
-                       
-                      
+
+
                     </StackPanel>
                     <Border CornerRadius="5" BorderThickness="1" BorderBrush="Gray" Grid.Column="2" Grid.ColumnSpan="2" Margin="5">
                         <StackPanel>
@@ -280,15 +287,15 @@ SelectedValuePath="id" Text="-- Sachgruppe --" DropDownClosed="cbSachgruppe_Drop
             <TabItem Header="Erweiterte Angaben">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                       
-                     
+
+
                         <ColumnDefinition Width="282*"/>
                         <ColumnDefinition Width="329*"/>
                         <ColumnDefinition Width="328*"/>
                         <ColumnDefinition Width="*"/>
 
                     </Grid.ColumnDefinitions>
-                   
+
                     <Border Grid.Column="2" BorderBrush="Aqua" BorderThickness="1">
                         <DockPanel>
                             <Label DockPanel.Dock="Top" Content="Ergänzende Hinweise"/>
