@@ -52,7 +52,7 @@ namespace BookCMS_WPF
 
         private void cbRolle_DropDownClosed(object sender, EventArgs e)
         {
-  MessageBox.Show(cbRolle.Text);
+  //MessageBox.Show(cbRolle.Text);
             //Int32 selID = Int32.Parse( cbRolle.Text);
             var rol = (from r in Admin.conn.AutorRolle where r.ID == (Int32)cbRolle.SelectedValue select r).FirstOrDefault();
             txtRolle.Text = cbRolle.Text;

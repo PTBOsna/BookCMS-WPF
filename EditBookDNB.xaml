@@ -247,6 +247,15 @@ SelectedValuePath="id"  Text="-- Standort wählen --" DropDownClosed="cbStandort
 
                                 </StackPanel>
                             </Border>
+                            <Border>
+                                <StackPanel>
+                                    <Label Content="Serie" />
+                                    <TextBox x:Name="txtSerie" IsReadOnly="True" Style="{StaticResource cT}"/>
+                                    <ComboBox x:Name="cbSerie" DisplayMemberPath="serie"
+SelectedValuePath="id"  Text="-- Serie wählen --" DropDownClosed="cbSerie_DropDownClosed" />
+
+                                </StackPanel>
+                            </Border>
 
                         </StackPanel>
                     </Border>

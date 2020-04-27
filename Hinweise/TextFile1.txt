@@ -3,3 +3,11 @@ https://www.youtube.com/watch?v=Pp4bomWE4pg
 AccessTooke zur Nutzung von service.DNB freigeschaltet: 1159cfc6b965e8a03abc3bd8227afa
 Abfrage mit AccessTooken z.B. https://services.dnb.de/sru/authorities?version=1.1&operation=searchRetrieve&query=PER%3DRupp%20Elisabeth%20and%20BBG%3DTp*&recordSchema=MARC21-xml&accessToken=1159cfc6b965e8a03abc3bd8227afa
 Coversuche mit ISBN, z.B.: https://portal.dnb.de/opac/mvb/cover.htm?isbn=978-3-328-10508-4
+
+Farbschema:
+Grape		#94618E
+Eggplant:	#49274A
+Sand		#F4DECB
+Shell		#F8EEE7
+
+Liste AutorRolle basiert auf https://www.loc.gov/marc/relators/relacode.html

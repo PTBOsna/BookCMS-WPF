@@ -75,7 +75,8 @@ namespace BookCMS_WPF
             cbStandort.ItemsSource = sto.ToList();
             var kat = from k in Admin.conn.DDC_Haupt orderby k.DDC select new { kat = k.DDC_Name, id = k.ID };
             cbKategorie.ItemsSource = kat.ToList();
-
+            var serie = from s in Admin.conn.Serien orderby s.SortBy select new { serie = s.SortBy, id = s.ID };
+            cbSerie.ItemsSource = serie.ToList();
 
 
 
@@ -126,7 +127,7 @@ name = mitAutor[i].Split(',');
 
             }
             DGPersonen.ItemsSource = nr_list;
-            DGPersonTes.ItemsSource = nr_list;
+           
             //cbPerson. = pers.ToList();
         }
 
@@ -217,9 +218,14 @@ name = mitAutor[i].Split(',');
         private string GetSignatur()
         {
             // Signatur
+            int ls = 0;
             string lastSign = (from x in Admin.conn.Buch select x).Max(c => c.Signatur);
-            int ls = Int32.Parse(lastSign) + 1;
-            cSignatur = ls.ToString("00000");
+            if (lastSign != null)
+            {
+                 ls = Int32.Parse(lastSign) + 1;
+            }
+            else ls = 1;
+                cSignatur = ls.ToString("0000");
             return cSignatur;
         }
         //Titelindex
@@ -700,6 +706,16 @@ name = mitAutor[i].Split(',');
         private void BtnCancel_click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void cbSerie_DropDownClosed(object sender, EventArgs e)
+        {
+            if (cbSerie.SelectedIndex != -1)
+            {
+                var serie = (from s in Admin.conn.Serien where s.ID == (Int32)cbSerie.SelectedValue select s).FirstOrDefault();
+                txtSerie.Text = serie.SortBy;
+                newBook.SerienID = serie.ID;
+            }
         }
     }
 }

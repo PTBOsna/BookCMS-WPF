@@ -52,7 +52,7 @@ namespace BookCMS_WPF
                        from pers in Admin.conn.Person
                        from ro in Admin.conn.AutorRolle
                        where abl.BuchID == cBook.ID && pers.PersonID == abl.PersonID && ro.ID == abl.RolleID
-                       orderby pers.SortBy
+                       orderby ro.SortByRolle
                        select new { Person = pers.SortBy, Rolle = ro.AutorRolle1, PerID = pers.PersonID, RolleID = ro.ID, AutorRolleID = abl.id }).ToList();
             foreach (var el in erg)
             {
@@ -85,6 +85,9 @@ namespace BookCMS_WPF
             txtVerlagsOrt.Text = _verlagsOrt;
             var _druckerei = (from d in Admin.conn.Druckerei where d.PrintedByID == cBook.DruckereiID select d.SortBy).FirstOrDefault();
             txtDruckerei.Text = _druckerei;
+            var serie = from s in Admin.conn.Serien orderby s.SortBy select new { serie = s.SortBy, id = s.ID };
+            cbSerie.ItemsSource = serie.ToList();
+
             var _bindung = (from b in Admin.conn.Bindung where b.BindingID == cBook.BindungID select b).FirstOrDefault();
             if (_bindung != null)
             {
@@ -138,7 +141,7 @@ namespace BookCMS_WPF
             cbSachgruppe.ItemsSource = sach.ToList();
             var sto = from st in Admin.conn.Standort orderby st.SortBy select new { so = st.SortBy, id = st.ID };
             cbStandort.ItemsSource = sto.ToList();
-            var kat = from k in Admin.conn.DDC_Haupt orderby k.DDC select new { kat = k.DDC_Name, id = k.ID };
+            var kat = from k in Admin.conn.DDC_Haupt orderby k.DDC select new { kat = k.DDC + " - " + k.DDC_Name, id = k.ID };
             cbKategorie.ItemsSource = kat.ToList();
 
             var verlag = from v in Admin.conn.Verlag orderby v.SortBy select new { verl = v.SortBy, id = v.PublisherID };
@@ -232,6 +235,7 @@ namespace BookCMS_WPF
                 var sachg = (from s in Admin.conn.Sachgruppe where s.GenreID == (Int32)cbSachgruppe.SelectedValue select s).FirstOrDefault();
                 txtSachgruppe.Text = sachg.SortBy;
                 cBook.SachgruppeID = sachg.GenreID;
+                
             }
 
         }
@@ -242,6 +246,7 @@ namespace BookCMS_WPF
                 var kate = (from k in Admin.conn.DDC_Haupt where k.ID == (Int32)cbKategorie.SelectedValue select k).FirstOrDefault();
                 txtKategorie.Text = kate.DDC_Name;
                 cBook.KategorieID = kate.ID;
+                cKat = kate.DDC;
 
             }
         }
@@ -323,7 +328,7 @@ namespace BookCMS_WPF
                         EditNameRolle enr = new EditNameRolle(nr);
                         enr.ShowDialog();
                         index = cNameRolle.IndexOf(item);
-
+                       
                     }
                 }
                 cNameRolle[index] = nr;
@@ -332,5 +337,14 @@ namespace BookCMS_WPF
             }
         }
 
+        private void cbSerie_DropDownClosed(object sender, EventArgs e)
+        {
+            if (cbSerie.SelectedIndex != -1)
+            {
+                var serie = (from s in Admin.conn.Serien where s.ID == (Int32)cbSerie.SelectedValue select s).FirstOrDefault();
+                txtSerie.Text = serie.SortBy;
+                cBook.SerienID = serie.ID;
+            }
+        }
     }
 }

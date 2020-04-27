@@ -30,30 +30,27 @@ namespace BookCMS_WPF
         public MainWindow()
         {
             InitializeComponent();
-            try
+            string dbName = "BookCM_TestLeer";
+
+            if (Admin.CheckDatabaseExists(@"Server = .\SQLEXPRESS; Database = " + dbName + "; Trusted_Connection = True;", dbName) == true)
             {
-
-                //conn.Open();
-                //BuchDataClassesDataContext con = new BuchDataClassesDataContext(@"Server = .\SQLEXPRESS; Database = BOOKS_FROM_ACCESS.DBF; Trusted_Connection = True;");
-                Admin.CheckDatabaseExists(@"Server = .\SQLEXPRESS; Database = BooksCMS_TestDB; Trusted_Connection = True;", "BooksCMS_TestDB");
-                MessageBox.Show("Verbindung mit Datenbank hergestellt");
-
-
+                MessageBox.Show("Verbindung mit Datenbank '" + dbName + "' hergestellt.");
             }
-            catch (Exception ex)
+            else
             {
-
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Verbindung mit Datenbank '" + dbName + "' fehlgeschlagen. \r\nProgramm wird geschlossen!", "Datenbankfehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.Close();
             }
-            mySettings.loadSetting();
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
+          
+            mySettings.loadSetting();
             selDilplay = "Titel";
             LoadBooks();
-
+            txtSuche.Focus();
 
             //TreeView Personen laden
             LoadPersonTV();
@@ -76,6 +73,7 @@ namespace BookCMS_WPF
 
             var buch = from b in Admin.conn.Buch select b;
             BuchGrid.ItemsSource = buch.ToList();
+            lbBooksCount.Content = "Gefundene Bücher: " + buch.Count().ToString();
         }
 
         private void LoadPersonTV()
@@ -140,6 +138,7 @@ namespace BookCMS_WPF
                 if (buch.Count() > 0 == true)
                 {
                     BuchGrid.ItemsSource = buch.ToList();
+                    lbBooksCount.Content = "Gefundene Bücher: " + buch.Count().ToString();
                 }
                 else
                 {
@@ -167,6 +166,7 @@ namespace BookCMS_WPF
                 if (buch.Count() > 0 == true)
                 {
                     BuchGrid.ItemsSource = buch.ToList();
+                    lbBooksCount.Content = "Gefundene Bücher: " + buch.Count().ToString();
                 }
             }
 
@@ -199,6 +199,7 @@ namespace BookCMS_WPF
                     if (myAutorBuch != null)
                     {
                         BuchGrid.ItemsSource = myAutorBuch;
+                        lbBooksCount.Content = "Gefundene Bücher: " + myAutorBuch.Count().ToString();
                     }
                 }
                 catch (Exception)
@@ -223,6 +224,7 @@ namespace BookCMS_WPF
 
         private void btDel_Click(object sender, RoutedEventArgs e)
         {
+            txtSuche.Focus();
             txtSuche.Text = null;
         }
 
@@ -231,15 +233,16 @@ namespace BookCMS_WPF
             //MessageBox.Show(txtSuche.Text);
             if (string.IsNullOrEmpty(txtSuche.Text) == false)
             {
-                var buch = from b in Admin.conn.Buch where b.Titel.Contains(txtSuche.Text) select b;
+                var buch = from b in Admin.conn.Buch where b.Titel.Contains(txtSuche.Text) || b.Signatur.Contains(txtSuche.Text) select b;
                 BuchGrid.ItemsSource = buch.ToList();
+                lbBooksCount.Content = "Gefundene Bücher: " + buch.Count().ToString();
             }
             else
             {
                 var buch = from b in Admin.conn.Buch select b;
                 BuchGrid.ItemsSource = buch.ToList();
+                lbBooksCount.Content = "Gefundene Bücher: " + buch.Count().ToString();
             }
-
         }
 
         private void DGBuch_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -285,7 +288,7 @@ namespace BookCMS_WPF
 
         private void BtnDetail_Click(object sender, RoutedEventArgs e)
         {
-            if (cBookID==0)
+            if (cBookID == 0)
             {
                 MessageBox.Show("Bitte zunächst ein Buch auswählen!");
                 return;
@@ -304,7 +307,7 @@ namespace BookCMS_WPF
         {
             SearchDNB ab = new SearchDNB(true, null);
             ab.ShowDialog();
-           
+
         }
 
         private void MenuItemTestForm_Click(object sender, RoutedEventArgs e)
@@ -388,6 +391,7 @@ namespace BookCMS_WPF
         {
             txtSuche.Text = null;
             LoadBooks();
+            txtSuche.Focus();
         }
 
         private void btnEditDNBClick(object sender, RoutedEventArgs e)
@@ -416,13 +420,17 @@ namespace BookCMS_WPF
 
             AddEditBook ae = new AddEditBook(cBookID);
             ae.ShowDialog();
-          
+
         }
         private void BtnExit_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            AppClose();
         }
-
+        private void AppClose()
+        {
+            //Application.Current.Shutdown();
+            this.Close();
+        }
         private void MenuItemStandorte_click(object sender, RoutedEventArgs e)
         {
             Listen.Standorte st = new Listen.Standorte();

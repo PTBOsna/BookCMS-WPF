@@ -2,53 +2,21 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="BookCMS_WPF.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="H__VISUALSTUDIO_PROJEKTE_BOOKCMS_WPF_BIN_DEBUG_BOOKS_FROM_ACCESS_MDFConnectionString" Type="(Connection string)" Scope="Application">
+    <Setting Name="BOOKS_FROM_ACCESS_MDFConnectionString1" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=H:\VISUALSTUDIO-PROJEKTE\BOOKCMS-WPF\BIN\DEBUG\BOOKS_FROM_ACCESS.MDF;Integrated Security=True&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;Data Source=.\SQLEXPRESS;Initial Catalog=BOOKS_FROM_ACCESS.MDF;Integrated Security=True&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=H:\VISUALSTUDIO-PROJEKTE\BOOKCMS-WPF\BIN\DEBUG\BOOKS_FROM_ACCESS.MDF;Integrated Security=True</Value>
-    </Setting>
-    <Setting Name="BookCMS_TestConnectionString" Type="(Connection string)" Scope="Application">
-      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\bin\Daten\BookCMS-Test.accdb&lt;/ConnectionString&gt;
-  &lt;ProviderName&gt;System.Data.OleDb&lt;/ProviderName&gt;
-&lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\bin\Daten\BookCMS-Test.accdb</Value>
-    </Setting>
-    <Setting Name="BookCMS_localDBConnectionString" Type="(Connection string)" Scope="Application">
-      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=(localDB)\MSSQLLocalDB;Initial Catalog=BookCMS-localDB;Integrated Security=True&lt;/ConnectionString&gt;
-  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
-&lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=(localDB)\MSSQLLocalDB;Initial Catalog=BookCMS-localDB;Integrated Security=True</Value>
-    </Setting>
-    <Setting Name="D__USERS_PETER_DOCUMENTS_VISUAL_STUDIO_2017_PROJEKTE_BOOKCMS_LOCALDB_BOOKCMS_LOCALDB_BIN_DEBUG_BOOKSQL_DB_MDFConnectionS" Type="(Connection string)" Scope="Application">
-      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog="D:\USERS\PETER\DOCUMENTS\VISUAL STUDIO 2017\PROJEKTE\BOOKCMS-LOCALDB\BOOKCMS-LOCALDB\BIN\DEBUG\BOOKSQL-DB.MDF";Integrated Security=True&lt;/ConnectionString&gt;
-  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
-&lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog="D:\USERS\PETER\DOCUMENTS\VISUAL STUDIO 2017\PROJEKTE\BOOKCMS-LOCALDB\BOOKCMS-LOCALDB\BIN\DEBUG\BOOKSQL-DB.MDF";Integrated Security=True</Value>
-    </Setting>
-    <Setting Name="Books_from_AccessConnectionString" Type="(Connection string)" Scope="Application">
-      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=Books_from_Access;Integrated Security=True&lt;/ConnectionString&gt;
-  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
-&lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=Books_from_Access;Integrated Security=True</Value>
+      <Value Profile="(Default)">Data Source=.\SQLEXPRESS;Initial Catalog=BOOKS_FROM_ACCESS.MDF;Integrated Security=True</Value>
     </Setting>
     <Setting Name="BOOKS_FROM_ACCESS_MDFConnectionString" Type="(Connection string)" Scope="Application">
       <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Data Source=PETER-PC\SQLEXPRESS;Initial Catalog=BOOKS_FROM_ACCESS.MDF;Integrated Security=True&lt;/ConnectionString&gt;
+  &lt;ConnectionString&gt;Data Source=.\SQLEXPRESS;Initial Catalog=BooksCMS_TestLeer;Integrated Security=True&lt;/ConnectionString&gt;
   &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Data Source=PETER-PC\SQLEXPRESS;Initial Catalog=BOOKS_FROM_ACCESS.MDF;Integrated Security=True</Value>
+      <Value Profile="(Default)">Data Source=.\SQLEXPRESS;Initial Catalog=BooksCMS_TestLeer;Integrated Security=True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

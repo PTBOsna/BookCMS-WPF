@@ -77,13 +77,10 @@
                 <Separator />
                 <MenuItem Header="_Exit" Click="Click_ExitMnu"/>
             </MenuItem>
-            <MenuItem Header="Eigenschaften">
-                <MenuItem Header="Settings" Click="Click_SettingMnu"/>
-            </MenuItem>
+           
             <MenuItem Header="_Listen">
                 <MenuItem Header="_Standorte" Click="MenuItemStandorte_click"/>
-                <MenuItem Header="_Module"/>
-                <MenuItem Header="_Ablageort" Click="MenuItem_Ablage_Click"/>
+           
                 <MenuItem Header="_DDC-Katalog" Click="MenuItemDDC1000_Click"/>
                 <MenuItem Header="_Personen" Click="MenuItem_Click"/>
             </MenuItem>
@@ -100,18 +97,8 @@
                 <Button Click="BtnExit_Click" ToolTip="Programm beenden">
                     <Image Source="exit.png" />
                 </Button>
-                <Button Command="Cut" ToolTip="Cut selection to Windows Clipboard.">
-                    <Image Source="H:\SammlungMS-WPF\SammlungMS-WPF\Resources\editcut.png" />
-                </Button>
-                <Button Command="Copy" ToolTip="Copy selection to Windows Clipboard.">
-                    <Image Source="H:\SammlungMS-WPF\SammlungMS-WPF\Resources\editcopy.png" />
-                </Button>
-                <Button Command="Paste" ToolTip="Paste from Windows Clipboard.">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="H:\SammlungMS-WPF\SammlungMS-WPF\Resources\editpaste.png" />
-                        <TextBlock Margin="3,0,0,0">Paste</TextBlock>
-                    </StackPanel>
-                </Button>
+                
+                
                 <Button Click="AddDNB"  ToolTip="Hinzufügen aus DNB." >
                 <StackPanel Orientation="Horizontal">
                         <Image Source="buchAddDNB.jpg"/>
@@ -141,6 +128,11 @@
                 <RowDefinition Height="45" />
 
             </Grid.RowDefinitions>
+            <Border Grid.Row="1" Grid.Column="0">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Label Content="Gefundene Bücher: " x:Name="lbBooksCount"/>
+                </StackPanel>
+            </Border>
             <Border Grid.Row="1" Grid.Column="1">
                 
             <StackPanel  Orientation="Horizontal" Background="AliceBlue">

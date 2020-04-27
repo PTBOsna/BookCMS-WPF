@@ -36,9 +36,6 @@ namespace BookCMS_WPF
     partial void InsertVerlagsOrt(VerlagsOrt instance);
     partial void UpdateVerlagsOrt(VerlagsOrt instance);
     partial void DeleteVerlagsOrt(VerlagsOrt instance);
-    partial void InsertAutorRolle(AutorRolle instance);
-    partial void UpdateAutorRolle(AutorRolle instance);
-    partial void DeleteAutorRolle(AutorRolle instance);
     partial void InsertBibliothek(Bibliothek instance);
     partial void UpdateBibliothek(Bibliothek instance);
     partial void DeleteBibliothek(Bibliothek instance);
@@ -84,10 +81,13 @@ namespace BookCMS_WPF
     partial void InsertVerlag(Verlag instance);
     partial void UpdateVerlag(Verlag instance);
     partial void DeleteVerlag(Verlag instance);
+    partial void InsertAutorRolle(AutorRolle instance);
+    partial void UpdateAutorRolle(AutorRolle instance);
+    partial void DeleteAutorRolle(AutorRolle instance);
     #endregion
 		
 		public BuchDataClassesDataContext() : 
-				base(global::BookCMS_WPF.Properties.Settings.Default.BOOKS_FROM_ACCESS_MDFConnectionString, mappingSource)
+				base(global::BookCMS_WPF.Properties.Settings.Default.BOOKS_FROM_ACCESS_MDFConnectionString1, mappingSource)
 		{
 			OnCreated();
 		}
@@ -129,14 +129,6 @@ namespace BookCMS_WPF
 			get
 			{
 				return this.GetTable<VerlagsOrt>();
-			}
-		}
-		
-		public System.Data.Linq.Table<AutorRolle> AutorRolle
-		{
-			get
-			{
-				return this.GetTable<AutorRolle>();
 			}
 		}
 		
@@ -289,6 +281,14 @@ namespace BookCMS_WPF
 			get
 			{
 				return this.GetTable<PersonRolle>();
+			}
+		}
+		
+		public System.Data.Linq.Table<AutorRolle> AutorRolle
+		{
+			get
+			{
+				return this.GetTable<AutorRolle>();
 			}
 		}
 	}
@@ -540,164 +540,6 @@ namespace BookCMS_WPF
 					this._SortBy = value;
 					this.SendPropertyChanged("SortBy");
 					this.OnSortByChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notiz_PlainText", DbType="NVarChar(MAX)")]
-		public string Notiz_PlainText
-		{
-			get
-			{
-				return this._Notiz_PlainText;
-			}
-			set
-			{
-				if ((this._Notiz_PlainText != value))
-				{
-					this.OnNotiz_PlainTextChanging(value);
-					this.SendPropertyChanging();
-					this._Notiz_PlainText = value;
-					this.SendPropertyChanged("Notiz_PlainText");
-					this.OnNotiz_PlainTextChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AutorRolle")]
-	public partial class AutorRolle : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ID;
-		
-		private System.Nullable<bool> _Marked;
-		
-		private string _AutorRolle1;
-		
-		private string _AutorKurz;
-		
-		private string _Notiz_PlainText;
-		
-    #region Definitionen der Erweiterungsmethoden
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnMarkedChanging(System.Nullable<bool> value);
-    partial void OnMarkedChanged();
-    partial void OnAutorRolle1Changing(string value);
-    partial void OnAutorRolle1Changed();
-    partial void OnAutorKurzChanging(string value);
-    partial void OnAutorKurzChanged();
-    partial void OnNotiz_PlainTextChanging(string value);
-    partial void OnNotiz_PlainTextChanged();
-    #endregion
-		
-		public AutorRolle()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Marked", DbType="Bit")]
-		public System.Nullable<bool> Marked
-		{
-			get
-			{
-				return this._Marked;
-			}
-			set
-			{
-				if ((this._Marked != value))
-				{
-					this.OnMarkedChanging(value);
-					this.SendPropertyChanging();
-					this._Marked = value;
-					this.SendPropertyChanged("Marked");
-					this.OnMarkedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AutorRolle", Storage="_AutorRolle1", DbType="NVarChar(50)")]
-		public string AutorRolle1
-		{
-			get
-			{
-				return this._AutorRolle1;
-			}
-			set
-			{
-				if ((this._AutorRolle1 != value))
-				{
-					this.OnAutorRolle1Changing(value);
-					this.SendPropertyChanging();
-					this._AutorRolle1 = value;
-					this.SendPropertyChanged("AutorRolle1");
-					this.OnAutorRolle1Changed();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AutorKurz", DbType="NVarChar(10)")]
-		public string AutorKurz
-		{
-			get
-			{
-				return this._AutorKurz;
-			}
-			set
-			{
-				if ((this._AutorKurz != value))
-				{
-					this.OnAutorKurzChanging(value);
-					this.SendPropertyChanging();
-					this._AutorKurz = value;
-					this.SendPropertyChanged("AutorKurz");
-					this.OnAutorKurzChanged();
 				}
 			}
 		}
@@ -5017,6 +4859,188 @@ namespace BookCMS_WPF
 				{
 					this._SortBy = value;
 				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AutorRolle")]
+	public partial class AutorRolle : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private System.Nullable<bool> _Marked;
+		
+		private string _AutorRolle1;
+		
+		private string _AutorKurz;
+		
+		private string _Notiz_PlainText;
+		
+		private string _SortByRolle;
+		
+    #region Definitionen der Erweiterungsmethoden
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnMarkedChanging(System.Nullable<bool> value);
+    partial void OnMarkedChanged();
+    partial void OnAutorRolle1Changing(string value);
+    partial void OnAutorRolle1Changed();
+    partial void OnAutorKurzChanging(string value);
+    partial void OnAutorKurzChanged();
+    partial void OnNotiz_PlainTextChanging(string value);
+    partial void OnNotiz_PlainTextChanged();
+    partial void OnSortByRolleChanging(string value);
+    partial void OnSortByRolleChanged();
+    #endregion
+		
+		public AutorRolle()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Marked", DbType="Bit")]
+		public System.Nullable<bool> Marked
+		{
+			get
+			{
+				return this._Marked;
+			}
+			set
+			{
+				if ((this._Marked != value))
+				{
+					this.OnMarkedChanging(value);
+					this.SendPropertyChanging();
+					this._Marked = value;
+					this.SendPropertyChanged("Marked");
+					this.OnMarkedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="AutorRolle", Storage="_AutorRolle1", DbType="NVarChar(50)")]
+		public string AutorRolle1
+		{
+			get
+			{
+				return this._AutorRolle1;
+			}
+			set
+			{
+				if ((this._AutorRolle1 != value))
+				{
+					this.OnAutorRolle1Changing(value);
+					this.SendPropertyChanging();
+					this._AutorRolle1 = value;
+					this.SendPropertyChanged("AutorRolle1");
+					this.OnAutorRolle1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AutorKurz", DbType="NVarChar(10)")]
+		public string AutorKurz
+		{
+			get
+			{
+				return this._AutorKurz;
+			}
+			set
+			{
+				if ((this._AutorKurz != value))
+				{
+					this.OnAutorKurzChanging(value);
+					this.SendPropertyChanging();
+					this._AutorKurz = value;
+					this.SendPropertyChanged("AutorKurz");
+					this.OnAutorKurzChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notiz_PlainText", DbType="NVarChar(MAX)")]
+		public string Notiz_PlainText
+		{
+			get
+			{
+				return this._Notiz_PlainText;
+			}
+			set
+			{
+				if ((this._Notiz_PlainText != value))
+				{
+					this.OnNotiz_PlainTextChanging(value);
+					this.SendPropertyChanging();
+					this._Notiz_PlainText = value;
+					this.SendPropertyChanged("Notiz_PlainText");
+					this.OnNotiz_PlainTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SortByRolle", DbType="NVarChar(2)")]
+		public string SortByRolle
+		{
+			get
+			{
+				return this._SortByRolle;
+			}
+			set
+			{
+				if ((this._SortByRolle != value))
+				{
+					this.OnSortByRolleChanging(value);
+					this.SendPropertyChanging();
+					this._SortByRolle = value;
+					this.SendPropertyChanged("SortByRolle");
+					this.OnSortByRolleChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

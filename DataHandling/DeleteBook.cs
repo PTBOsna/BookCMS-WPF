@@ -26,15 +26,16 @@ namespace BookCMS_WPF.DataHandling
                 foreach (var personen in buchPersonen)
                 {
                     var person = from p in Admin.conn.AutorBuchLink where p.PersonID == personen.PersonID select p;
+                    //System.Windows.Forms.MessageBox.Show(person.Count().ToString());
                     if (person.Count()==1)
                     {
                         //DelPerson(personen.PersonID);
                         var delPers = from dp in Admin.conn.Person where dp.PersonID == personen.PersonID select dp;
-                        if (delPers.Count() > 1)
+                        if (delPers.Count() == 1)
                         {
                             Admin.conn.Person.DeleteAllOnSubmit(delPers);
                             //DelAutorBuchLink(personen.id);  
-                            Admin.conn.AutorBuchLink.DeleteAllOnSubmit(buchPersonen);
+                            //Admin.conn.AutorBuchLink.DeleteAllOnSubmit(buchPersonen);
                         }
                         else //delAutorBuchLink(personen.id);
                             Admin.conn.AutorBuchLink.DeleteAllOnSubmit(buchPersonen);

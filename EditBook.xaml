@@ -1,32 +1,33 @@
-﻿<Window x:Class="BookCMS_WPF.AddEditBook"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookCMS_WPF"
+        xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" x:Class="BookCMS_WPF.AddEditBook"
         mc:Ignorable="d"
         Title="AddEditBook" Height="850" Width="1000" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
     <Window.Resources>
-        <Style TargetType="DataGridRowHeader">
+        <Style TargetType="{x:Type DataGridRowHeader}">
             <Setter Property="Background" Value="#49274a"/>
             <Setter Property="Foreground" Value="#f4decb"/>
         </Style>
-        <Style TargetType="DataGridRow">
+        <Style TargetType="{x:Type DataGridRow}">
             <Setter Property="Background" Value="#49274a"/>
             <Setter Property="Foreground" Value="#f4decb"/>
         </Style>
-        <Style TargetType="Label">
+        <Style TargetType="{x:Type Label}">
             <Setter Property="Foreground" Value="SteelBlue" />
             <Setter Property="FontSize" Value="13" />
         </Style>
-        <Style TargetType="TextBlock">
+        <Style TargetType="{x:Type TextBlock}">
             <Setter Property="Foreground" Value="DarkGray" />
             <Setter Property="Margin"  Value="6 2 2 2"/>
             <Setter Property="FontSize" Value="14" />
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
         </Style>
-        <Style TargetType="TextBox">
+        <Style TargetType="{x:Type TextBox}">
             <Setter Property="Foreground" Value="Gray" />
             <Setter Property="Margin"  Value="4 2 2 2"/>
             <Setter Property="Padding" Value="2"/>
@@ -34,14 +35,14 @@
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
         </Style>
-        <Style TargetType="Button">
+        <Style TargetType="{x:Type Button}">
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Margin" Value="5"/>
             <Setter Property="Background" Value="#49274A"/>
             <Setter Property="Foreground" Value="AntiqueWhite"/>
         </Style>
-        <Style x:Key="cT" TargetType="TextBox">
+        <Style x:Key="cT" TargetType="{x:Type TextBox}">
             <Setter Property="Background" Value="#f8eee7"/>
             <Setter Property="Text" Value="Nicht vorhanden"/>
             <Setter Property="Margin"  Value="4 2 2 2"/>
@@ -49,22 +50,27 @@
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Foreground" Value="#49274a" />
         </Style>
-        <Style TargetType="Border">
+        <Style TargetType="{x:Type Border}">
             <Setter Property="BorderBrush" Value="SteelBlue"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="CornerRadius" Value="2"/>
             <Setter Property="Margin" Value="2"/>
         </Style>
-        <Style TargetType="ComboBox">
+        <Style TargetType="{x:Type ComboBox}">
             <Setter Property="Margin" Value="5"/>
-            <Setter Property="StaysOpenOnEdit" Value="False"/>
+            <Setter Property="StaysOpenOnEdit" Value="True"/>
             <Setter Property="IsTextSearchEnabled" Value="True"/>
             <Setter Property="IsEditable" Value="True"/>
             <Setter Property="IsReadOnly" Value="False"/>
+            <Setter Property="Background" Value="#f8eee7"/>
         </Style>
-        <Style TargetType="StackPanel">
+        <Style TargetType="{x:Type ComboBoxItem}">
+            <Setter Property="Background" Value="#f8eee7"/>
+        </Style>
+        <Style TargetType="{x:Type StackPanel}">
             <Setter Property="Background" Value="#F4DECB"/>
         </Style>
+        
     </Window.Resources>
 
     <Grid>
@@ -75,10 +81,10 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="#94618E">
             <Label Content="Titel:" Foreground="AntiqueWhite"/>
-            <TextBox x:Name="txtTitel" Text="{Binding Path=Titel, Mode=TwoWay}" FontSize="16"/>
-            <TextBox x:Name="txtSubTitel" Text="{Binding Path=Untertitel, Mode=TwoWay}" FontSize="14" FontWeight="Bold"/>
-            <Label Content="Signatur:" Foreground="AntiqueWhite" ></Label>
-            <TextBlock x:Name="txtSignatur" Text="{Binding Path=Signatur}" FontSize="14" FontWeight="Bold" Foreground="AntiqueWhite" />
+            <TextBox x:Name="txtTitel" Text="{Binding Titel, Mode=TwoWay}" FontSize="16"/>
+            <TextBox x:Name="txtSubTitel" Text="{Binding Untertitel, Mode=TwoWay}" FontSize="14" FontWeight="Bold"/>
+            <Label Content="Signatur:" Foreground="AntiqueWhite" />
+            <TextBlock x:Name="txtSignatur" Text="{Binding Signatur}" FontSize="14" FontWeight="Bold" Foreground="AntiqueWhite" />
         </StackPanel>
         <!--TabControl-->
         <TabControl Grid.Row="1">
@@ -107,9 +113,7 @@
                     <Border Grid.Row="0" Grid.Column="0" BorderThickness="1" BorderBrush="Gray" Margin="5">
                         <StackPanel>
                             <Label Content="Autor(en)"  FontSize="14" FontWeight="Bold"/>
-                            <ListBox x:Name="lbPersonen" DisplayMemberPath="name" SelectedValuePath="currID" ItemsSource="{Binding lbPerson}">
-
-                            </ListBox>
+                            <ListBox x:Name="lbPersonen" DisplayMemberPath="name" SelectedValuePath="currID" ItemsSource="{Binding lbPerson}"/>
                             <Button Content="Ändern" Click="BtnChangePerson_click" x:Name="BtnChangePersson"/>
                         </StackPanel>
                     </Border>
@@ -140,13 +144,13 @@ SelectedValuePath="id" Text="-- Bitte wählen --" DropDownClosed="cbDruckerei_Dr
 
 
                             <Label Content="Auflage"/>
-                            <TextBox x:Name="txtAuflage" Text="{Binding Path=Auiflage, Mode=TwoWay}"/>
+                            <TextBox x:Name="txtAuflage" Text="{Binding Auiflage, Mode=TwoWay}"/>
                             <Label Content="Seiten"/>
-                            <TextBox x:Name="txtSeiten" Text="{Binding Path=Seiten, Mode=TwoWay}"/>
+                            <TextBox x:Name="txtSeiten" Text="{Binding Seiten, Mode=TwoWay}"/>
                             <Label Content="Jahr/Copyright"/>
-                            <TextBox x:Name="txtJahr" Text="{Binding Path=Veroeffentlicht, Mode=TwoWay}"/>
+                            <TextBox x:Name="txtJahr" Text="{Binding Veroeffentlicht, Mode=TwoWay}"/>
                             <Label Content="ISBN"/>
-                            <TextBox x:Name="txtISBN" Text="{Binding Path=ISBN, Mode=TwoWay}"/>
+                            <TextBox x:Name="txtISBN" Text="{Binding ISBN, Mode=TwoWay}"/>
                             <Label Content="Sprache"/>
                             <TextBox x:Name="txtLanguage" IsReadOnly="True"/>
                             <Label Content="Ändern in:" />
@@ -180,15 +184,16 @@ SelectedValuePath="id"  Text="-- Bindung  --" DropDownClosed="cbBindung_DropDown
                                 <StackPanel>
                                     <Label Content="Standort" />
                                     <TextBox x:Name="txtStandort" IsReadOnly="True" Style="{StaticResource cT}"/>
-                                    <ComboBox x:Name="cbStandort" DisplayMemberPath="so" SelectedValuePath="id"  Text="-- Standort --" DropDownClosed="cbStandort_DropDownClosed" />
+                                    <ComboBox x:Name="cbStandort" DisplayMemberPath="so" Text="-- Standort --" SelectedValuePath="id"   DropDownClosed="cbStandort_DropDownClosed" />
 
                                 </StackPanel>
                             </Border>
                             <Border>
-                                <StackPanel IsEnabled="False">
+                                <StackPanel>
                                     <Label Content="Serie" />
                                     <TextBox x:Name="txtSerie" IsReadOnly="True" Style="{StaticResource cT}"/>
-                                    <ComboBox x:Name="cbSerie" DisplayMemberPath="so" SelectedValuePath="id"  Text="-- Serie --" DropDownClosed="cbStandort_DropDownClosed"  />
+                                    <ComboBox x:Name="cbSerie" DisplayMemberPath="serie"
+SelectedValuePath="id"  Text="-- Serie wählen --" DropDownClosed="cbSerie_DropDownClosed"  />
 
                                 </StackPanel>
                             </Border>
@@ -204,9 +209,9 @@ SelectedValuePath="id"  Text="-- Bindung  --" DropDownClosed="cbBindung_DropDown
                             <Label Content="Zusatand"/>
                             <TextBox Text=""/>
                             <Label Content="Preis"/>
-                            <TextBox x:Name="txtPreis" Text="{Binding Path=Preis, Mode=TwoWay}"/>
+                            <TextBox x:Name="txtPreis" Text="{Binding Preis, Mode=TwoWay}"/>
                             <Label Content="Format"/>
-                            <TextBox x:Name="txtDim" Text="{Binding Path=Dim_Width, Mode=TwoWay}"/>
+                            <TextBox x:Name="txtDim" Text="{Binding Dim_Width, Mode=TwoWay}"/>
                         </StackPanel>
                     </Border>
                     <!--Generierte Daten-->
@@ -230,20 +235,20 @@ SelectedValuePath="id"  Text="-- Bindung  --" DropDownClosed="cbBindung_DropDown
                         <Label Content="Sammlung (DNB)"/>
                         <TextBlock x:Name="txtSammlung"/>
                         <Label Content="DNB-ID"/>
-                        <TextBlock x:Name="txtDNB" Text="{Binding Path=DNB, Mode=TwoWay}"/>
+                        <TextBlock x:Name="txtDNB" Text="{Binding DNB, Mode=TwoWay}"/>
                         <Label Content="Original Titel"/>
-                        <TextBox x:Name="txtOrigTitel" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding Path=OriginalTitel, Mode=TwoWay}"/>
+                        <TextBox x:Name="txtOrigTitel" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding OriginalTitel, Mode=TwoWay}"/>
                         <Label Content="Original Sprache"/>
                         <TextBlock x:Name="txtOrigLang"/>
                     </StackPanel>
                     <StackPanel Grid.Column="1" >
                         <Label Content="Stichworte"/>
-                        <TextBox x:Name="txtStichworte" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding Path=Stichworte, Mode=TwoWay}"/>
+                        <TextBox x:Name="txtStichworte" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding Stichworte, Mode=TwoWay}"/>
                         <Label  Content="DNB-Index"/>
 
                         <TextBox x:Name="txtIndex" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"/>
                         <Label Content="DDC"/>
-                        <TextBlock x:Name="txtDCC" Text="{Binding Path=DDC, Mode=TwoWay}"/>
+                        <TextBlock x:Name="txtDCC" Text="{Binding DDC, Mode=TwoWay}"/>
                         <Border>
                             <StackPanel>
                                 <Label Content="Kategorie"/>
@@ -277,8 +282,7 @@ SelectedValuePath="id" Text="-- Sachgruppe --" DropDownClosed="cbSachgruppe_Drop
                     <Border CornerRadius="5" BorderThickness="1" BorderBrush="Gray" Grid.Column="2" Grid.ColumnSpan="2" Margin="5">
                         <StackPanel>
                             <Label Content="Genre/Sachgruppe"/>
-                            <UniformGrid x:Name="ugridGenre"  Grid.Column="2" Columns="3" Grid.ColumnSpan="2" Margin="5">
-                            </UniformGrid>
+                            <UniformGrid x:Name="ugridGenre"  Grid.Column="2" Columns="3" Grid.ColumnSpan="2" Margin="5"/>
                         </StackPanel>
                     </Border>
                 </Grid>
@@ -299,13 +303,13 @@ SelectedValuePath="id" Text="-- Sachgruppe --" DropDownClosed="cbSachgruppe_Drop
                     <Border Grid.Column="2" BorderBrush="Aqua" BorderThickness="1">
                         <DockPanel>
                             <Label DockPanel.Dock="Top" Content="Ergänzende Hinweise"/>
-                            <TextBox DockPanel.Dock="Top" x:Name="txtAddInfo" HorizontalAlignment="Stretch"  VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding Path=Anmerkungen_PlainText, Mode=TwoWay}"/>
+                            <TextBox DockPanel.Dock="Top" x:Name="txtAddInfo" HorizontalAlignment="Stretch"  VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding Anmerkungen_PlainText, Mode=TwoWay}"/>
                         </DockPanel>
                     </Border>
                     <Border Grid.Column="1" BorderBrush="Aqua" BorderThickness="1">
                         <DockPanel  >
                             <Label DockPanel.Dock="Top" Content="Inhalt"/>
-                            <TextBox DockPanel.Dock="Top" x:Name="txtInhalt" HorizontalAlignment="Stretch"  VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding Path=Synopsis_PlainText, Mode=TwoWay}"/>
+                            <TextBox DockPanel.Dock="Top" x:Name="txtInhalt" HorizontalAlignment="Stretch"  VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding Synopsis_PlainText, Mode=TwoWay}"/>
                         </DockPanel>
                     </Border>
                     <StackPanel Grid.Column="0" Background="AntiqueWhite">
@@ -313,11 +317,11 @@ SelectedValuePath="id" Text="-- Sachgruppe --" DropDownClosed="cbSachgruppe_Drop
                             <StackPanel Background="#94618e">
                                 <Label Content="Generierte Daten" FontSize="14" FontWeight="Bold" Foreground="AntiqueWhite"/>
                                 <Label Content="Titelindex" Foreground="AntiqueWhite"/>
-                                <TextBox x:Name="txtTitelIndex" Text="{Binding Path=TitelIndex, Mode=TwoWay}"/>
+                                <TextBox x:Name="txtTitelIndex" Text="{Binding TitelIndex, Mode=TwoWay}"/>
                                 <Label Content="TitelSort" Foreground="AntiqueWhite"/>
-                                <TextBox x:Name="txtTitelSort" Text="{Binding Path=TitleSort, Mode=TwoWay}"/>
+                                <TextBox x:Name="txtTitelSort" Text="{Binding TitleSort, Mode=TwoWay}"/>
                                 <Label Content="AutorSort" Foreground="AntiqueWhite"/>
-                                <TextBox x:Name="txtAutorSort" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding Path=AutorSort, Mode=TwoWay}"/>
+                                <TextBox x:Name="txtAutorSort" HorizontalAlignment="Stretch"  MaxHeight="100" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Text="{Binding AutorSort, Mode=TwoWay}"/>
                             </StackPanel>
                         </Border>
                     </StackPanel>

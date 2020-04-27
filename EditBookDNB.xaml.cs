@@ -171,6 +171,8 @@ namespace BookCMS_WPF
             cbVerlagsOrt.ItemsSource = verlagOrt.ToList();
             var druck = from d in Admin.conn.Druckerei orderby d.SortBy select new { druck = d.SortBy, id = d.PrintedByID };
             cbDruckerei.ItemsSource = druck.ToList();
+            var serie = from s in Admin.conn.Serien orderby s.SortBy select new { serie = s.SortBy, id = s.ID };
+            cbSerie.ItemsSource = serie.ToList();
         }
 
         private void LoadBookFromDNB(string dNBSuchString)
@@ -510,6 +512,14 @@ namespace BookCMS_WPF
             txtStichworte.Text = txtStichworteDNB.Text;
         }
 
-      
+        private void cbSerie_DropDownClosed(object sender, EventArgs e)
+        {
+            if (cbSerie.SelectedIndex != -1)
+            {
+                var serie = (from s in Admin.conn.Serien where s.ID == (Int32)cbSerie.SelectedValue select s).FirstOrDefault();
+                txtSerie.Text = serie.SortBy;
+                cBook.SerienID = serie.ID;
+            }
+        }
     }
 }

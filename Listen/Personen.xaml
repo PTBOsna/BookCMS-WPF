@@ -55,7 +55,7 @@
         <StackPanel Grid.Column="1" Grid.Row="1">
             <Button Content="Ändern" Click="BtnEditClick"/>
             <Button Content="Neu" Click="BtnAdd_Click"/>
-            <Button Content="Löschen" Click="BtnDel_Click"/>
+            <Button Content="Löschen" Click="BtnDel_Click" IsEnabled="False"/>
             <Button Content="Zurück" Click="BtnCancel_Click"/>
         </StackPanel>
     </Grid>

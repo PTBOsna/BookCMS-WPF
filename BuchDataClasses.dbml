@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="BOOKS_FROM_ACCESS.MDF" Class="BuchDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=BooksCMS_TestDB;Integrated Security=True" SettingsObjectName="BookCMS_WPF.Properties.Settings" SettingsPropertyName="BOOKS_FROM_ACCESS_MDFConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=PETER-PC\SQLEXPRESS;Initial Catalog=BOOKS_FROM_ACCESS.MDF;Integrated Security=True" SettingsObjectName="BookCMS_WPF.Properties.Settings" SettingsPropertyName="BOOKS_FROM_ACCESS_MDFConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.AutorBuchLink" Member="AutorBuchLink">
     <Type Name="AutorBuchLink">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -14,15 +14,6 @@
       <Column Name="Marked" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="Verlagsort" Member="Verlagsort1" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="SortBy" Type="System.String" DbType="NVarChar(102)" CanBeNull="true" />
-      <Column Name="Notiz_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.AutorRolle" Member="AutorRolle">
-    <Type Name="AutorRolle">
-      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Marked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Column Name="AutorRolle" Member="AutorRolle1" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="AutorKurz" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
       <Column Name="Notiz_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
     </Type>
   </Table>
@@ -257,6 +248,16 @@
       <Column Name="PersonID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="RolleID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="SortBy" Type="System.String" DbType="NVarChar(152)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.AutorRolle" Member="AutorRolle">
+    <Type Name="AutorRolle">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Marked" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="AutorRolle" Member="AutorRolle1" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AutorKurz" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Notiz_PlainText" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="SortByRolle" Type="System.String" DbType="NVarChar(2)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

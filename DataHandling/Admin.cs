@@ -16,7 +16,7 @@ namespace BookCMS_WPF.DataHandling
 {
     class Admin
     {
-        public static BuchDataClassesDataContext conn = new BuchDataClassesDataContext();
+        public static BuchDataClassesDataContext conn; 
         public static List<string> myAlpha = new List<string> { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
         //public static int currPersonID;
 
@@ -26,13 +26,28 @@ namespace BookCMS_WPF.DataHandling
             string cmdText = @"if Exists(select 1 from master.dbo.sysdatabases where name=@db) 
                        select 1 else select 0";
             using (SqlConnection sqlConnection = new SqlConnection(connString))
-            {
-                sqlConnection.Open();
+            {// zunächst DB test ob vorhanden
+                try
+                {
+ sqlConnection.Open();
+                }
+                catch (Exception)
+                {
+
+                    return false;
+                }
+               
                 using (SqlCommand sqlCmd = new SqlCommand(cmdText, sqlConnection))
                 {
                     sqlCmd.Parameters.Add("@db", SqlDbType.NVarChar).Value = databaseName;
                     int nRet = Convert.ToInt32(sqlCmd.ExecuteScalar());
-                    return (nRet > 0);
+                    if (nRet>0)
+                    {
+                    conn = new BuchDataClassesDataContext(@"Server = .\SQLEXPRESS; Database = " + databaseName + "; Trusted_Connection = True; ");
+                    return true;
+
+                    }
+                    return false;
                 }
             }
 
